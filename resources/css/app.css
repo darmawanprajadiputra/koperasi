@@ -1,0 +1,12 @@
+
+@import './dashboard.css';
+@import './storage.css';
+@import './prediction.css';
+@import './shop.css';
+@import './order.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
