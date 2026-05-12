@@ -5,3 +5,5 @@ import './storage';
 import './prediction';
 import './shop';
 import './order';
+import './add';
+import './edit';

@@ -61,12 +61,34 @@
                             @enderror
                         </div>
 
+                        <!-- Unit (Autocomplete) — data unit di-pass lewat data-units -->
+                        <div>
+                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan / Unit</label>
+                            <div class="relative" id="unitWrapper" >
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:18px">straighten</span>
+                                <input
+                                    type="text"
+                                    id="unitInput"
+                                    name="unit_name"
+                                    autocomplete="off"
+                                    placeholder="Cari atau ketik satuan... (pcs, kg, liter)"
+                                    value="{{ old('unit_name') }}"
+                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror"
+                                />
+                                <input type="hidden" id="unitId" name="unit_id" value="{{ old('unit_id') }}" />
+                                {{-- dropdown dibuat & di-append ke <body> oleh add.js --}}
+                            </div>
+                            @error('unit_id')
+                                <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <!-- Stock -->
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Stok</label>
                             <input name="stock"
                                 class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface @error('stock') ring-2 ring-red-500 @enderror"
-                                placeholder="0" type="number" min="0" value="{{ old('stock', 0) }}" required />
+                                placeholder="0" type="number" min="0" value="{{ old('stock') }}" required />
                             @error('stock')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                             @enderror
@@ -80,7 +102,7 @@
                                 <input name="price"
                                     class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-12 focus:ring-2 focus:ring-primary-container text-on-surface @error('price') ring-2 ring-red-500 @enderror"
                                     placeholder="0" type="number" min="0" step="0.01"
-                                    value="{{ old('price', 0) }}" required />
+                                    value="{{ old('price') }}" required />
                             </div>
                             @error('price')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -117,15 +139,16 @@
                 </section>
 
                 <!-- Actions -->
-                <section class="bg-primary-container p-6 rounded-xl shadow-sm">
+                <section class="bg-teal-50 border border-teal-100 p-6 rounded-xl shadow-sm">
                     <div class="space-y-4">
                         <button type="submit"
-                            class="w-full btn-gradient py-4 rounded-full font-bold text-white shadow-xl hover:scale-95 transition-transform flex items-center justify-center gap-2">
+                            class="w-full py-4 rounded-full font-bold text-white shadow-lg flex items-center justify-center gap-2 transition-all hover:scale-95 hover:shadow-xl"
+                            style="background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);">
                             <span class="material-symbols-outlined">save</span>
                             Simpan Barang
                         </button>
                         <a href="{{ route('storage') }}"
-                            class="w-full bg-transparent border-2 border-on-primary-container/30 py-4 rounded-full font-bold text-on-primary-container hover:bg-on-primary-container/10 transition-colors block text-center no-underline">
+                            class="w-full bg-transparent border-2 border-teal-300 py-4 rounded-full font-bold text-teal-700 hover:bg-teal-100 transition-colors block text-center no-underline">
                             Batalkan
                         </a>
                     </div>
@@ -135,7 +158,7 @@
         </div>
     </form>
 
-    {{-- Error & Success toast --}}
+    {{-- Error toast --}}
     @if ($errors->any())
         <div class="fixed top-4 right-4 px-6 py-4 rounded-lg font-semibold shadow-lg z-50 bg-red-500 text-white" style="max-width:380px">
             <p class="font-bold mb-1">Terjadi kesalahan:</p>
@@ -148,50 +171,8 @@
     @endif
 
     <script>
-        const imageInput   = document.getElementById('image');
-        const uploadBox    = document.getElementById('imageUploadBox');
-        const previewImage = document.getElementById('previewImage');
-        const uploadPrompt = document.getElementById('uploadPrompt');
-        const uploadSuccess = document.getElementById('uploadSuccess');
-
-        uploadBox.addEventListener('click', () => imageInput.click());
-
-        uploadBox.addEventListener('dragover', e => { e.preventDefault(); });
-        uploadBox.addEventListener('drop', e => {
-            e.preventDefault();
-            if (e.dataTransfer.files.length > 0) {
-                imageInput.files = e.dataTransfer.files;
-                handleImageChange();
-            }
-        });
-
-        imageInput.addEventListener('change', handleImageChange);
-
-        function handleImageChange() {
-            const file = imageInput.files[0];
-            if (!file) return;
-
-            if (!['image/jpeg', 'image/png'].includes(file.type)) {
-                alert('Hanya file JPG dan PNG yang diizinkan');
-                imageInput.value = '';
-                return;
-            }
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Ukuran file tidak boleh lebih dari 5MB');
-                imageInput.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = e => {
-                previewImage.src = e.target.result;
-                previewImage.classList.remove('hidden');
-                uploadPrompt.classList.add('hidden');
-                uploadSuccess.classList.remove('hidden');
-                uploadSuccess.classList.add('flex');
-            };
-            reader.readAsDataURL(file);
-        }
+        window.ADD_UNITS = @json($units);
     </script>
+    <script src="{{ asset('js/add.js') }}"></script>
 
 @endsection

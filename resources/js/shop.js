@@ -22,12 +22,10 @@ function createProductCard(product) {
          data-stock="${product.stock}"
          data-image="${product.image || ''}">
       <div class="relative h-64 overflow-hidden bg-surface-container-low">
-        ${product.image
-          ? `<img src="${product.image}" alt="${product.name_product}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />`
-          : `<div class="w-full h-full flex items-center justify-center text-primary">
-               <span class="material-symbols-outlined text-6xl opacity-30">inventory_2</span>
-             </div>`
-        }
+        <img src="${product.image || '/assets/pictures/produk.jpg'}"
+             alt="${product.name_product}"
+             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+             onerror="this.src='/assets/pictures/produk.jpg'" />
         <div class="absolute top-4 left-4">
           <span class="bg-secondary text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">${product.category || 'Produk'}</span>
         </div>

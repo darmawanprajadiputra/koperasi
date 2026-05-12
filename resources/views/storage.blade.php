@@ -74,7 +74,7 @@
             </div>
 
             <!-- Empty State -->
-            <div id="emptyState" class="hidden py-16 text-center text-gray-400">
+            <div id="emptyState" class="hidden py-16 text-center text-gray-400" style="display:none;">
                 <p class="text-4xl mb-3">📦</p>
                 <p class="font-semibold">Tidak ada produk ditemukan</p>
             </div>
@@ -122,179 +122,20 @@
         </button>
     </div>
 
+    {{--
+        Inject konfigurasi server-side ke window.StorageConfig SEBELUM storage.js di-load.
+        File storage.js akan membaca objek ini sehingga tidak ada lagi Blade syntax di dalam .js.
+    --}}
     <script>
-        const allProducts = @json($products);
-        const storageUrl = '{{ asset('storage') }}';
-        const defaultImg = '/assets/pictures/produk.jpg';
-        const editBaseUrl = '{{ url('product') }}';
-        const deleteBase = '{{ url('product') }}';
-        const toggleBase = '{{ url('product') }}';
-        const csrfToken = '{{ csrf_token() }}';
-
-        const PER_PAGE = 10;
-        let currentPage = 1;
-        let filteredData = [...allProducts];
-        let activeProduct = null; // produk yang sedang di-klik titik 3
-
-        const tableBody = document.getElementById('tableBody');
-        const paginationInfo = document.getElementById('paginationInfo');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const emptyState = document.getElementById('emptyState');
-        const searchInput = document.getElementById('searchInput');
-        const actionMenu = document.getElementById('actionMenu');
-
-        function formatRupiah(v) {
-            return 'Rp ' + Number(v).toLocaleString('id-ID');
-        }
-
-        function getStatusBadge(isActive) {
-            return isActive ?
-                '<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Aktif</span>' :
-                '<span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-semibold">Nonaktif</span>';
-        }
-
-        function getImageSrc(image) {
-            if (!image) return defaultImg;
-            return storageUrl + '/' + image;
-        }
-
-        function render() {
-            const total = filteredData.length;
-            const totalPages = Math.ceil(total / PER_PAGE) || 1;
-            if (currentPage > totalPages) currentPage = totalPages;
-
-            const start = (currentPage - 1) * PER_PAGE;
-            const pageData = filteredData.slice(start, start + PER_PAGE);
-
-            if (pageData.length === 0) {
-                tableBody.innerHTML = '';
-                emptyState.classList.remove('hidden');
-            } else {
-                emptyState.classList.add('hidden');
-                tableBody.innerHTML = pageData.map(p => `
-                    <tr class="hover:bg-gray-50 transition-colors" data-id="${p.id}">
-                        <td class="px-4 py-3">
-                            <img src="${getImageSrc(p.image)}"
-                                 onerror="this.src='${defaultImg}'"
-                                 alt="${p.name_product}"
-                                 class="w-12 h-12 object-cover rounded-lg border border-gray-200" />
-                        </td>
-                        <td class="px-4 py-3 font-medium text-gray-900">${p.name_product}</td>
-                        <td class="px-4 py-3 text-gray-600">${p.category ? p.category.name_categories : '-'}</td>
-                        <td class="px-4 py-3 text-right text-gray-700">${p.stock}</td>
-                        <td class="px-4 py-3 text-right text-gray-700">${formatRupiah(p.price)}</td>
-                        <td class="px-4 py-3">${getStatusBadge(p.is_active)}</td>
-                        <td class="px-4 py-3 text-center">
-                            <button class="action-btn p-1 rounded-full hover:bg-gray-100 transition-colors"
-                                    data-id="${p.id}" title="Aksi">
-                                <span class="material-symbols-outlined text-gray-500" style="font-size:20px">more_vert</span>
-                            </button>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-
-            const showing = total === 0 ? '0' : `${start + 1}–${Math.min(start + PER_PAGE, total)}`;
-            paginationInfo.textContent = `Menampilkan ${showing} dari ${total} produk`;
-            prevBtn.disabled = currentPage <= 1;
-            nextBtn.disabled = currentPage >= totalPages || total === 0;
-        }
-
-        // Search
-        searchInput.addEventListener('input', () => {
-            const q = searchInput.value.toLowerCase().trim();
-            filteredData = allProducts.filter(p =>
-                p.name_product.toLowerCase().includes(q) ||
-                (p.category && p.category.name_categories.toLowerCase().includes(q))
-            );
-            currentPage = 1;
-            render();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentPage--;
-            render();
-        });
-        nextBtn.addEventListener('click', () => {
-            currentPage++;
-            render();
-        });
-
-        // ── Action Menu ──────────────────────────────────────────
-        // Buka menu ketika klik titik 3
-        document.addEventListener('click', (e) => {
-            const btn = e.target.closest('.action-btn');
-
-            if (btn) {
-                e.stopPropagation();
-                const id = parseInt(btn.dataset.id);
-                activeProduct = allProducts.find(p => p.id === id);
-
-                // Label toggle sesuai status saat ini
-                document.getElementById('menuToggleIcon').textContent = activeProduct.is_active ? 'toggle_off' :
-                    'toggle_on';
-                document.getElementById('menuToggleLabel').textContent = activeProduct.is_active ? 'Nonaktifkan' :
-                    'Aktifkan';
-
-                // Tampilkan dulu (tersembunyi) untuk ukur tingginya
-                actionMenu.style.visibility = 'hidden';
-                actionMenu.classList.remove('hidden');
-
-                const rect = btn.getBoundingClientRect();
-                const menuH = actionMenu.offsetHeight;
-                const menuW = actionMenu.offsetWidth;
-                const spaceBelow = window.innerHeight - rect.bottom;
-                const spaceLeft = rect.left + window.scrollX;
-
-                // Buka ke atas jika ruang bawah tidak cukup
-                const top = spaceBelow < menuH + 8 ?
-                    rect.top + window.scrollY - menuH - 4 :
-                    rect.bottom + window.scrollY + 4;
-
-                // Jaga agar tidak keluar sisi kanan layar
-                const left = Math.min(
-                    rect.right + window.scrollX - menuW,
-                    window.innerWidth - menuW - 8
-                );
-
-                actionMenu.style.top = top + 'px';
-                actionMenu.style.left = Math.max(8, left) + 'px';
-                actionMenu.style.visibility = 'visible';
-                return;
-            }
-
-            // Klik di luar → tutup menu
-            actionMenu.classList.add('hidden');
-        });
-
-        // Edit
-        document.getElementById('menuEdit').addEventListener('click', () => {
-            if (!activeProduct) return;
-            window.location.href = `${editBaseUrl}/${activeProduct.id}/edit`;
-        });
-
-        // Toggle aktif/nonaktif
-        document.getElementById('menuToggle').addEventListener('click', () => {
-            if (!activeProduct) return;
-            actionMenu.classList.add('hidden');
-
-            const form = document.getElementById('toggleForm');
-            form.action = `${toggleBase}/${activeProduct.id}/toggle`;
-            form.submit();
-        });
-
-        // Hapus
-        document.getElementById('menuDelete').addEventListener('click', () => {
-            if (!activeProduct) return;
-            if (!confirm(`Hapus produk "${activeProduct.name_product}"?`)) return;
-            actionMenu.classList.add('hidden');
-
-            const form = document.getElementById('deleteForm');
-            form.action = `${deleteBase}/${activeProduct.id}`;
-            form.submit();
-        });
-
-        render();
+        window.StorageConfig = {
+            allProducts : @json($products),
+            storageUrl  : '{{ asset('storage') }}',
+            defaultImg  : '/assets/pictures/produk.jpg',
+            editBaseUrl : '{{ url('product') }}',
+            deleteBase  : '{{ url('product') }}',
+            toggleBase  : '{{ url('product') }}',
+            csrfToken   : '{{ csrf_token() }}',
+        };
     </script>
+    <script src="{{ asset('js/storage.js') }}"></script>
 @endsection

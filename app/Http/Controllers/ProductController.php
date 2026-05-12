@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->latest()->get();
+        $products = Product::with('category', 'unit')->latest()->get();
         return view('storage', compact('products'));
     }
 
     public function create()
     {
         $categories = Category::orderBy('name_categories')->get();
-        return view('add_item', compact('categories'));
+        $units      = Unit::orderBy('name_unit')->get();
+        return view('add_item', compact('categories', 'units'));
     }
 
     public function store(Request $request)
@@ -25,6 +27,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
+            'unit_id'       => 'nullable|integer|exists:unit,id',
             'stock'         => 'required|integer|min:0',
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',
@@ -39,6 +42,7 @@ class ProductController extends Controller
             Product::create([
                 'name_product'  => $validated['name_product'],
                 'categories_id' => $validated['categories_id'],
+                'unit_id'       => $validated['unit_id'] ?? null,
                 'stock'         => $validated['stock'],
                 'price'         => $validated['price'],
                 'image'         => $imagePath,
@@ -54,7 +58,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::orderBy('name_categories')->get();
-        return view('edit_item', compact('product', 'categories'));
+        $units      = Unit::orderBy('name_unit')->get();
+        return view('edit_item', compact('product', 'categories', 'units'));
     }
 
     public function update(Request $request, Product $product)
@@ -62,6 +67,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
+            'unit_id'       => 'nullable|integer|exists:unit,id',
             'stock'         => 'required|integer|min:0',
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',

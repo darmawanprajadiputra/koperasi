@@ -40,7 +40,7 @@ class PredictionController extends Controller
             ],
         ];
 
-        return view('prediksi', ['seasonal_products' => $seasonal_products]);
+        return view('prediction', ['seasonal_products' => $seasonal_products]);
     }
 
     /**
