@@ -2,142 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Prediction;
+use App\Services\PredictionStockService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class PredictionController extends Controller
 {
-    /**
-     * Display the prediction page
-     *
-     * @return \Illuminate\View\View
-     */
+    public function __construct(protected PredictionStockService $predictionService) {}
+
     public function index()
     {
-        $seasonal_products = [
-            [
-                'name' => 'Padi Musim Hujan',
-                'image' => 'https://via.placeholder.com/200x150?text=Padi+Hujan',
-                'best_period' => 'Nov - Feb',
-                'expected_yield' => '5-6 ton/ha'
-            ],
-            [
-                'name' => 'Jagung Musim Kemarau',
-                'image' => 'https://via.placeholder.com/200x150?text=Jagung+Kemarau',
-                'best_period' => 'Mar - Oct',
-                'expected_yield' => '4-5 ton/ha'
-            ],
-            [
-                'name' => 'Kacang Tanah',
-                'image' => 'https://via.placeholder.com/200x150?text=Kacang+Tanah',
-                'best_period' => 'May - Aug',
-                'expected_yield' => '2-3 ton/ha'
-            ],
-            [
-                'name' => 'Kedelai Organik',
-                'image' => 'https://via.placeholder.com/200x150?text=Kedelai',
-                'best_period' => 'Apr - Sep',
-                'expected_yield' => '2-2.5 ton/ha'
-            ],
-        ];
-
-        return view('prediction', ['seasonal_products' => $seasonal_products]);
+        $products = Product::where('is_active', true)->get();
+        return view('prediction', compact('products'));
     }
 
-    /**
-     * Predict stock based on AI analysis
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function predict(Request $request)
     {
-        $product_name = $request->input('product_name');
-
-        // TODO: Integrate with actual AI/ML model for prediction
-
-        // Simulated prediction results
-        $prediction = [
-            'product_name' => $product_name,
-            'trend_demand' => rand(-15, 35),  // percentage change
-            'recommended_qty' => rand(50, 200),  // units
-            'reorder_cycle' => rand(7, 30),  // days
-            'confidence' => rand(75, 98),  // confidence percentage
-            'analysis_date' => now()->format('Y-m-d'),
-        ];
-
-        return response()->json([
-            'success' => true,
-            'prediction' => $prediction,
-            'message' => 'Prediction completed'
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'lead_time'  => 'required|integer|min:1|max:90',
         ]);
-    }
 
-    /**
-     * Analyze seasonal product
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function analyzeProduct(Request $request)
-    {
-        $product_name = $request->input('product_name');
+        $product = Product::findOrFail($request->product_id);
 
-        // TODO: Fetch actual analysis from database/AI service
+        $history = DB::table('transactions')
+            ->where('id_products', $product->id)
+            ->whereNotNull('total_item')
+            ->orderBy('created_at', 'desc')
+            ->limit(60)
+            ->pluck('total_item')
+            ->reverse()
+            ->values()
+            ->map(fn($v) => (float) $v)
+            ->toArray();
 
-        $analysis = [
-            'product_name' => $product_name,
-            'seasonal_trend' => 'Increasing',
-            'market_price' => rand(15000, 100000),
-            'supply_chain' => 'Stable',
-            'recommendations' => [
-                'Increase stock allocation by 20%',
-                'Monitor competitor pricing',
-                'Plan logistics for upcoming season'
-            ]
-        ];
+        $historyInput = count($history) >= 30 ? $history : [];
 
-        return response()->json([
-            'success' => true,
-            'analysis' => $analysis
-        ]);
-    }
+        try {
+            $hasil = $this->predictionService->prediksi(
+                produk: strtolower(str_replace(' ', '_', $product->name_product)),
+                history: $historyInput,
+                leadTime: (int) $request->lead_time,
+                forecastDays: 30,
+            );
 
-    /**
-     * Get prediction history
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getHistory()
-    {
-        $history = [
-            'Beras Premium',
-            'Jagung Kuning',
-            'Bawang Merah',
-            'Cabai Rawit'
-        ];
+            Prediction::updateOrCreate(
+                ['product_id' => $product->id],
+                [
+                    'rekomendasi_stok' => round($hasil['recommended_order']),
+                    'rop'              => round($hasil['rop']),
+                    'tanggal_prediksi' => today(),
+                ]
+            );
 
-        return response()->json([
-            'success' => true,
-            'history' => $history
-        ]);
-    }
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'product_name'     => $product->name_product,
+                    'rekomendasi_stok' => round($hasil['recommended_order']),
+                    'rop'              => round($hasil['rop']),
+                    'tanggal'          => today()->translatedFormat('d F Y'),
+                ],
+            ]);
+        } catch (Exception $e) {
+            // Log raw output untuk debug
+            Log::error('[Prediction] ' . $e->getMessage());
 
-    /**
-     * Save prediction to history
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function savePrediction(Request $request)
-    {
-        $product_name = $request->input('product_name');
-
-        // TODO: Save prediction to database
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Prediction saved to history',
-            'product_name' => $product_name
-        ]);
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

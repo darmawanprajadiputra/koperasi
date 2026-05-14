@@ -15,7 +15,7 @@
 
     <!-- CSS -->
     @vite(['resources/css/app.css'])
-
+    @stack('head_data')
     @stack('styles')
 </head>
 
@@ -65,12 +65,15 @@
         @csrf
     </form>
 
+    <!-- Page-specific data (ADD_UNITS, EDIT_CONFIG, dll) -->
+    @stack('scripts')
+
     <!-- JavaScript -->
     @vite(['resources/js/app.js'])
 
     <script>
         // Profile dropdown toggle
-        const profileButton  = document.getElementById('profileButton');
+        const profileButton = document.getElementById('profileButton');
         const profileDropdown = document.getElementById('profileDropdown');
 
         profileButton.addEventListener('click', (e) => {
@@ -84,7 +87,6 @@
         });
     </script>
 
-    @stack('scripts')
 </body>
 
 </html>

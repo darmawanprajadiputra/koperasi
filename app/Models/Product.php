@@ -37,4 +37,15 @@ class Product extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
+
+    public function predictions()
+    {
+        return $this->hasMany(Prediction::class);
+    }
+
+    // Ambil prediksi terbaru
+    public function latestPrediction()
+    {
+        return $this->hasOne(Prediction::class)->latestOfMany();
+    }
 }

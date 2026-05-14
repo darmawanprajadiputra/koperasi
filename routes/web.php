@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order/{order_id}', [OrderController::class, 'show'])->name('order.show');
 
     Route::get('/prediction', [PredictionController::class, 'index'])->name('prediction');
+    Route::post('/prediction/predict', [PredictionController::class, 'predict'])->name('prediction.predict');
 
     Route::prefix('api')->group(function () {
         Route::get('/get_products', [ShopController::class, 'getProducts'])->name('api.products');

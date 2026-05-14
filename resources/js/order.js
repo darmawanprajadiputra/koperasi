@@ -213,6 +213,7 @@ function setupFilterHandlers() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('ordersContainer')) return;
   setupFilterHandlers();
   renderOrders();
 });

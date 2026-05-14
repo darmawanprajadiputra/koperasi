@@ -55,7 +55,8 @@
                                         <option disabled value="">Belum ada kategori tersedia</option>
                                     @endforelse
                                 </select>
-                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
                             </div>
                             @error('categories_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -66,17 +67,15 @@
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan / Unit</label>
                             <div class="relative" id="unitWrapper">
-                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:18px">straighten</span>
-                                <input
-                                    type="text"
-                                    id="unitInput"
-                                    name="unit_name"
-                                    autocomplete="off"
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+                                    style="font-size:18px">straighten</span>
+                                <input type="text" id="unitInput" name="unit_name" autocomplete="off"
                                     placeholder="Cari atau ketik satuan... (pcs, kg, liter)"
                                     value="{{ old('unit_name', $product->unit?->name_unit) }}"
-                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror"
-                                />
-                                <input type="hidden" id="unitId" name="unit_id" value="{{ old('unit_id', $product->unit_id) }}" />
+                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror" />
+                                <input type="hidden" id="unitId" name="unit_id"
+                                    value="{{ old('unit_id', $product->unit_id) }}" />
                             </div>
                             @error('unit_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -88,8 +87,8 @@
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Stok</label>
                             <input name="stock"
                                 class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface @error('stock') ring-2 ring-red-500 @enderror"
-                                placeholder="0" type="number" min="0"
-                                value="{{ old('stock', $product->stock) }}" required />
+                                placeholder="0" type="number" min="0" value="{{ old('stock', $product->stock) }}"
+                                required />
                             @error('stock')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                             @enderror
@@ -122,16 +121,15 @@
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
                         Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
                     </h2>
-                    <input type="file" id="image" name="image" accept="image/jpeg,image/png" style="display:none;" />
+                    <input type="file" id="image" name="image" accept="image/jpeg,image/png"
+                        style="display:none;" />
                     <div id="imageUploadBox"
                         class="relative aspect-square rounded-xl bg-surface-container-low border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-6 cursor-pointer hover:bg-surface-variant transition-colors overflow-hidden">
 
                         {{-- Preview: foto lama jika ada, atau default --}}
-                        <img id="previewImage"
-                            class="absolute inset-0 w-full h-full object-cover"
+                        <img id="previewImage" class="absolute inset-0 w-full h-full object-cover"
                             src="{{ $product->image ? asset('storage/' . $product->image) : '/assets/pictures/produk.jpg' }}"
-                            onerror="this.src='/assets/pictures/produk.jpg'"
-                            alt="Foto Produk" />
+                            onerror="this.src='/assets/pictures/produk.jpg'" alt="Foto Produk" />
 
                         {{-- Overlay gelap saat hover --}}
                         <div id="uploadOverlay"
@@ -141,9 +139,9 @@
                         </div>
 
                         {{-- State: foto baru dipilih --}}
-                        <div id="uploadSuccess"
-                            class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 hidden">
-                            <span class="bg-secondary text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                        <div id="uploadSuccess" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 hidden">
+                            <span
+                                class="bg-secondary text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
                                 <span class="material-symbols-outlined" style="font-size:14px">check_circle</span>
                                 Foto baru dipilih
                             </span>
@@ -183,7 +181,8 @@
 
     {{-- Error toast --}}
     @if ($errors->any())
-        <div class="fixed top-4 right-4 px-6 py-4 rounded-lg font-semibold shadow-lg z-50 bg-red-500 text-white" style="max-width:380px">
+        <div class="fixed top-4 right-4 px-6 py-4 rounded-lg font-semibold shadow-lg z-50 bg-red-500 text-white"
+            style="max-width:380px">
             <p class="font-bold mb-1">Terjadi kesalahan:</p>
             <ul class="text-sm list-disc list-inside">
                 @foreach ($errors->all() as $error)
@@ -193,17 +192,12 @@
         </div>
     @endif
 
-    {{--
-        Inject konfigurasi ke window.EDIT_CONFIG SEBELUM edit.js di-load.
-        edit.js membaca objek ini untuk pre-fill unit dan mengisi dropdown.
-    --}}
     <script>
         window.EDIT_CONFIG = {
-            units           : @json($units),
-            currentUnitId   : '{{ old('unit_id', $product->unit_id) }}',
-            currentUnitName : '{{ old('unit_name', $product->unit?->name_unit) }}',
+            units: {!! json_encode($units) !!},
+            currentUnitId: {{ $product->unit_id ?? 'null' }},
+            currentUnitName: "{{ addslashes($product->unit->name_unit ?? '') }}",
         };
     </script>
-    <script src="{{ asset('js/edit.js') }}"></script>
 
 @endsection

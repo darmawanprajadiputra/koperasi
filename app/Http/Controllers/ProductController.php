@@ -27,7 +27,7 @@ class ProductController extends Controller
         $validated = $request->validate([
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
-            'unit_id'       => 'nullable|integer|exists:unit,id',
+            'unit_id'       => 'required|integer|exists:unit,id', // ← ubah nullable jadi required
             'stock'         => 'required|integer|min:0',
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',
@@ -42,7 +42,7 @@ class ProductController extends Controller
             Product::create([
                 'name_product'  => $validated['name_product'],
                 'categories_id' => $validated['categories_id'],
-                'unit_id'       => $validated['unit_id'] ?? null,
+                'unit_id'       => $validated['unit_id'],
                 'stock'         => $validated['stock'],
                 'price'         => $validated['price'],
                 'image'         => $imagePath,
@@ -51,7 +51,9 @@ class ProductController extends Controller
 
             return redirect()->route('storage')->with('success', 'Produk berhasil ditambahkan!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menambahkan produk: ' . $e->getMessage())->withInput();
+            return back()
+                ->with('error', 'Gagal menambahkan produk: ' . $e->getMessage())
+                ->withInput();
         }
     }
 

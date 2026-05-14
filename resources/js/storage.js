@@ -229,21 +229,22 @@ function initBladeProducts() {
             if (toggleIcon)  toggleIcon.textContent  = activeProduct.is_active ? 'toggle_off' : 'toggle_on';
             if (toggleLabel) toggleLabel.textContent = activeProduct.is_active ? 'Nonaktifkan' : 'Aktifkan';
 
-            // Posisi menu
+            // Posisi menu — gunakan koordinat viewport (fixed positioning, tanpa scrollY/scrollX)
             actionMenu.style.visibility = 'hidden';
             actionMenu.classList.remove('hidden');
 
-            const rect   = btn.getBoundingClientRect();
-            const menuH  = actionMenu.offsetHeight;
-            const menuW  = actionMenu.offsetWidth;
+            const rect       = btn.getBoundingClientRect();
+            const menuH      = actionMenu.offsetHeight;
+            const menuW      = actionMenu.offsetWidth;
             const spaceBelow = window.innerHeight - rect.bottom;
 
             const top  = spaceBelow < menuH + 8
-                ? rect.top  + window.scrollY - menuH - 4
-                : rect.bottom + window.scrollY + 4;
+                ? rect.top  - menuH - 4          // tampilkan di atas tombol
+                : rect.bottom + 4;               // tampilkan di bawah tombol
+
             const left = Math.min(
-                rect.right + window.scrollX - menuW,
-                window.innerWidth - menuW - 8
+                rect.right - menuW,              // rata kanan tombol
+                window.innerWidth - menuW - 8    // jangan keluar kanan layar
             );
 
             actionMenu.style.top  = top + 'px';

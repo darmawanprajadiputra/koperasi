@@ -4,13 +4,27 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Guard: hanya jalan jika elemen edit ada di halaman
+    const wrapper   = document.getElementById('unitWrapper');
+    const unitInput = document.getElementById('unitInput');
+    const unitId    = document.getElementById('unitId');
+
+    if (!wrapper || !unitInput || !unitId) return;
+
+    // Guard: hanya jalan jika EDIT_CONFIG tersedia (bukan halaman add)
+    const cfg = window.EDIT_CONFIG;
+    if (!cfg) return;
+
+    if (window.__editItemInitialized) return;
+    window.__editItemInitialized = true;
+
     // ── Image Upload ──────────────────────────────────────────────────────────
     const imageInput    = document.getElementById('image');
     const uploadBox     = document.getElementById('imageUploadBox');
     const previewImage  = document.getElementById('previewImage');
     const uploadSuccess = document.getElementById('uploadSuccess');
 
-    if (uploadBox) {
+    if (uploadBox && imageInput) {
         uploadBox.addEventListener('click', () => imageInput.click());
 
         uploadBox.addEventListener('dragover', e => e.preventDefault());
@@ -51,15 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Unit Autocomplete ─────────────────────────────────────────────────────
-    const wrapper   = document.getElementById('unitWrapper');
-    const unitInput = document.getElementById('unitInput');
-    const unitId    = document.getElementById('unitId');
-
-    if (!wrapper || !unitInput || !unitId) return;
-
-    // Data unit + nilai awal di-inject dari blade lewat window.EDIT_CONFIG
-    const cfg      = window.EDIT_CONFIG || {};
     const allUnits = cfg.units || [];
+
+    if (!allUnits.length) {
+        console.warn('[edit.js] window.EDIT_CONFIG.units kosong — pastikan di-embed di section content blade.');
+    }
 
     // Pre-fill unit jika produk sudah punya unit
     if (cfg.currentUnitId && cfg.currentUnitName) {
@@ -67,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
         unitId.value    = cfg.currentUnitId;
     }
 
-    // Buat dropdown, pasang ke <body> agar tidak terpotong overflow
+    // Buat dropdown dengan ID unik agar tidak bentrok dengan add.js
     const dropdown = document.createElement('ul');
-    dropdown.id = 'unitDropdown';
+    dropdown.id = 'unitDropdown--edit';
     dropdown.style.cssText = [
         'display:none',
         'position:fixed',
@@ -88,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let activeIndex = -1;
     let isOpen      = false;
-    let isSelected  = !!cfg.currentUnitId; // sudah terpilih jika ada nilai awal
+    let isSelected  = !!cfg.currentUnitId;
 
     function positionDropdown() {
         const rect = unitInput.getBoundingClientRect();
@@ -178,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
     unitInput.addEventListener('blur', () => {
         setTimeout(() => {
             closeDropdown();
-            // Jika user mengetik tapi tidak memilih dari dropdown, kosongkan unit_id
             if (!isSelected) unitId.value = '';
         }, 160);
     });

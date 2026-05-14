@@ -30,8 +30,8 @@
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Nama Produk</label>
                             <input name="name_product"
                                 class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('name_product') ring-2 ring-red-500 @enderror"
-                                placeholder="Contoh: Susu Sapi Organik A2" type="text"
-                                value="{{ old('name_product') }}" required />
+                                placeholder="Contoh: Susu Sapi Organik A2" type="text" value="{{ old('name_product') }}"
+                                required />
                             @error('name_product')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                             @enderror
@@ -54,7 +54,8 @@
                                         <option disabled value="">Belum ada kategori tersedia</option>
                                     @endforelse
                                 </select>
-                                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+                                <span
+                                    class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
                             </div>
                             @error('categories_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -64,19 +65,15 @@
                         <!-- Unit (Autocomplete) — data unit di-pass lewat data-units -->
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan / Unit</label>
-                            <div class="relative" id="unitWrapper" >
-                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:18px">straighten</span>
-                                <input
-                                    type="text"
-                                    id="unitInput"
-                                    name="unit_name"
-                                    autocomplete="off"
-                                    placeholder="Cari atau ketik satuan... (pcs, kg, liter)"
-                                    value="{{ old('unit_name') }}"
-                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror"
-                                />
+                            <div class="relative" id="unitWrapper">
+                                <span
+                                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+                                    style="font-size:18px">straighten</span>
+                                <input type="text" id="unitInput" name="unit_name" autocomplete="off"
+                                    placeholder="Cari atau ketik satuan... (pcs, kg, liter)" value="{{ old('unit_name') }}"
+                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror" />
                                 <input type="hidden" id="unitId" name="unit_id" value="{{ old('unit_id') }}" />
-                                {{-- dropdown dibuat & di-append ke <body> oleh add.js --}}
+                                {{-- data unit dibaca dari window.ADD_UNITS oleh add.js --}}
                             </div>
                             @error('unit_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -121,14 +118,17 @@
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
                         Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
                     </h2>
-                    <input type="file" id="image" name="image" accept="image/jpeg,image/png" style="display:none;" />
+                    <input type="file" id="image" name="image" accept="image/jpeg,image/png"
+                        style="display:none;" />
                     <div id="imageUploadBox"
                         class="relative aspect-square rounded-xl bg-surface-container-low border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-6 cursor-pointer hover:bg-surface-variant transition-colors overflow-hidden">
-                        <img id="previewImage" class="absolute inset-0 w-full h-full object-cover hidden" src="" alt="" />
+                        <img id="previewImage" class="absolute inset-0 w-full h-full object-cover hidden" src=""
+                            alt="" />
                         <div id="uploadPrompt" class="relative z-10 flex flex-col items-center">
                             <span class="material-symbols-outlined text-4xl text-primary mb-2">cloud_upload</span>
                             <p class="text-primary font-bold">Pilih atau Seret Foto</p>
-                            <p class="text-xs text-on-surface-variant mt-2 px-4 leading-relaxed">Format JPG, PNG (Maks. 5MB).</p>
+                            <p class="text-xs text-on-surface-variant mt-2 px-4 leading-relaxed">Format JPG, PNG (Maks.
+                                5MB).</p>
                         </div>
                         <div id="uploadSuccess" class="relative z-10 flex-col items-center hidden">
                             <span class="material-symbols-outlined text-4xl text-secondary mb-2">check_circle</span>
@@ -160,7 +160,8 @@
 
     {{-- Error toast --}}
     @if ($errors->any())
-        <div class="fixed top-4 right-4 px-6 py-4 rounded-lg font-semibold shadow-lg z-50 bg-red-500 text-white" style="max-width:380px">
+        <div class="fixed top-4 right-4 px-6 py-4 rounded-lg font-semibold shadow-lg z-50 bg-red-500 text-white"
+            style="max-width:380px">
             <p class="font-bold mb-1">Terjadi kesalahan:</p>
             <ul class="text-sm list-disc list-inside">
                 @foreach ($errors->all() as $error)
@@ -170,9 +171,10 @@
         </div>
     @endif
 
+    {{-- Data unit di-embed langsung di dalam section content --}}
+    {{-- Ini PASTI tersedia sebelum add.js (Vite module) dieksekusi --}}
     <script>
-        window.ADD_UNITS = @json($units);
+        window.ADD_UNITS = {!! json_encode($units) !!};
     </script>
-    <script src="{{ asset('js/add.js') }}"></script>
 
 @endsection

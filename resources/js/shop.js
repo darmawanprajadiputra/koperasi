@@ -235,5 +235,6 @@ function showToast(message) {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('productsContainer')) return;
   loadShopProducts();
 });
