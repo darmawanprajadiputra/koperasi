@@ -27,8 +27,28 @@ class PredictionController extends Controller
             'lead_time'  => 'required|integer|min:1|max:90',
         ]);
 
-        $product = Product::findOrFail($request->product_id);
+        $product   = Product::findOrFail($request->product_id);
+        $produkKey = strtolower(str_replace(' ', '_', $product->name_product));
 
+        $modelsPath = base_path('ml/models');
+        $modelKeras = $modelsPath . '/lstm_' . $produkKey . '_model.keras';
+        $modelH5    = $modelsPath . '/lstm_' . $produkKey . '_model.h5';
+        $scaler     = $modelsPath . '/scaler_' . $produkKey . '.pkl';
+        $lastSeq    = $modelsPath . '/last_seq_' . $produkKey . '.npy';
+
+        $pesanError = "Data transaksi untuk \"{$product->name_product}\" belum mencukupi (minimal 30 hari).";
+
+        // Validasi semua file yang dibutuhkan
+        if ((!file_exists($modelKeras) && !file_exists($modelH5)) ||
+            !file_exists($scaler) ||
+            !file_exists($lastSeq)) {
+            return response()->json([
+                'success' => false,
+                'message' => $pesanError,
+            ], 422);
+        }
+
+        // Ambil data historis dari DB
         $history = DB::table('transactions')
             ->where('id_products', $product->id)
             ->whereNotNull('total_item')
@@ -44,9 +64,9 @@ class PredictionController extends Controller
 
         try {
             $hasil = $this->predictionService->prediksi(
-                produk: strtolower(str_replace(' ', '_', $product->name_product)),
-                history: $historyInput,
-                leadTime: (int) $request->lead_time,
+                produk      : $produkKey,
+                history     : $historyInput,
+                leadTime    : (int) $request->lead_time,
                 forecastDays: 30,
             );
 
@@ -68,13 +88,13 @@ class PredictionController extends Controller
                     'tanggal'          => today()->translatedFormat('d F Y'),
                 ],
             ]);
+
         } catch (Exception $e) {
-            // Log raw output untuk debug
             Log::error('[Prediction] ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage(),
+                'message' => $pesanError,
             ], 500);
         }
     }

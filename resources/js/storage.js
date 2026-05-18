@@ -130,10 +130,13 @@ function getStatusBadge(isActive) {
         : '<span class="px-2 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-semibold">Nonaktif</span>';
 }
 
-function getImageSrc(image) {
+function getImageSrc(product) {
     if (!cfg) return 'https://via.placeholder.com/48';
-    if (!image) return cfg.defaultImg;
-    return cfg.storageUrl + '/' + image;
+    // Gunakan image_url jika sudah di-resolve oleh controller/blade
+    if (product.image_url) return product.image_url;
+    // Fallback: bangun URL dari path mentah
+    if (product.image) return cfg.storageUrl + '/' + product.image;
+    return cfg.defaultImg;
 }
 
 // ─── Modul A: Blade products (allProducts dari server) ───────────────────────
@@ -167,18 +170,22 @@ function initBladeProducts() {
             if (emptyState) emptyState.style.display = 'block';
         } else {
             if (emptyState) emptyState.style.display = 'none';
-            tableBody.innerHTML = pageData.map(p => `
+            tableBody.innerHTML = pageData.map(p => {
+                // category & unit bisa berupa object Eloquent atau plain array dari @json
+                const categoryName = p.category?.name_categories ?? p.category?.name_categories ?? '-';
+                const unitName     = p.unit?.name_unit ?? '';
+                return `
                 <tr class="hover:bg-gray-50 transition-colors" data-id="${p.id}">
                     <td class="px-4 py-3">
-                        <img src="${getImageSrc(p.image)}"
+                        <img src="${getImageSrc(p)}"
                              onerror="this.src='${cfg.defaultImg}'"
                              alt="${p.name_product}"
                              class="w-12 h-12 object-cover rounded-lg border border-gray-200" />
                     </td>
                     <td class="px-4 py-3 font-medium text-gray-900">${p.name_product}</td>
-                    <td class="px-4 py-3 text-gray-600">${p.category ? p.category.name_categories : '-'}</td>
+                    <td class="px-4 py-3 text-gray-600">${categoryName}</td>
                     <td class="px-4 py-3 text-right text-gray-700">
-                        ${p.stock}${p.unit ? ' <span class="text-gray-400 text-xs font-medium">' + p.unit.name_unit + '</span>' : ''}
+                        ${p.stock}${unitName ? ' <span class="text-gray-400 text-xs font-medium">' + unitName + '</span>' : ''}
                     </td>
                     <td class="px-4 py-3 text-right text-gray-700">${formatRupiah(p.price)}</td>
                     <td class="px-4 py-3">${getStatusBadge(p.is_active)}</td>
@@ -189,7 +196,7 @@ function initBladeProducts() {
                         </button>
                     </td>
                 </tr>
-            `).join('');
+            `}).join('');
         }
 
         const showing = total === 0 ? '0' : `${start + 1}–${Math.min(start + PER_PAGE, total)}`;

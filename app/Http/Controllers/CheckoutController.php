@@ -40,10 +40,9 @@ class CheckoutController extends Controller
             if (!$product) continue;
 
             $lineTotal = $product->price * (int) ($item['qty'] ?? 1);
-            $factur    = $created === 0 ? $numFactur : $numFactur . '-' . ($created + 1);
 
             Transaction::create([
-                'num_factur'     => $factur,
+                'num_factur'     => $numFactur,
                 'name_customer'  => $request->name_customer,
                 'no_telephone'   => $request->no_telephone,
                 'address'        => $request->address,
@@ -69,9 +68,13 @@ class CheckoutController extends Controller
 
     private function generateInvoiceNumber(): string
     {
-        $last = Transaction::orderByDesc('id')->value('num_factur');
+        // Ambil semua num_factur, filter hanya format NF-XXXX (tanpa suffix)
+        $last = Transaction::orderByDesc('id')
+            ->pluck('num_factur')
+            ->filter(fn($n) => preg_match('/^NF-(\d+)$/', $n))
+            ->first();
 
-        if ($last && preg_match('/NF-(\d+)/', $last, $m)) {
+        if ($last && preg_match('/^NF-(\d+)$/', $last, $m)) {
             $next = (int) $m[1] + 1;
         } else {
             $next = 1;

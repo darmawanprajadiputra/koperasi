@@ -1,0 +1,624 @@
+<!doctype html>
+
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            error: "#ba1a1a",
+                            "primary-fixed": "#c7e7ff",
+                            "on-tertiary-container": "#f6b26e",
+                            "surface-variant": "#e1e3e4",
+                            "on-primary": "#ffffff",
+                            "on-tertiary": "#ffffff",
+                            "tertiary-fixed-dim": "#fdb874",
+                            "on-secondary": "#ffffff",
+                            "on-primary-container": "#8bc7ef",
+                            "on-secondary-container": "#4e6671",
+                            "on-background": "#191c1d",
+                            "secondary-fixed": "#cde6f3",
+                            "surface-container-low": "#f3f4f5",
+                            "secondary-container": "#cae4f1",
+                            "on-surface-variant": "#40484e",
+                            secondary: "#4a626d",
+                            outline: "#71787e",
+                            "on-secondary-fixed-variant": "#324a55",
+                            "surface-container-highest": "#e1e3e4",
+                            "secondary-fixed-dim": "#b1cad7",
+                            primary: "#003c56",
+                            "on-primary-fixed": "#001e2e",
+                            "on-tertiary-fixed-variant": "#6a3c00",
+                            "inverse-surface": "#2e3132",
+                            "tertiary-fixed": "#ffdcbe",
+                            surface: "#f8f9fa",
+                            "inverse-primary": "#92cef6",
+                            "surface-container-high": "#e7e8e9",
+                            "primary-container": "#005477",
+                            "surface-bright": "#f8f9fa",
+                            "on-error": "#ffffff",
+                            "on-secondary-fixed": "#041e28",
+                            "tertiary-container": "#734306",
+                            "surface-container": "#edeeef",
+                            "outline-variant": "#c0c7ce",
+                            "inverse-on-surface": "#f0f1f2",
+                            "surface-tint": "#206488",
+                            "surface-container-lowest": "#ffffff",
+                            "primary-fixed-dim": "#92cef6",
+                            "on-surface": "#191c1d",
+                            "on-error-container": "#93000a",
+                            tertiary: "#542f00",
+                            background: "#f8f9fa",
+                            "on-tertiary-fixed": "#2d1600",
+                            "surface-dim": "#d9dadb",
+                            "on-primary-fixed-variant": "#004c6c",
+                            "error-container": "#ffdad6",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.125rem",
+                            lg: "0.25rem",
+                            xl: "0.5rem",
+                            full: "0.75rem",
+                        },
+                        fontFamily: {
+                            headline: ["Manrope"],
+                            display: ["Manrope"],
+                            body: ["Inter"],
+                            label: ["Inter"],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            .material-symbols-outlined {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 400,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+            body {
+                font-family: "Inter", sans-serif;
+            }
+            h1,
+            h2,
+            h3,
+            .font-headline {
+                font-family: "Manrope", sans-serif;
+            }
+            .tonal-shift {
+                background-color: rgba(231, 232, 233, 0.4);
+            }
+        </style>
+    </head>
+    <body class="bg-surface text-on-surface">
+        <!-- Side Navigation Shell -->
+        <aside
+            class="h-screen w-64 fixed left-0 top-0 border-r-0 bg-slate-50 dark:bg-slate-900 flex flex-col py-6 px-4 font-manrope text-sm font-medium tracking-tight"
+        >
+            <div class="mb-10 px-2 flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="account_balance"
+                        >account_balance</span
+                    >
+                </div>
+                <div>
+                    <h2
+                        class="text-xl font-bold text-sky-900 dark:text-sky-100"
+                    >
+                        The Atelier
+                    </h2>
+                    <p
+                        class="text-[10px] uppercase tracking-widest text-slate-400"
+                    >
+                        Financial Coop
+                    </p>
+                </div>
+            </div>
+            <nav class="flex-1 space-y-1">
+                <a
+                    class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="dashboard"
+                        >dashboard</span
+                    >
+                    Dashboard
+                </a>
+                <a
+                    class="flex items-center gap-3 px-4 py-3 text-sky-900 dark:text-sky-100 font-bold border-r-4 border-sky-900 dark:border-sky-400 bg-white/50 dark:bg-slate-800/50 rounded-lg translate-x-1 transition-transform"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="shopping_bag"
+                        >shopping_bag</span
+                    >
+                    Shop
+                </a>
+                <a
+                    class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="warehouse"
+                        >warehouse</span
+                    >
+                    Gudang
+                </a>
+                <a
+                    class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 rounded-lg"
+                    href="#"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="shopping_cart"
+                        >shopping_cart</span
+                    >
+                    Checkout
+                </a>
+            </nav>
+            <div
+                class="mt-auto p-4 bg-surface-container-low rounded-xl border border-outline-variant/10"
+            >
+                <p class="text-xs text-on-surface-variant mb-2">Member Tier</p>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-tertiary"></div>
+                    <span class="font-bold text-on-surface">Gold Atelier</span>
+                </div>
+            </div>
+        </aside>
+        <!-- Top Navigation Shell -->
+        <header
+            class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/70 backdrop-blur-md flex justify-between items-center px-8 tonal-shift shadow-sm"
+        >
+            <div class="flex items-center flex-1">
+                <div class="relative w-full max-w-md">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"
+                        data-icon="search"
+                        >search</span
+                    >
+                    <input
+                        class="w-full bg-surface-container-high border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-sky-500/20 transition-all"
+                        placeholder="Search invoice or product..."
+                        type="text"
+                    />
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <button
+                    class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-all"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="notifications"
+                        >notifications</span
+                    >
+                </button>
+                <button
+                    class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-all"
+                >
+                    <span class="material-symbols-outlined" data-icon="settings"
+                        >settings</span
+                    >
+                </button>
+                <div class="h-8 w-[1px] bg-outline-variant/30"></div>
+                <div class="flex items-center gap-3 pl-2">
+                    <div class="text-right">
+                        <p class="text-xs font-bold text-on-surface">
+                            Sugarahen
+                        </p>
+                        <p class="text-[10px] text-on-surface-variant">
+                            Member since 2022
+                        </p>
+                    </div>
+                    <img
+                        alt="User Profile"
+                        class="w-10 h-10 rounded-full border-2 border-white shadow-sm"
+                        data-alt="A professional headshot of a smiling person with short dark hair, set against a clean, neutral background. The lighting is bright and airy, reflecting the high-end light-mode aesthetic of the financial atelier. The image is crisp with soft shadows, maintaining a premium corporate feel."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuClX3y5pil_d-7VLX8Ae7kM4MKMT38PuhGAUiaVvYfPc8df78OzQrCwshkKUQc5NSmtUDFkObrMNW11I_3JSvejIso_2KulMDF-Jy7fe24DP1o-82p8Sa1MfbMZjvh_-RcuRUroPWvY_k9XcZIcSbnhE1g92UaT57KpyD_smBGVSQ__HWJ7lEJF9xVM0eSN-QeanOte8gQ9Danf2Mg_FIq1HltpcN8j7MmISBtAw-WDrM-WYFxowzH3lZFa9BOmc7QWbuM8jeoEtBg"
+                    />
+                </div>
+            </div>
+        </header>
+        <!-- Main Content Canvas -->
+        <main class="ml-64 pt-24 pb-20 px-12 max-w-7xl">
+            <!-- Back Button & Breadcrumb -->
+            <div class="mb-8">
+                <button
+                    class="group flex items-center gap-2 text-primary font-medium text-sm hover:translate-x-[-4px] transition-transform"
+                >
+                    <span
+                        class="material-symbols-outlined text-base"
+                        data-icon="arrow_back"
+                        >arrow_back</span
+                    >
+                    Back to History
+                </button>
+            </div>
+            <!-- Editorial Header Section -->
+            <div
+                class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+            >
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span
+                            class="text-xs font-bold tracking-widest text-secondary uppercase"
+                            >Order Detail</span
+                        >
+                        <span
+                            class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[11px] font-bold"
+                            >Diproses</span
+                        >
+                    </div>
+                    <h1
+                        class="text-4xl font-extrabold text-primary tracking-tight"
+                    >
+                        #NF-0002-3
+                    </h1>
+                    <p class="text-on-surface-variant mt-2 font-medium">
+                        Placed on 13 May 2026 at 14:20 WIB
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <button
+                        class="px-6 py-3 bg-gradient-to-br from-primary to-primary-container rounded-lg text-sm font-semibold text-on-primary shadow-lg shadow-primary/20 hover:opacity-90 transition-all"
+                    >
+                        Edit Transactions
+                    </button>
+                </div>
+            </div>
+            <!-- Main Bento Grid Layout -->
+            <div class="grid grid-cols-12 gap-8">
+                <!-- Left Column: Items & Progress -->
+                <div class="col-span-12 lg:col-span-8 space-y-8">
+                    <!-- Order Status Tracker (Horizontal Editorial Style) -->
+                    <section
+                        class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5"
+                    >
+                        <h3 class="text-lg font-bold text-primary mb-10">
+                            Order Journey
+                        </h3>
+                        <div class="relative">
+                            <!-- Progress Line -->
+                            <div
+                                class="absolute top-5 left-0 w-full h-[2px] bg-surface-container-high"
+                            ></div>
+                            <div
+                                class="absolute top-5 left-0 w-[50%] h-[2px] bg-primary"
+                            ></div>
+                            <div class="relative flex justify-between">
+                                <!-- Step 1 -->
+                                <div
+                                    class="flex flex-col items-center text-center"
+                                >
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10 shadow-md"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            data-icon="check"
+                                            data-weight="fill"
+                                            >check</span
+                                        >
+                                    </div>
+                                    <p
+                                        class="mt-4 text-xs font-bold text-on-surface"
+                                    >
+                                        Order Placed
+                                    </p>
+                                    <p
+                                        class="text-[10px] text-on-surface-variant"
+                                    >
+                                        13 May, 14:20
+                                    </p>
+                                </div>
+                                <!-- Step 2 -->
+                                <div
+                                    class="flex flex-col items-center text-center"
+                                >
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10 shadow-md"
+                                    >
+                                        <span
+                                            class="material-symbols-outlined text-sm"
+                                            data-icon="check"
+                                            data-weight="fill"
+                                            >check</span
+                                        >
+                                    </div>
+                                    <p
+                                        class="mt-4 text-xs font-bold text-on-surface"
+                                    >
+                                        Payment Confirmed
+                                    </p>
+                                    <p
+                                        class="text-[10px] text-on-surface-variant"
+                                    >
+                                        13 May, 14:45
+                                    </p>
+                                </div>
+                                <!-- Step 3 -->
+                                <div
+                                    class="flex flex-col items-center text-center"
+                                >
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-white border-4 border-primary text-primary flex items-center justify-center z-10 shadow-sm"
+                                    >
+                                        <span
+                                            class="w-2 h-2 rounded-full bg-primary"
+                                        ></span>
+                                    </div>
+                                    <p
+                                        class="mt-4 text-xs font-bold text-primary"
+                                    >
+                                        Processing
+                                    </p>
+                                    <p
+                                        class="text-[10px] text-on-surface-variant"
+                                    >
+                                        Estimation: 14 May
+                                    </p>
+                                </div>
+                                <!-- Step 4 -->
+                                <div
+                                    class="flex flex-col items-center text-center opacity-40"
+                                >
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-transparent flex items-center justify-center z-10"
+                                    ></div>
+                                    <p
+                                        class="mt-4 text-xs font-bold text-on-surface"
+                                    >
+                                        Shipped
+                                    </p>
+                                    <p
+                                        class="text-[10px] text-on-surface-variant"
+                                    >
+                                        --
+                                    </p>
+                                </div>
+                                <!-- Step 5 -->
+                                <div
+                                    class="flex flex-col items-center text-center opacity-40"
+                                >
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-transparent flex items-center justify-center z-10"
+                                    ></div>
+                                    <p
+                                        class="mt-4 text-xs font-bold text-on-surface"
+                                    >
+                                        Completed
+                                    </p>
+                                    <p
+                                        class="text-[10px] text-on-surface-variant"
+                                    >
+                                        --
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Order Summary (Product List) -->
+                    <section
+                        class="bg-white overflow-hidden rounded-xl shadow-sm border border-outline-variant/5"
+                    >
+                        <div
+                            class="px-8 py-6 border-b border-surface-container-low flex justify-between items-center"
+                        >
+                            <h3 class="text-lg font-bold text-primary">
+                                Order Summary
+                            </h3>
+                            <span
+                                class="text-sm font-medium text-on-surface-variant"
+                                >2 Items</span
+                            >
+                        </div>
+                        <div class="divide-y divide-surface-container-low">
+                            <!-- Product Item 1 -->
+                            <div
+                                class="p-8 flex items-center gap-6 hover:bg-slate-50/50 transition-colors"
+                            >
+                                <div
+                                    class="w-24 h-24 rounded-xl overflow-hidden bg-surface-container flex-shrink-0"
+                                >
+                                    <img
+                                        alt="Premium Organic Rice"
+                                        class="w-full h-full object-cover"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPJPpAmKVG2VQRTCIai-EXbSbZDEpS8r2vz2d4AyNOEQKSL1sv6yoCUJ4SYI85_bHYh90zpd1ENNZt_Hudp93gq6vpGIFfTII4Biex3g1UOxSeguFwNXcYrypk1Rq20oMiv70OERmvcutmHI3YPro9aQoLaYVGI4KzQt0zgDZbdwvf7k3UZA43zO3thK2g8u-y8JrvnbpcqCGk_OpL_0fHmA2AMGjxT9E8sgcIntTHEXpAfnj0bPr0UYyyDEdqPMlibZVBIB7fLP0"
+                                    />
+                                </div>
+                                <div class="flex-1">
+                                    <p
+                                        class="text-xs font-bold text-secondary uppercase tracking-widest mb-1"
+                                    >
+                                        Staples &amp; Grains
+                                    </p>
+                                    <h4
+                                        class="text-lg font-bold text-on-surface"
+                                    >
+                                        Beras Premium Pandan Wangi
+                                    </h4>
+                                    <p
+                                        class="text-sm text-on-surface-variant mt-1"
+                                    >
+                                        Weight: 5kg | Grade A
+                                    </p>
+                                </div>
+                                <div class="text-right min-w-[120px]">
+                                    <p class="text-sm text-on-surface-variant">
+                                        Rp 75.000 x 2
+                                    </p>
+                                    <p
+                                        class="text-lg font-bold text-primary mt-1"
+                                    >
+                                        Rp 150.000
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Right Column: Shipping & Payment -->
+                <div class="col-span-12 lg:col-span-4 space-y-8">
+                    <!-- Shipping Info -->
+                    <section
+                        class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5"
+                    >
+                        <div class="flex items-center gap-2 mb-6">
+                            <span
+                                class="material-symbols-outlined text-primary text-xl"
+                                data-icon="local_shipping"
+                                >local_shipping</span
+                            >
+                            <h3 class="text-lg font-bold text-primary">
+                                Delivery Details
+                            </h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <p
+                                    class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider"
+                                >
+                                    Recipient
+                                </p>
+                                <p
+                                    class="text-sm font-bold text-on-surface mt-1"
+                                >
+                                    Sugarahen
+                                </p>
+                                <p class="text-sm text-on-surface-variant">
+                                    +62 812 3456 7890
+                                </p>
+                            </div>
+                            <div class="pt-2">
+                                <p
+                                    class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider"
+                                >
+                                    Shipping Address
+                                </p>
+                                <p
+                                    class="text-sm text-on-surface-variant mt-1 leading-relaxed"
+                                >
+                                    Jl. Kemang Raya No. 12, South Jakarta,<br />
+                                    DKI Jakarta, 12730
+                                </p>
+                            </div>
+                            <div class="pt-2">
+                                <p
+                                    class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider"
+                                >
+                                    Logistic Provider
+                                </p>
+                                <p
+                                    class="text-sm text-on-surface mt-1 flex items-center gap-2"
+                                >
+                                    <span
+                                        class="material-symbols-outlined text-sm"
+                                        data-icon="box"
+                                        >box</span
+                                    >
+                                    J&amp;T Express Regular
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Payment Summary -->
+                    <section
+                        class="bg-primary text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden"
+                    >
+                        <!-- Subtle background pattern/gradient -->
+                        <div class="absolute -right-4 -bottom-4 opacity-10">
+                            <span
+                                class="material-symbols-outlined text-9xl"
+                                data-icon="account_balance_wallet"
+                                style="
+                                    font-variation-settings: &quot;FILL&quot; 1;
+                                "
+                                >account_balance_wallet</span
+                            >
+                        </div>
+                        <h3 class="text-lg font-bold mb-6 relative z-10">
+                            Payment Details
+                        </h3>
+                        <div class="space-y-4 relative z-10">
+                            <div
+                                class="flex justify-between text-sm opacity-80"
+                            >
+                                <span>Subtotal</span>
+                                <span>Rp 150.000</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-sm opacity-80"
+                            >
+                                <span>Shipping Fee</span>
+                                <span>Rp 12.000</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-sm text-tertiary-fixed"
+                            >
+                                <span>Member Discount (5%)</span>
+                                <span>-Rp 7.500</span>
+                            </div>
+                            <div
+                                class="flex justify-between text-sm opacity-80"
+                            >
+                                <span>Shipping Voucher</span>
+                                <span>-Rp 4.500</span>
+                            </div>
+                            <div class="h-[1px] bg-white/20 my-4"></div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p
+                                        class="text-[10px] font-bold uppercase tracking-widest opacity-60"
+                                    >
+                                        Total Amount
+                                    </p>
+                                    <p
+                                        class="text-2xl font-extrabold tracking-tight"
+                                    >
+                                        Rp 150.000
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p
+                                        class="text-[10px] font-bold uppercase tracking-widest opacity-60"
+                                    >
+                                        Method
+                                    </p>
+                                    <p class="text-sm font-bold">Tunai (COD)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

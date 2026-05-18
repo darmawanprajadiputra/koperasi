@@ -12,10 +12,31 @@ class OrderController extends Controller
         return view('order');
     }
 
-    /**
-     * API: return transactions grouped by num_factur
-     * Setiap faktur bisa punya banyak item (produk), kita group jadi 1 card.
-     */
+    // ── Web: tampilkan halaman detail (blade view) ─────────────────────────────
+    public function show($order_id)
+    {
+        return view('detail_transaction', ['order_id' => $order_id]);
+    }
+
+    // ── API: kembalikan JSON detail transaksi ──────────────────────────────────
+    public function getOrderDetail($order_id)
+    {
+        $transactions = Transaction::with('product')
+            ->where('num_factur', $order_id)
+            ->get();
+
+        if ($transactions->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'Order not found'], 404);
+        }
+
+        return response()->json([
+            'success'      => true,
+            'num_factur'   => $order_id,
+            'transactions' => $transactions,
+        ]);
+    }
+
+    // ── API: return transactions grouped by num_factur ─────────────────────────
     public function getOrders(Request $request)
     {
         $status = $request->input('status', 'all');
@@ -24,7 +45,6 @@ class OrderController extends Controller
             ->orderByDesc('created_at');
 
         if ($status !== 'all') {
-            // Map filter label → payment_status value
             $map = [
                 'process'   => 'pending',
                 'completed' => 'completed',
@@ -36,7 +56,6 @@ class OrderController extends Controller
 
         $rows = $query->get();
 
-        // Group by num_factur so multi-item orders appear as one card
         $grouped = $rows->groupBy('num_factur')->map(function ($items) {
             $first = $items->first();
 
@@ -60,23 +79,6 @@ class OrderController extends Controller
             'success' => true,
             'orders'  => $grouped,
             'total'   => $grouped->count(),
-        ]);
-    }
-
-    public function show($order_id)
-    {
-        $transactions = Transaction::with('product')
-            ->where('num_factur', $order_id)
-            ->get();
-
-        if ($transactions->isEmpty()) {
-            return response()->json(['success' => false, 'message' => 'Order not found'], 404);
-        }
-
-        return response()->json([
-            'success'      => true,
-            'num_factur'   => $order_id,
-            'transactions' => $transactions,
         ]);
     }
 

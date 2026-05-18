@@ -1,219 +1,217 @@
-// Order Page JavaScript
+(function () {
+    const DEFAULT_IMG = '/assets/pictures/produk.jpg';
+    const PER_PAGE = 10;
 
-// Sample order data
-const sampleOrders = [
-  {
-    id: '#AGR-2024-8812',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC40c1gFpL7eYCg6Xn4CRPhl8eWVdZQyv_VQPjG0rZMG3Dhvk5Vz5ZjqyGqyRFaF-bI3ej-n1OPCE-ldB8aliUIz9XaNXIfMpsaRk9WAsZvjNwfCzA6L2ThwA91N0lll6ySQmi3JttS4KEP0liWfG14rN11PKtt3YS_Ayk2AmCt8kna7JA1myPyBCFL-Z4O3IfGc2iU_c1g_iEK9J8YibDeeQqOYFIGQH1aNpQK6sWiEHQYxJuQerbpu994girH-JKO78Frfq8_LUvp',
-    status: 'process',
-    badge: 'Diproses',
-    badgeClass: 'badge-process',
-    total: 1450000,
-    date: '12 Okt 2024',
-    items: '12 Komoditas',
-    method: 'Transfer Bank'
-  },
-  {
-    id: '#AGR-2024-8795',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAhGUdi9Ks9s3FSIHlrN6Li-jiaboxBHOfsE0Qn2JoyUUEdY066w8ZzzVFYiZfTePDSNpOk6W7sActbDLhAEL4pqQ6yNZos0_NrvMHobiTElJNIEUORT5VWgeZXd_seFTuHA9gVmB2w4s_exreB3EjQRoGyhIL_yuD7nL-n5JnrJvUac6VeBFtGb1wCbgr1OSIVe_o-jeEWbMo7pcq6RLSns6NWEIseTgkwv9eeBt1hVR1dV6pSmaHRpub1F1aQ77NyMLzXvxZi22dZ',
-    status: 'shipped',
-    badge: 'Dikirim',
-    badgeClass: 'badge-shipped',
-    total: 842000,
-    date: '10 Okt 2024',
-    items: '5 Komoditas',
-    method: 'Agrarian Express'
-  },
-  {
-    id: '#AGR-2024-8702',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXYY4tUeZOBbe4CcpkhkouD2U4ZwBzxpaBjhC9T6R8oe5se8bz9QR5BhaqrpktiDmQejTnXGlf9AHfG0uQZUWWvyU387Y6tJ-OiNNkN35IzeCIyt9rR5bL2IAqyVhCox6YClIY-aI1a2D_-aCxsoOkMZqEpg2goHTfaqfTeEgG94Ywh-QfuegLtkC_reqi0Uno2BxdGenOduohmOxtk7j-cG8-cfUxF0-R0rc4JXV_fmFddFE2aSqJprvTbR0N8SvLps6WR2nQm-rn',
-    status: 'completed',
-    badge: 'Selesai',
-    badgeClass: 'badge-completed',
-    total: 2105000,
-    date: '05 Okt 2024',
-    items: '22 Komoditas',
-    method: 'Credit Line'
-  }
-];
+    let allOrders = [];
+    let currentPage = 1;
+    let activeFilter = 'all';
 
-let currentPage = 1;
-let itemsPerPage = 5;
-let filteredOrders = sampleOrders;
-let currentFilter = 'all';
+    // ── Status helpers ─────────────────────────────────────────────────────────
+    const STATUS_LABEL = {
+        pending: 'DIPROSES',
+        processing: 'DIPROSES',
+        completed: 'SELESAI',
+        cancelled: 'DIBATALKAN',
+    };
+    const STATUS_CLASS = {
+        pending: 'bg-[#f5e6c8] text-[#7a4f00]',
+        processing: 'bg-[#f5e6c8] text-[#7a4f00]',
+        completed: 'bg-[#c8f5d5] text-[#005c20]',
+        cancelled: 'bg-red-100 text-red-700',
+    };
 
-// Utility function to format currency
-function formatCurrency(value) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0
-  }).format(value);
-}
+    function statusLabel(s) {
+        return STATUS_LABEL[s] ?? (s ? s.toUpperCase() : '-');
+    }
 
-// Create order card HTML
-function createOrderCard(order, isCompleted = false) {
-  const imageClass = isCompleted ? 'completed' : '';
-  const btnClass = isCompleted ? 'text-btn' : '';
-  const methodLabel = order.status === 'shipped' ? 'Kurir' : 'Metode';
-  const methodValue = order.method;
+    function statusClass(s) {
+        return STATUS_CLASS[s] ?? 'bg-surface-container text-on-surface-variant';
+    }
 
-  return `
-    <div class="order-card">
-      <div class="order-card-image-wrapper ${imageClass}">
-        <img src="${order.image}" alt="order image" class="order-card-image" />
-        <span class="badge ${order.badgeClass}">${order.badge}</span>
-      </div>
-      <div class="order-card-content">
-        <div class="order-card-header">
-          <div>
-            <span class="order-id">Order ID</span>
-            <h3 class="order-id-value">${order.id}</h3>
-          </div>
-          <div>
-            <span class="order-total-label">Total Pesanan</span>
-            <p class="order-total-value">${formatCurrency(order.total)}</p>
-          </div>
-        </div>
-        <div class="order-card-details">
-          <div class="order-detail-item">
-            <p class="order-detail-label">Tanggal</p>
-            <p class="order-detail-value">${order.date}</p>
-          </div>
-          <div class="order-detail-item">
-            <p class="order-detail-label">Total Item</p>
-            <p class="order-detail-value">${order.items}</p>
-          </div>
-          <div class="order-detail-item">
-            <p class="order-detail-label">${methodLabel}</p>
-            <p class="order-detail-value">${methodValue}</p>
-          </div>
-          <div class="order-detail-item order-detail-button">
-            <button class="order-detail-btn ${btnClass}">
-              Lihat Detail
-              <span class="material-symbols-outlined">arrow_forward</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
+    // ── Currency ───────────────────────────────────────────────────────────────
+    function formatRp(v) {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(v);
+    }
 
-// Render orders
-function renderOrders() {
-  const container = document.getElementById('ordersContainer');
-  
-  if (!container) return;
+    // ── Build one order card ───────────────────────────────────────────────────
+    function createOrderCard(order) {
+        return `
+            <div class="order-card bg-surface-container-lowest rounded-2xl overflow-hidden flex items-stretch shadow-sm hover:shadow-md transition-shadow"
+                 data-status="${order.payment_status ?? 'pending'}">
 
-  // Apply filter
-  if (currentFilter === 'all') {
-    filteredOrders = sampleOrders;
-  } else {
-    filteredOrders = sampleOrders.filter(order => order.status === currentFilter);
-  }
+                <div class="relative w-28 flex-shrink-0">
+                    <img src="${DEFAULT_IMG}"
+                         onerror="this.src='${DEFAULT_IMG}'"
+                         alt="Pesanan"
+                         class="w-full h-full object-cover" />
+                    <div class="absolute top-3 left-3">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${statusClass(order.payment_status ?? 'pending')}">
+                            ${statusLabel(order.payment_status ?? 'pending')}
+                        </span>
+                    </div>
+                </div>
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
+                <div class="flex-1 px-8 py-6 flex flex-col justify-between gap-4">
 
-  // Render orders
-  container.innerHTML = paginatedOrders.map((order, index) => {
-    const isCompleted = order.status === 'completed';
-    return createOrderCard(order, isCompleted);
-  }).join('');
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">No. Faktur</p>
+                            <p class="font-manrope font-extrabold text-2xl text-on-surface">#${order.num_factur}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Total Pesanan</p>
+                            <p class="font-manrope font-extrabold text-2xl text-primary">${formatRp(order.total_amount)}</p>
+                        </div>
+                    </div>
 
-  // Render pagination
-  renderPagination(totalPages);
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex gap-8">
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Tanggal</p>
+                                <p class="text-sm font-semibold text-on-surface">${order.date}</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Pemesan</p>
+                                <p class="text-sm font-semibold text-on-surface">${order.name_customer}</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Total Item</p>
+                                <p class="text-sm font-semibold text-on-surface">${order.total_items} Produk</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Metode</p>
+                                <p class="text-sm font-semibold text-on-surface">${order.payment_method ?? '-'}</p>
+                            </div>
+                        </div>
+                        <button
+                            class="detail-btn flex items-center gap-2 bg-on-surface text-surface px-6 py-3 rounded-full font-bold text-sm hover:opacity-80 active:scale-95 transition-all"
+                            data-factur="${order.num_factur}">
+                            Lihat Detail
+                            <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
+                    </div>
 
-  // Update button states
-  updatePaginationButtons(totalPages);
-}
+                </div>
+            </div>
+        `;
+    }
 
-// Render pagination buttons
-function renderPagination(totalPages) {
-  const paginationContainer = document.getElementById('paginationContainer');
-  
-  if (!paginationContainer) return;
+    // ── Render current page ────────────────────────────────────────────────────
+    function render() {
+        const container    = document.getElementById('ordersContainer');
+        const emptyState   = document.getElementById('emptyState');
+        const paginationWr = document.getElementById('paginationWrapper');
+        const pagContainer = document.getElementById('paginationContainer');
 
-  let html = '';
-  for (let i = 1; i <= totalPages; i++) {
-    const activeClass = i === currentPage ? 'active' : '';
-    html += `<button class="pagination-btn ${activeClass}" data-page="${i}">${i}</button>`;
-  }
-  
-  paginationContainer.innerHTML = html;
+        const filtered = activeFilter === 'all'
+            ? allOrders
+            : allOrders.filter(o => {
+                if (activeFilter === 'process')   return ['pending', 'processing'].includes(o.payment_status);
+                if (activeFilter === 'completed') return o.payment_status === 'completed';
+                return true;
+            });
 
-  // Add event listeners
-  document.querySelectorAll('.pagination-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      currentPage = parseInt(e.target.dataset.page);
-      renderOrders();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+        const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        const slice = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+
+        if (slice.length === 0) {
+            container.classList.add('hidden');
+            paginationWr.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        container.classList.remove('hidden');
+        container.innerHTML = slice.map(createOrderCard).join('');
+
+        // detail button → redirect ke halaman detail
+        container.querySelectorAll('.detail-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window.location.href = '/order/' + btn.dataset.factur;
+            });
+        });
+
+        // pagination
+        if (totalPages > 1) {
+            paginationWr.classList.remove('hidden');
+            pagContainer.innerHTML = Array.from({ length: totalPages }, (_, i) => `
+                <button class="page-btn w-9 h-9 rounded-full text-sm font-bold transition-all
+                    ${i + 1 === currentPage
+                        ? 'bg-tertiary text-on-tertiary shadow'
+                        : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest'}"
+                    data-page="${i + 1}">${i + 1}</button>
+            `).join('');
+
+            pagContainer.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentPage = parseInt(btn.dataset.page);
+                    render();
+                });
+            });
+
+            document.getElementById('prevBtn').disabled = currentPage <= 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        } else {
+            paginationWr.classList.add('hidden');
+        }
+    }
+
+    // ── Load dari API ──────────────────────────────────────────────────────────
+    async function loadOrders() {
+        const loading = document.getElementById('loadingState');
+        try {
+            const res  = await fetch('/api/get_orders');
+            const data = await res.json();
+
+            loading.classList.add('hidden');
+
+            if (data.success && data.orders.length > 0) {
+                allOrders = data.orders;
+                render();
+            } else {
+                document.getElementById('emptyState').classList.remove('hidden');
+            }
+        } catch (err) {
+            console.error('[ORDER]', err);
+            loading.classList.add('hidden');
+            document.getElementById('emptyState').classList.remove('hidden');
+        }
+    }
+
+    // ── Filter buttons ─────────────────────────────────────────────────────────
+    function setupFilters() {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-tertiary', 'text-on-tertiary', 'shadow-lg', 'shadow-tertiary/10');
+                    b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                btn.classList.add('bg-tertiary', 'text-on-tertiary', 'shadow-lg', 'shadow-tertiary/10');
+                btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+                activeFilter = btn.dataset.filter;
+                currentPage  = 1;
+                render();
+            });
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => { currentPage--; render(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { currentPage++; render(); });
+    }
+
+    // ── Auto-dismiss flash ─────────────────────────────────────────────────────
+    const flash = document.getElementById('flashSuccess');
+    if (flash) setTimeout(() => flash.style.display = 'none', 5000);
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        setupFilters();
+        loadOrders();
     });
-  });
-}
-
-// Update pagination button states
-function updatePaginationButtons(totalPages) {
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  if (prevBtn) {
-    prevBtn.disabled = currentPage === 1;
-    prevBtn.style.opacity = currentPage === 1 ? '0.5' : '1';
-    prevBtn.addEventListener('click', () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderOrders();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.disabled = currentPage === totalPages;
-    nextBtn.style.opacity = currentPage === totalPages ? '0.5' : '1';
-    nextBtn.addEventListener('click', () => {
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderOrders();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-  }
-}
-
-// Filter handler
-function setupFilterHandlers() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Remove active class from all buttons
-      filterButtons.forEach(b => b.classList.remove('active'));
-      
-      // Add active class to clicked button
-      btn.classList.add('active');
-      
-      // Update filter and reset pagination
-      currentFilter = btn.dataset.filter || 'all';
-      currentPage = 1;
-      
-      // Re-render
-      renderOrders();
-    });
-  });
-
-  // Set initial active button
-  filterButtons[0].classList.add('active');
-}
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  if (!document.getElementById('ordersContainer')) return;
-  setupFilterHandlers();
-  renderOrders();
-});
+})();

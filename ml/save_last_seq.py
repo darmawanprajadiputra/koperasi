@@ -5,8 +5,22 @@ import pandas as pd
 
 # ── Konfigurasi ───────────────────────────────────────────────────────────────
 PRODUK_CSV = {
+    #'anggur merah': 'ml/data/Anggur merah.csv',
+    #'apel fuji pink': 'ml/data/Apel fuji pink.csv',
+    #'ayam fillet': 'ml/data/Ayam fillet.csv',
+    #'ayam potong': 'ml/data/Ayam potong.csv',
+    #'bawang merah': 'ml/data/Bawang merah.csv',
+    #'bawang putih': 'ml/data/Bawang putih.csv',
     #'beras': 'ml/data/Beras.csv',
-    'pir': 'ml/data/Pir.csv',
+    'buah naga': 'ml/data/Buah naga.csv',
+    #'fillet lele': 'ml/data/Fillet Lele.csv',
+    #'indomilk fc': 'ml/data/Indomilk fc.csv',
+    #'indomilk ck_st': 'ml/data/Indomilk ck_st.csv',
+    #'Jeruk DR': 'ml/data/Jeruk DR.csv',
+    #'lengkeng gold': 'ml/data/Lengkeng gold.csv',
+    #'lengkeng hijau': 'ml/data/Lengkeng hijau.csv',
+    #'pir': 'ml/data/Pir.csv',
+    #'semangka': 'ml/data/Semangka.csv',
 }
 
 KOLOM_PENJUALAN = 'Jumlah'

@@ -1,0 +1,198 @@
+@extends('layouts.app')
+
+@section('title', 'Detail Pesanan')
+
+@section('content')
+    <div class="pt-8 px-8 pb-20 max-w-7xl mx-auto">
+
+        {{-- Back Button --}}
+        <div class="mb-8">
+            <a href="{{ route('order') }}"
+                class="group inline-flex items-center gap-2 text-primary font-medium text-sm hover:-translate-x-1 transition-transform">
+                <span class="material-symbols-outlined text-base">arrow_back</span>
+                Kembali ke Daftar Pesanan
+            </a>
+        </div>
+
+        {{-- Loading State --}}
+        <div id="loadingState" class="text-center py-16 text-on-surface-variant">
+            <div class="inline-block animate-spin mb-4">
+                <span class="material-symbols-outlined text-4xl text-primary">hourglass_empty</span>
+            </div>
+            <p>Memuat detail pesanan...</p>
+        </div>
+
+        {{-- Error State --}}
+        <div id="errorState" class="hidden text-center py-16 text-on-surface-variant">
+            <span class="material-symbols-outlined text-6xl opacity-20 block mb-4">error_outline</span>
+            <p class="font-semibold text-base">Pesanan tidak ditemukan</p>
+            <p class="text-sm mt-1">Pastikan nomor faktur yang Anda akses benar.</p>
+        </div>
+
+        {{-- Main Content (diisi oleh JS) --}}
+        <div id="detailContent" class="hidden">
+
+            {{-- Header --}}
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-xs font-bold tracking-widest text-secondary uppercase">Detail Pesanan</span>
+                        <span id="headerBadge" class="px-3 py-1 rounded-full text-[11px] font-bold"></span>
+                    </div>
+                    <h1 id="headerInvoice" class="font-manrope text-4xl font-extrabold text-primary tracking-tight"></h1>
+                    <p id="headerDate" class="text-on-surface-variant mt-2 font-medium"></p>
+                </div>
+            </div>
+
+            {{-- Grid --}}
+            <div class="grid grid-cols-12 gap-8">
+
+                {{-- Kolom Kiri --}}
+                <div class="col-span-12 lg:col-span-8 space-y-8">
+
+                    {{-- Status Pesanan --}}
+                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+                        <h3 class="text-lg font-bold text-primary mb-10">Status Pesanan</h3>
+                        <div class="relative">
+                            <div class="absolute top-5 left-0 w-full h-[2px] bg-surface-container-high"></div>
+                            <div id="progressLine" class="absolute top-5 left-0 h-[2px] bg-primary transition-all duration-500"></div>
+                            <div class="relative flex justify-between">
+                                <div class="flex flex-col items-center text-center" id="step1">
+                                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md">
+                                        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">check</span>
+                                    </div>
+                                    <p class="mt-4 text-xs font-bold text-on-surface">Pesanan Diterima</p>
+                                    <p id="step1Date" class="text-[10px] text-on-surface-variant">—</p>
+                                </div>
+                                <div class="flex flex-col items-center text-center" id="step2">
+                                    <div id="step2Icon" class="w-10 h-10 rounded-full bg-white border-4 border-primary text-primary flex items-center justify-center z-10 shadow-sm">
+                                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                    </div>
+                                    <p class="mt-4 text-xs font-bold text-primary" id="step2Label">Diproses</p>
+                                    <p class="text-[10px] text-on-surface-variant" id="step2Sub">Sedang disiapkan</p>
+                                </div>
+                                <div class="flex flex-col items-center text-center opacity-40" id="step3">
+                                    <div id="step3Icon" class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-transparent flex items-center justify-center z-10"></div>
+                                    <p class="mt-4 text-xs font-bold text-on-surface">Selesai</p>
+                                    <p class="text-[10px] text-on-surface-variant" id="step3Sub">—</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {{-- Ringkasan Pesanan --}}
+                    <section class="bg-surface-container-lowest overflow-hidden rounded-xl shadow-sm border border-outline-variant/5">
+                        <div class="px-8 py-6 border-b border-surface-container-low flex justify-between items-center">
+                            <h3 class="text-lg font-bold text-primary">Ringkasan Pesanan</h3>
+                            <span id="itemsCount" class="text-sm font-medium text-on-surface-variant"></span>
+                        </div>
+                        <div id="productList" class="divide-y divide-surface-container-low"></div>
+                    </section>
+
+                    {{-- Tombol Selesaikan --}}
+                    <div id="completeOrderSection" class="hidden">
+                        <button id="completeOrderBtn"
+                            class="w-full flex items-center justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.99] transition-all">
+                            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">task_alt</span>
+                            Tandai Pesanan Selesai
+                        </button>
+                    </div>
+
+                </div>
+
+                {{-- Kolom Kanan --}}
+                <div class="col-span-12 lg:col-span-4 space-y-8">
+
+                    {{-- Info Pemesan --}}
+                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="material-symbols-outlined text-primary text-xl">person</span>
+                            <h3 class="text-lg font-bold text-primary">Info Pemesan</h3>
+                        </div>
+                        <div class="space-y-5">
+                            <div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Nama</p>
+                                <p id="infoName" class="text-sm font-bold text-on-surface mt-1">—</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">No. Telepon</p>
+                                <p id="infoPhone" class="text-sm text-on-surface-variant mt-1">—</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Penerima</p>
+                                <p id="infoRecipient" class="text-sm text-on-surface-variant mt-1">—</p>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Alamat Pengiriman</p>
+                                <p id="infoAddress" class="text-sm text-on-surface-variant mt-1 leading-relaxed">—</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {{-- Detail Pembayaran --}}
+                    <section class="bg-primary text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 opacity-10">
+                            <span class="material-symbols-outlined text-9xl" style="font-variation-settings:'FILL' 1">account_balance_wallet</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-6 relative z-10">Detail Pembayaran</h3>
+                        <div class="space-y-4 relative z-10">
+                            <div class="flex justify-between text-sm opacity-80">
+                                <span>Metode</span>
+                                <span id="payMethod" class="font-semibold">—</span>
+                            </div>
+                            <div class="flex justify-between text-sm opacity-80">
+                                <span>Status</span>
+                                <span id="payStatus" class="font-semibold">—</span>
+                            </div>
+                            <div id="notesRow" class="hidden flex justify-between text-sm opacity-80">
+                                <span>Catatan</span>
+                                <span id="payNotes" class="font-semibold text-right max-w-[60%]">—</span>
+                            </div>
+                            <div class="h-[1px] bg-white/20 my-4"></div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Total Pembayaran</p>
+                                    <p id="payTotal" class="font-manrope text-2xl font-extrabold tracking-tight">—</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Jumlah Item</p>
+                                    <p id="payItems" class="text-sm font-bold">—</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{-- Confirm Modal --}}
+    <div id="confirmModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <div class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-sm w-full p-8 animate-fade-in">
+            <div class="flex items-center justify-center w-16 h-16 bg-[#c8f5d5] rounded-full mx-auto mb-5">
+                <span class="material-symbols-outlined text-3xl text-[#005c20]" style="font-variation-settings:'FILL' 1">task_alt</span>
+            </div>
+            <h2 class="font-manrope text-xl font-extrabold text-on-surface text-center mb-2">Konfirmasi Pesanan Selesai</h2>
+            <p class="text-sm text-on-surface-variant text-center mb-8">
+                Pesanan ini akan ditandai sebagai <strong>Selesai</strong>.<br>Tindakan ini tidak dapat diurungkan.
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelConfirm"
+                    class="flex-1 py-3 rounded-xl border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container transition-colors">
+                    Batal
+                </button>
+                <button id="confirmComplete"
+                    class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-bold text-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <span id="confirmSpinner" class="hidden material-symbols-outlined text-sm animate-spin">progress_activity</span>
+                    Selesaikan
+                </button>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('scripts')
+    <script src="{{ asset('js/detail_transaction.js') }}"></script>
+@endpush

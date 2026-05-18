@@ -11,7 +11,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category', 'unit')->latest()->get();
+        $products = Product::with('category', 'unit')->latest()->get()->map(function ($product) {
+            $product->image_url = $product->image
+                ? asset('storage/' . ltrim($product->image, '/'))
+                : asset('assets/pictures/produk.jpg');
+            return $product;
+        });
         return view('storage', compact('products'));
     }
 

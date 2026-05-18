@@ -31,7 +31,9 @@ class ShopController extends Controller
                     'category'     => $product->category?->name_categories ?? 'Produk',
                     'price'        => $product->price,
                     'stock'        => $product->stock,
-                    'image'        => $product->image ? asset('storage/' . $product->image) : null,
+                    'image'        => $product->image
+                                        ? asset('storage/' . ltrim($product->image, '/'))
+                                        : asset('assets/pictures/produk.jpg'),
                     'description'  => $product->description ?? $product->category?->name_categories ?? 'Produk berkualitas dari koperasi',
                 ];
             });
@@ -65,7 +67,9 @@ class ShopController extends Controller
                 'name_product' => $product->name_product,
                 'price'        => $product->price,
                 'quantity'     => $qty,
-                'image'        => $product->image ? asset('storage/' . $product->image) : null,
+                'image'        => $product->image
+                    ? asset('storage/' . ltrim($product->image, '/'))
+                    : asset('assets/pictures/produk.jpg'),
             ];
         }
 

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->char('num_factur', 10)
-                ->unique()
-                ->default('NF-0001');
+                ->default('NF-0001')
+                ->index();
             $table->string('name_customer');
             $table->string('no_telephone', 20)->nullable();
             $table->text('address')->nullable();

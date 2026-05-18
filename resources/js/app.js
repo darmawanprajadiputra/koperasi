@@ -7,3 +7,4 @@ import './order';
 import './add';
 import './edit';
 import './prediction';
+import './detail_transaction';
