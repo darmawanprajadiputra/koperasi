@@ -222,4 +222,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── Stock Management ──────────────────────────────────────────────────────
+    const stockField    = document.getElementById('stockField');
+    const addStockInput = document.getElementById('addStockInput');
+    const addStockBtn   = document.getElementById('addStockBtn');
+    const cancelStockBtn = document.getElementById('cancelStockBtn');
+    const stockHint     = document.getElementById('stockHint');
+    const stockPreview  = document.getElementById('stockPreview');
+
+    // Simpan stok asli dari EDIT_CONFIG agar bisa di-reset
+    const originalStock = cfg.originalStock ?? (stockField ? parseInt(stockField.value) || 0 : 0);
+
+    function applyAddStock() {
+        if (!stockField || !addStockInput) return;
+
+        const addVal = parseInt(addStockInput.value);
+        if (!addVal || addVal < 1) {
+            addStockInput.classList.add('ring-2', 'ring-red-400');
+            addStockInput.focus();
+            setTimeout(() => addStockInput.classList.remove('ring-2', 'ring-red-400'), 1500);
+            return;
+        }
+
+        const current  = parseInt(stockField.value) || 0;
+        const newStock = current + addVal;
+
+        stockField.value        = newStock;
+        stockPreview.textContent = newStock;
+        stockHint?.classList.remove('hidden');
+
+        // Reset input & feedback hijau
+        addStockInput.value = '';
+        addStockInput.classList.add('ring-2', 'ring-teal-400');
+        setTimeout(() => addStockInput.classList.remove('ring-2', 'ring-teal-400'), 1200);
+
+        // Tampilkan tombol Batalkan
+        cancelStockBtn?.classList.remove('hidden');
+        cancelStockBtn?.classList.add('flex');
+    }
+
+    function cancelAddStock() {
+        if (!stockField) return;
+
+        stockField.value = originalStock;
+        addStockInput.value = '';
+        stockHint?.classList.add('hidden');
+
+        // Sembunyikan tombol Batalkan kembali
+        cancelStockBtn?.classList.add('hidden');
+        cancelStockBtn?.classList.remove('flex');
+
+        // Feedback merah sebentar pada field stok
+        stockField.classList.add('ring-2', 'ring-red-300');
+        setTimeout(() => stockField.classList.remove('ring-2', 'ring-red-300'), 1200);
+    }
+
+    addStockBtn?.addEventListener('click', applyAddStock);
+    cancelStockBtn?.addEventListener('click', cancelAddStock);
+
+    addStockInput?.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); applyAddStock(); }
+        if (e.key === 'Escape') { e.preventDefault(); cancelAddStock(); }
+    });
+
+
 });

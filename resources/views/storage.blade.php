@@ -1,13 +1,11 @@
 @extends('layouts.app')
 
 @section('title', 'Gudang')
+@section('page_title', 'Gudang')
 
 @section('content')
-    <div class="max-w-7xl mx-8 mt-12">
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-teal-900 mb-2">Gudang</h1>
-        </div>
+
+    <div class="max-w-7xl mx-8 mt-10">
 
         {{-- Flash Message --}}
         @if (session('success'))
@@ -48,8 +46,8 @@
         <!-- Search -->
         <div class="bg-white rounded-t-xl border border-b-0 border-gray-200 p-4 flex gap-4 items-center">
             <div class="flex-1 relative">
-                <span class="absolute left-3 top-3 text-gray-400">🔍</span>
-                <input type="text" id="searchInput" placeholder="Cari nama produk atau kategori..."
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+                <input type="text" id="searchInput" placeholder="Cari produk..."
                     class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-sm" />
             </div>
         </div>
@@ -93,7 +91,7 @@
         </div>
     </div>
 
-    {{-- Hidden forms untuk aksi produk --}}
+    {{-- Hidden forms aksi produk --}}
     <form id="deleteForm" method="POST" style="display:none;">
         @csrf
         @method('DELETE')
@@ -122,10 +120,6 @@
         </button>
     </div>
 
-    {{--
-        Inject konfigurasi server-side ke window.StorageConfig SEBELUM storage.js di-load.
-        File storage.js akan membaca objek ini sehingga tidak ada lagi Blade syntax di dalam .js.
-    --}}
     <script>
         window.StorageConfig = {
             allProducts : @json($products),

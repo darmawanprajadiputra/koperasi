@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Prediksi Stok')
+@section('page_title', 'Prediksi Stok')
 
 @section('content')
     <div class="max-w-7xl mx-8 py-10">
-        <div class="mb-10">
-            <h2 class="font-headline text-teal-900 font-extrabold text-4xl text-primary tracking-tight mb-2">
-                Prediksi Stok Produk
-            </h2>
-        </div>
 
         {{-- Input Card --}}
         <div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_32px_rgba(25,28,27,0.04)] mb-8">
@@ -92,17 +88,53 @@
                 <p class="text-sm opacity-60">unit &bull; untuk 30 hari ke depan</p>
             </div>
 
-            {{-- Info ROP --}}
-            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3">
-                <span class="material-symbols-outlined text-amber-500 mt-0.5">warning</span>
-                <div>
-                    <p class="text-sm font-bold text-amber-800 mb-1">Reorder Point (ROP)</p>
-                    <p class="text-sm text-amber-700">
-                        Lakukan pemesanan ulang ketika stok mencapai
-                        <strong id="result-rop" class="text-amber-900 text-base"></strong> unit.
-                        Notifikasi restock akan otomatis muncul di dashboard saat stok menyentuh angka ini.
-                    </p>
+            {{-- Info ROP + Status Stok --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                {{-- ROP Info --}}
+                <div class="bg-surface-container-low rounded-xl p-5 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-on-surface-variant mt-0.5">moving</span>
+                    <div>
+                        <p class="text-xs text-on-surface-variant mb-1 font-medium uppercase tracking-wide">Reorder Point (ROP)</p>
+                        <p class="text-3xl font-extrabold text-on-surface mb-1">
+                            <span id="result-rop"></span>
+                            <span class="text-base font-normal text-on-surface-variant ml-1">unit</span>
+                        </p>
+                        <p class="text-xs text-on-surface-variant">Batas minimum stok sebelum perlu restock</p>
+                    </div>
                 </div>
+
+                {{-- Stok Terkini + Kondisi --}}
+                {{-- Kondisi AMAN (stok >= ROP) --}}
+                <div id="result-stock-safe" class="hidden bg-green-50 border border-green-200 rounded-xl p-5 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-green-600 mt-0.5">check_circle</span>
+                    <div>
+                        <p class="text-xs text-green-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Aman</p>
+                        <p class="text-3xl font-extrabold text-green-800 mb-1">
+                            <span id="result-current-stock-safe"></span>
+                            <span class="text-base font-normal text-green-600 ml-1">unit tersedia</span>
+                        </p>
+                        <p class="text-xs text-green-700">
+                            Stok saat ini <strong>di atas ROP</strong>. Belum perlu melakukan pemesanan ulang.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Kondisi BAHAYA (stok < ROP) --}}
+                <div id="result-stock-danger" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-amber-500 mt-0.5">warning</span>
+                    <div>
+                        <p class="text-xs text-amber-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Perlu Restock</p>
+                        <p class="text-3xl font-extrabold text-amber-900 mb-1">
+                            <span id="result-current-stock-danger"></span>
+                            <span class="text-base font-normal text-amber-600 ml-1">unit tersedia</span>
+                        </p>
+                        <p class="text-xs text-amber-700">
+                            Stok saat ini <strong>di bawah ROP</strong>. Segera lakukan pemesanan ulang untuk menghindari kehabisan stok.
+                        </p>
+                    </div>
+                </div>
+
             </div>
 
         </div>

@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('title', 'Tambah Item - Koperasi')
+@section('page_title', 'Manajemen Gudang')
 
 @section('content')
 
-    <div class="mt-12 mb-8 mx-6">
-        <div class="flex items-center gap-2 text-2xl text-on-surface-variant uppercase tracking-widest font-semibold">
-            <span>Manajemen Gudang</span>
-            <span class="material-symbols-outlined text-xs" style="font-size: 14px">chevron_right</span>
-            <span class="text-primary font-bold">Tambah Barang Baru</span>
-        </div>
+    <div class="flex items-center gap-3 mt-6 mx-10">
+        <a href="{{ route('storage') }}"
+            class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+            <span class="material-symbols-outlined text-xl">arrow_back</span>
+        </a>
+        <h1 class="font-manrope text-2xl font-extrabold text-primary tracking-wide">Tambah Produk</h1>
     </div>
 
     <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
@@ -62,7 +63,7 @@
                             @enderror
                         </div>
 
-                        <!-- Unit (Autocomplete) — data unit di-pass lewat data-units -->
+                        <!-- Unit -->
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan / Unit</label>
                             <div class="relative" id="unitWrapper">
@@ -73,7 +74,6 @@
                                     placeholder="Cari atau ketik satuan... (pcs, kg, liter)" value="{{ old('unit_name') }}"
                                     class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-11 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('unit_id') ring-2 ring-red-500 @enderror" />
                                 <input type="hidden" id="unitId" name="unit_id" value="{{ old('unit_id') }}" />
-                                {{-- data unit dibaca dari window.ADD_UNITS oleh add.js --}}
                             </div>
                             @error('unit_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
@@ -112,8 +112,6 @@
 
             <!-- Right Side -->
             <div class="lg:col-span-4 space-y-8">
-
-                <!-- Image Upload -->
                 <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm text-center">
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
                         Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
@@ -171,8 +169,6 @@
         </div>
     @endif
 
-    {{-- Data unit di-embed langsung di dalam section content --}}
-    {{-- Ini PASTI tersedia sebelum add.js (Vite module) dieksekusi --}}
     <script>
         window.ADD_UNITS = {!! json_encode($units) !!};
     </script>

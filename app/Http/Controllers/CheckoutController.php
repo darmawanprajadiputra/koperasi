@@ -62,13 +62,12 @@ class CheckoutController extends Controller
             return back()->withErrors(['cart_items' => 'Tidak ada produk valid.'])->withInput();
         }
 
-        return redirect()->route('order')
-            ->with('success', "Pesanan berhasil dibuat! {$created} item dengan nomor faktur {$numFactur}.");
+        return redirect()->route('shop')
+            ->with('order_success', "Pesanan berhasil diproses! {$created} item dengan nomor faktur {$numFactur}.");
     }
 
     private function generateInvoiceNumber(): string
     {
-        // Ambil semua num_factur, filter hanya format NF-XXXX (tanpa suffix)
         $last = Transaction::orderByDesc('id')
             ->pluck('num_factur')
             ->filter(fn($n) => preg_match('/^NF-(\d+)$/', $n))

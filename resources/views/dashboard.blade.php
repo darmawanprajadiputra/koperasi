@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Dashboard - Koperasi')
+@section('page_title', 'Dashboard')
 
 @section('content')
     <div class="px-8 pt-10 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-            <div>
-                <h1 class="text-4xl font-extrabold text-teal-900 uppercase mb-2">Dashboard</h1>
-            </div>
-        </div>
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

@@ -48,6 +48,9 @@ class PredictionController extends Controller
             ], 422);
         }
 
+        // Ambil stok terkini produk
+        $currentStock = (int) ($product->stock ?? 0);
+
         // Ambil data historis dari DB
         $history = DB::table('transactions')
             ->where('id_products', $product->id)
@@ -85,6 +88,7 @@ class PredictionController extends Controller
                     'product_name'     => $product->name_product,
                     'rekomendasi_stok' => round($hasil['recommended_order']),
                     'rop'              => round($hasil['rop']),
+                    'current_stock'    => $currentStock,
                     'tanggal'          => today()->translatedFormat('d F Y'),
                 ],
             ]);

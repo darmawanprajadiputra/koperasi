@@ -65,6 +65,24 @@ function showResult(data) {
     document.getElementById("result-date").textContent =
         "Diprediksi: " + data.tanggal;
 
+    // Tampilkan kondisi stok
+    const currentStock = data.current_stock ?? 0;
+    const rop = data.rop;
+    const isSafe = currentStock >= rop;
+
+    const safeEl   = document.getElementById("result-stock-safe");
+    const dangerEl = document.getElementById("result-stock-danger");
+
+    if (isSafe) {
+        document.getElementById("result-current-stock-safe").textContent = currentStock;
+        safeEl.classList.remove("hidden");
+        dangerEl.classList.add("hidden");
+    } else {
+        document.getElementById("result-current-stock-danger").textContent = currentStock;
+        dangerEl.classList.remove("hidden");
+        safeEl.classList.add("hidden");
+    }
+
     setState("data");
     resetButton();
 

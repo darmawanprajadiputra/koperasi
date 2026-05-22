@@ -12,7 +12,7 @@
 
 <body>
     <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
-        <!-- Background Texture/Visual -->
+        <!-- Background -->
         <div class="absolute inset-0 z-0">
             <img class="w-full h-full object-cover opacity-10"
                 alt="overhead shot of fresh organic vegetables and artisanal produce in a minimalist rustic market setting with soft natural morning light"
@@ -26,8 +26,7 @@
 
             <div class="bg-green-700 md:flex h-[90vh] flex-col justify-between p-14 overflow-y-auto">
                 <div>
-                    <h1 class="font-headline font-black text-3xl tracking-tighter mb-2">The Digital Agrarian</h1>
-                    <p class="font-body text-sm opacity-80 uppercase tracking-widest">Cooperative Member Portal</p>
+                    <h1 class="font-headline font-black text-2xl uppercase tracking-widest">Koperasi Bismillah Indonesia Sejahtera</h1>
                 </div>
                 <div class="space-y-4">
                     <div class=" w-12 bg-tertiary-fixed"></div>
@@ -41,13 +40,7 @@
             </div>
 
             <!-- Form Side -->
-            <div class="md:p-14 h-[90vh] flex flex-col justify-center bg-surface-container-lowest">
-                <div class="mb-4">
-                    <h2 class="font-headline font-extrabold text-3xl text-primary tracking-tight">
-                        KOPERASI<div>BISMILLAH INDONESIA</div>
-                        <div>SEHAHTERA</div>
-                    </h2>
-                </div>
+            <div class="md:p-14 h-[90vh] flex flex-col justify-center bg-surface-container-lowest"> 
 
                 @if ($errors->any())
                     <div class="mb-6 p-4 bg-error/10 border border-error rounded-lg">
@@ -58,7 +51,7 @@
                 <form action="{{ route('login') }}" method="POST" class="space-y-4" id="loginForm">
                     @csrf
 
-                    <!-- Username/Email Field -->
+                    <!-- Username/Email -->
                     <div class="space-y-2">
                         <label
                             class="block font-label text-xs font-bold text-on-surface-variant uppercase tracking-widest"
@@ -78,7 +71,7 @@
                         @enderror
                     </div>
 
-                    <!-- Password Field -->
+                    <!-- Password -->
                     <div class="space-y-2">
                         <div class="flex justify-between items-center">
                             <label

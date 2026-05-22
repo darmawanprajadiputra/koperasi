@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Detail Pesanan')
+@section('page_title', 'Rincian Pesanan')
 
 @section('content')
     <div class="pt-8 px-8 pb-20 max-w-7xl mx-auto">
@@ -36,7 +37,7 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-xs font-bold tracking-widest text-secondary uppercase">Detail Pesanan</span>
+                        <span class="text-xs font-bold tracking-widest text-secondary uppercase">Status Pesanan</span>
                         <span id="headerBadge" class="px-3 py-1 rounded-full text-[11px] font-bold"></span>
                     </div>
                     <h1 id="headerInvoice" class="font-manrope text-4xl font-extrabold text-primary tracking-tight"></h1>

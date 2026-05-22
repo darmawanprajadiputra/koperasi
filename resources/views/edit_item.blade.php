@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('title', 'Edit Item - Koperasi')
+@section('page_title', 'Manajemen Gudang')
 
 @section('content')
 
-    <div class="mt-12 mb-8 mx-6">
-        <div class="flex items-center gap-2 text-2xl text-on-surface-variant uppercase tracking-widest font-semibold">
-            <span>Manajemen Gudang</span>
-            <span class="material-symbols-outlined text-xs" style="font-size: 14px">chevron_right</span>
-            <span class="text-primary font-bold">Edit Barang</span>
-        </div>
+    <div class="flex items-center gap-3 mt-6 mx-10">
+        <a href="{{ route('storage') }}"
+            class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+            <span class="material-symbols-outlined text-xl">arrow_back</span>
+        </a>
+        <h1 class="font-manrope text-2xl font-extrabold text-primary tracking-wide">Edit Produk</h1>
     </div>
 
     <form method="POST" action="{{ route('product.update', $product->id) }}" enctype="multipart/form-data">
@@ -84,14 +85,38 @@
 
                         <!-- Stock -->
                         <div>
-                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Stok</label>
-                            <input name="stock"
-                                class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface @error('stock') ring-2 ring-red-500 @enderror"
-                                placeholder="0" type="number" min="0" value="{{ old('stock', $product->stock) }}"
-                                required />
+                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Stok Saat Ini</label>
+                            <input name="stock" id="stockField"
+                                class="w-full bg-surface-container rounded-lg p-4 text-on-surface font-bold border-none cursor-not-allowed"
+                                type="number" value="{{ old('stock', $product->stock) }}"
+                                readonly />
                             @error('stock')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                             @enderror
+
+                            {{-- Tambah Stok --}}
+                            <div class="mt-3 flex items-center gap-3">
+                                <div class="relative flex-1">
+                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-bold text-teal-600">+</span>
+                                    <input id="addStockInput" type="number" min="1"
+                                        placeholder="Jumlah tambahan"
+                                        class="w-full bg-surface-container-low border-none rounded-lg py-3 pl-7 pr-4 focus:ring-2 focus:ring-primary-container text-on-surface text-sm" />
+                                </div>
+                                <button type="button" id="addStockBtn"
+                                    class="flex items-center gap-1.5 px-4 py-3 rounded-lg bg-teal-700 text-white text-sm font-bold hover:bg-teal-800 active:scale-95 transition-all whitespace-nowrap">
+                                    <span class="material-symbols-outlined text-base">add_circle</span>
+                                    Tambah
+                                </button>
+                                <button type="button" id="cancelStockBtn"
+                                    class="hidden flex items-center gap-1.5 px-4 py-3 rounded-lg bg-surface-container-high text-on-surface-variant text-sm font-bold hover:bg-red-50 hover:text-red-600 active:scale-95 transition-all whitespace-nowrap">
+                                    <span class="material-symbols-outlined text-base">undo</span>
+                                    Batalkan
+                                </button>
+                            </div>
+                            <p id="stockHint" class="text-xs text-on-surface-variant mt-2 hidden">
+                                <span class="material-symbols-outlined align-middle text-teal-600" style="font-size:13px">info</span>
+                                Stok akan menjadi <strong id="stockPreview" class="text-teal-700"></strong>
+                            </p>
                         </div>
 
                         <!-- Harga Jual -->
@@ -197,6 +222,7 @@
             units: {!! json_encode($units) !!},
             currentUnitId: {{ $product->unit_id ?? 'null' }},
             currentUnitName: "{{ addslashes($product->unit->name_unit ?? '') }}",
+            originalStock: {{ $product->stock }},
         };
     </script>
 

@@ -26,29 +26,43 @@
 
         <!-- Main Content -->
         <main class="dashboard-main">
-            <div class="absolute top-8 right-8 z-40 flex items-center gap-4">
+
+            <!-- Header -->
+            <header class="dashboard-header sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white border-b border-gray-100 shadow-sm">
+                <!-- Page Title -->
+                <div class="flex items-center gap-3">
+                    <h2 class="text-3xl font-extrabold text-teal-900 text-primary uppercase tracking-wide">
+                        @yield('page_title')
+                    </h2>
+                </div>
+
                 <!-- Profile Dropdown -->
                 <div class="relative">
                     <button id="profileButton"
-                        class="p-2 text-primary hover:bg-surface-container-high rounded-full transition-all">
-                        <span class="material-symbols-outlined" style="font-size: 32px;">account_circle</span>
+                        class="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-100 transition-all group">
+                        <span class="material-symbols-outlined text-teal-700 group-hover:text-teal-900 transition-colors" style="font-size: 32px;">account_circle</span>
+                        <span class="text-sm font-semibold text-gray-700 group-hover:text-teal-900 transition-colors hidden sm:inline">
+                            {{ Auth::user()->username }}
+                        </span>
+                        <span class="material-symbols-outlined text-gray-400 group-hover:text-teal-700 transition-colors" style="font-size: 18px;">expand_more</span>
                     </button>
 
                     <div id="profileDropdown"
-                        class="hidden absolute right-0 mt-2 w-48 bg-surface-container-low rounded-lg shadow-lg overflow-hidden z-50">
+                        class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
                         <!-- Username -->
-                        <div class="px-4 py-3 border-b border-outline-variant">
-                            <p class="text-sm font-semibold text-on-surface">{{ Auth::user()->username }}</p>
+                        <div class="px-4 py-3 border-b border-gray-100 bg-teal-50">
+                            <p class="text-xs text-teal-600 font-medium uppercase tracking-wider mb-0.5">Masuk sebagai</p>
+                            <p class="text-sm font-bold text-teal-900">{{ Auth::user()->username }}</p>
                         </div>
                         <!-- Logout -->
                         <button type="button" onclick="document.getElementById('logoutForm').submit()"
-                            class="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-surface-container hover:text-red-700 transition-all">
+                            class="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-all">
                             <span class="material-symbols-outlined" style="font-size: 18px;">logout</span>
                             Logout
                         </button>
                     </div>
                 </div>
-            </div>
+            </header>
 
             <!-- Content -->
             <div class="content">
@@ -72,7 +86,6 @@
     @vite(['resources/js/app.js'])
 
     <script>
-        // Profile dropdown toggle
         const profileButton = document.getElementById('profileButton');
         const profileDropdown = document.getElementById('profileDropdown');
 
@@ -81,7 +94,6 @@
             profileDropdown.classList.toggle('hidden');
         });
 
-        // Tutup dropdown kalau klik di luar
         document.addEventListener('click', () => {
             profileDropdown.classList.add('hidden');
         });

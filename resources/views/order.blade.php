@@ -1,15 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Pesanan')
+@section('page_title', 'Daftar Pesanan')
 
 @section('content')
     <div class="pt-8 px-8 pb-20 max-w-7xl mx-auto">
-
-        <header class="mb-12">
-            <h1 class="font-manrope font-extrabold text-3xl text-primary uppercase -tracking-tighter mb-4">
-                Daftar Pesanan
-            </h1>
-        </header>
 
         @if (session('success'))
             <div id="flashSuccess"

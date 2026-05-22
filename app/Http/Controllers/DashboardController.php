@@ -11,36 +11,25 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    /**
-     * Show the dashboard for both admin and user roles.
-     *
-     * Menampilkan data mingguan: pesanan baru, pendapatan, jumlah pemesan unik,
-     * dan tren pesanan 7 hari terakhir.
-     */
     public function index(Request $request)
     {
         $user = $request->user();
 
-        // ── Rentang minggu ini (Senin s.d. hari ini) ──────────────────────────
-        $startOfWeek = Carbon::now()->startOfWeek();   // Senin 00:00
-        $endOfWeek   = Carbon::now()->endOfWeek();     // Minggu 23:59
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek   = Carbon::now()->endOfWeek();
 
-        // ── 1. Total pesanan (num_factur unik) minggu ini ──────────────────────
         $totalOrders = Transaction::whereBetween('created_at', [$startOfWeek, $endOfWeek])
             ->distinct('num_factur')
             ->count('num_factur');
 
-        // ── 2. Pendapatan minggu ini ───────────────────────────────────────────
         $revenue = Transaction::whereBetween('created_at', [$startOfWeek, $endOfWeek])
             ->sum('total_amount');
 
-        // ── 3. Jumlah pemesan unik (berdasarkan name_customer) minggu ini ──────
         $totalCustomers = Transaction::whereBetween('created_at', [$startOfWeek, $endOfWeek])
             ->distinct('name_customer')
             ->count('name_customer');
 
-        // ── 4. Tren pesanan 7 hari terakhir (per hari) ────────────────────────
-        //    Mengambil jumlah num_factur unik per hari selama 7 hari terakhir
+        // Tren pesanan 7 hari terakhir
         $last7Days = collect(range(6, 0))->map(fn($i) => Carbon::now()->subDays($i)->toDateString());
 
         $dailyCounts = Transaction::select(
@@ -51,17 +40,13 @@ class DashboardController extends Controller
             ->groupBy('date')
             ->pluck('total', 'date');
 
-        // Pastikan semua 7 hari ada nilainya (0 jika tidak ada transaksi)
         $orderTrend = $last7Days->map(fn($date) => (int) ($dailyCounts[$date] ?? 0))->values()->toArray();
-
-        // Label hari dalam Bahasa Indonesia
         $dayLabels = $last7Days->map(fn($date) => Carbon::parse($date)->translatedFormat('D'))->values()->toArray();
 
-        // ── 5. Aktivitas terkini — maks. 5 pesanan unik terbaru ────────────
-        // Pesanan lama otomatis tergantikan oleh yang baru (FIFO, max 5).
+        // Aktivitas terkini
         $recentTransactions = Transaction::with('product')
             ->orderByDesc('created_at')
-            ->limit(50)                // ambil cukup banyak agar unique() dapat 5 faktur unik
+            ->limit(50)               
             ->get()
             ->unique('num_factur')
             ->take(5);
@@ -72,14 +57,14 @@ class DashboardController extends Controller
             return [
                 'title'  => "Pesanan #{$trx->num_factur}",
                 'detail' => "{$trx->name_customer} • {$diffHuman}",
-                'status' => $trx->payment_status, // 'pending' | 'completed'
+                'status' => $trx->payment_status,
             ];
         })->values()->toArray();
 
-        // ── Format pendapatan ke Rupiah ringkas ───────────────────────────────
+        // Format pendapatan
         $revenueFormatted = $this->formatRupiah($revenue);
 
-        // ── Perbandingan minggu lalu untuk persentase perubahan ───────────────
+        // Persentase perubahan
         $prevStart = Carbon::now()->subWeek()->startOfWeek();
         $prevEnd   = Carbon::now()->subWeek()->endOfWeek();
 
@@ -91,9 +76,7 @@ class DashboardController extends Controller
         $revenueChange  = $this->percentChange($prevRevenue, $revenue);
         $customerChange = $this->percentChange($prevCustomers, $totalCustomers);
 
-        // ── 6. Notifikasi produk yang stoknya menyentuh/di bawah ROP ─────────
-        // Hitung total terjual per produk dari transactions (sum total_item),
-        // lalu kurangi dari initial_stock / stock produk untuk dapat stok sisa.
+        // Notifikasi ROP
         $totalTerjualPerProduk = DB::table('transactions')
             ->select('id_products', DB::raw('SUM(total_item) as total_terjual'))
             ->whereNotNull('total_item')
@@ -107,7 +90,6 @@ class DashboardController extends Controller
                 $product = $pred->product;
                 if (!$product) return false;
 
-                // Coba ambil stok awal: initial_stock -> stock -> fallback rekomendasi_stok
                 $initialStock = $product->initial_stock
                     ?? $product->stock
                     ?? $pred->rekomendasi_stok
@@ -142,26 +124,24 @@ class DashboardController extends Controller
             'revenue'         => $revenueFormatted,
             'totalCustomers'  => number_format($totalCustomers),
 
-            // Persentase perubahan vs minggu lalu
+            // Persentase perubahan
             'orderChange'     => $orderChange,
             'revenueChange'   => $revenueChange,
             'customerChange'  => $customerChange,
 
             // Chart
-            'orderTrend'      => $orderTrend,   // array int [7 nilai]
-            'dayLabels'       => $dayLabels,    // array string [7 label]
+            'orderTrend'      => $orderTrend,
+            'dayLabels'       => $dayLabels,
 
             // Aktivitas
             'activities'      => $activities,
-
-            // Notifikasi restock
             'restockAlerts'   => $restockAlerts,
         ];
 
         return view('dashboard', $dashboardData);
     }
 
-    // ── Helper: format Rupiah ringkas (M = juta, K = ribu) ───────────────────
+    // Helper: Format Rupiah
     private function formatRupiah(float $amount): string
     {
         if ($amount >= 1_000_000_000) {
@@ -176,7 +156,7 @@ class DashboardController extends Controller
         return 'Rp ' . number_format($amount);
     }
 
-    // ── Helper: hitung persentase perubahan ──────────────────────────────────
+    // Helper: Persentase perubahan
     private function percentChange(float $old, float $new): array
     {
         if ($old == 0) {

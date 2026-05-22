@@ -1,0 +1,438 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>The Atelier | Product Prediction</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#fdb874",
+                        "on-tertiary-fixed-variant": "#6a3c00",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#4a626d",
+                        "inverse-surface": "#2e3132",
+                        "inverse-primary": "#92cef6",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-background": "#191c1d",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#f6b26e",
+                        "secondary-fixed-dim": "#b1cad7",
+                        "secondary-container": "#cae4f1",
+                        "outline": "#71787e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "primary-fixed-dim": "#92cef6",
+                        "surface-tint": "#206488",
+                        "primary": "#003c56",
+                        "outline-variant": "#c0c7ce",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-primary-fixed-variant": "#004c6c",
+                        "surface-bright": "#f8f9fa",
+                        "primary-container": "#005477",
+                        "background": "#f8f9fa",
+                        "on-primary-fixed": "#001e2e",
+                        "tertiary": "#542f00",
+                        "on-secondary-container": "#4e6671",
+                        "primary-fixed": "#c7e7ff",
+                        "tertiary-container": "#734306",
+                        "on-secondary-fixed-variant": "#324a55",
+                        "secondary-fixed": "#cde6f3",
+                        "on-tertiary-fixed": "#2d1600",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#041e28",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#40484e",
+                        "surface-container": "#edeeef",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9dadb",
+                        "on-primary-container": "#8bc7ef",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-effect {
+            background: rgba(248, 249, 250, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c0c7ce;
+            border-radius: 10px;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(0, 60, 86, 0.1) 0%, rgba(0, 60, 86, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed opacity-100">
+<!-- Side Navigation (Shared Component) -->
+<aside class="h-screen w-72 flex flex-col fixed left-0 top-0 bg-surface z-50 hidden md:flex">
+<div class="flex flex-col h-full py-8 px-4 gap-2">
+<div class="px-4 mb-8">
+<h1 class="font-headline font-extrabold text-primary text-2xl tracking-tight">The Atelier</h1>
+<p class="text-on-surface-variant text-sm font-medium">Financial Cooperative</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-md font-medium">Dashboard</span>
+</a><a class="group relative overflow-hidden flex items-center gap-3 px-4 py-3 text-primary font-bold bg-surface-container-lowest rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-body text-body-md font-medium">Prediksi</span>
+</a>
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-3 transition-all duration-300 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body text-body-md font-medium">Predictions</span>
+</a>
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body text-body-md font-medium">Gudang</span>
+</a>
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-body text-body-md font-medium">Checkout</span>
+</a>
+</nav>
+<button class="mx-4 mb-6 py-3 px-4 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-medium shadow-lg shadow-primary/10 active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="">New Transaction</span>
+</button>
+<div class="border-t border-outline-variant/10 pt-4 flex flex-col gap-1">
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body text-body-md font-medium">Help Center</span>
+</a>
+<a class="group relative overflow-hidden flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body text-body-md font-medium">Sign Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 min-h-screen flex flex-col">
+<!-- Top Navigation (Shared Component) -->
+<header class="w-full sticky top-0 z-40 bg-surface/70 backdrop-blur-xl flex justify-between items-center px-6 py-3 border-none">
+<div class="flex items-center gap-4 flex-1">
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+</div>
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search predictions..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<span class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full cursor-pointer transition-colors">notifications</span>
+<span class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full cursor-pointer transition-colors">settings</span>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-primary-container active:scale-95 transition-transform cursor-pointer">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a corporate executive in a modern workspace. The lighting is soft and cinematic, highlighting sophisticated features with a premium light-mode background. The color palette is composed of soft grays and deep primary blues, reflecting an atmosphere of trust, precision, and high-end financial management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAUYq-he14a9wrwVYNxZI0yH8bGTRXJqEh253LzvlqR5wbTpvNGqpEMdn3Fou8juPrfADHhtmhLucxe0kYMr2kmlgkF8-fRixyeJYFzBrEjpxjvsfRIxlhZ7c7q4U8yRVIfMumQrFlNpcskQYeKflm4yY-ip36ZLIgCIoylxfUaDeC3CxRJKR-OcKjbegDwYduWAiRL5V0H6quskF3jto6tEA4ZtAiVroJ9bh0PLqmcWvfD_tjngU6zFIXZ8U0TBQe6-OpEMlVzEQ">
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 px-8 py-8 flex flex-col gap-8 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline font-extrabold text-primary text-4xl tracking-tight mb-2">Predictive Analytics</h2>
+<p class="text-on-surface-variant max-w-xl">Deep learning models analyzing historical member demand and inventory cycles to forecast the next quarter's fiscal performance.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low p-1.5 rounded-xl">
+<button class="px-4 py-2 text-sm font-medium bg-surface-container-lowest text-primary shadow-sm rounded-lg">Last 90 Days</button>
+<button class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">180 Days</button>
+<button class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">Custom Range</button>
+<span class="material-symbols-outlined text-on-surface-variant px-2 cursor-pointer">calendar_today</span>
+</div>
+</section>
+<!-- Metric Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col gap-4 group hover:bg-primary-container transition-all duration-500 cursor-default">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-secondary-container rounded-xl group-hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-on-secondary-container group-hover:text-primary">trending_up</span>
+</div>
+<span class="text-xs font-bold tracking-widest uppercase text-tertiary group-hover:text-on-primary-container">Live Forecast</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium group-hover:text-on-primary-container/80">Projected Demand Increase</p>
+<h3 class="font-headline font-bold text-3xl group-hover:text-on-primary">+24.8%</h3>
+</div>
+<div class="h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4 group-hover:bg-on-primary transition-all"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col gap-4 group hover:bg-primary-container transition-all duration-500 cursor-default">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-tertiary-fixed rounded-xl group-hover:bg-tertiary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-on-tertiary-fixed group-hover:text-on-tertiary-fixed">payments</span>
+</div>
+<span class="text-xs font-bold tracking-widest uppercase text-tertiary group-hover:text-on-primary-container">Optimization</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium group-hover:text-on-primary-container/80">Recommended Re-stock Value</p>
+<h3 class="font-headline font-bold text-3xl group-hover:text-on-primary">$142.5k</h3>
+</div>
+<div class="h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-1/2 group-hover:bg-tertiary-fixed-dim transition-all"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl flex flex-col gap-4 group hover:bg-primary-container transition-all duration-500 cursor-default">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-secondary-fixed rounded-xl group-hover:bg-secondary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-on-secondary-fixed group-hover:text-on-secondary-fixed">verified</span>
+</div>
+<span class="text-xs font-bold tracking-widest uppercase text-tertiary group-hover:text-on-primary-container">ML Model Confidence</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-sm font-medium group-hover:text-on-primary-container/80">Confidence Score</p>
+<h3 class="font-headline font-bold text-3xl group-hover:text-on-primary">92%</h3>
+</div>
+<div class="flex gap-1">
+<div class="h-1 flex-1 bg-primary rounded-full group-hover:bg-on-primary"></div>
+<div class="h-1 flex-1 bg-primary rounded-full group-hover:bg-on-primary"></div>
+<div class="h-1 flex-1 bg-primary rounded-full group-hover:bg-on-primary"></div>
+<div class="h-1 flex-1 bg-surface-container-low rounded-full group-hover:bg-on-primary/30"></div>
+</div>
+</div>
+</section>
+<!-- Main Chart Area -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Demand Projection Chart -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-3xl flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<div>
+<h4 class="font-headline font-bold text-xl text-primary">Demand Projection</h4>
+<p class="text-sm text-on-surface-variant">Historical performance vs. predicted growth (3 mo.)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<span class="text-xs font-medium text-on-surface-variant">Historical</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-on-surface-variant">Predicted</span>
+</div>
+</div>
+</div>
+<div class="relative h-[300px] w-full flex items-end justify-between gap-1 mt-4">
+<!-- Chart Mockup with CSS -->
+<div class="absolute inset-0 border-b border-l border-outline-variant/20"></div>
+<!-- Vertical Axis Mockup -->
+<div class="absolute left-0 h-full flex flex-col justify-between text-[10px] text-on-surface-variant -translate-x-full pr-2">
+<span class="">100k</span><span class="">75k</span><span class="">50k</span><span class="">25k</span><span class="">0</span>
+</div>
+<!-- Simplified Visual Bars/Trend -->
+<div class="flex-1 h-[40%] bg-outline-variant/10 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full h-[60%] bg-outline-variant/30 transition-all group-hover:h-[65%]"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-on-surface-variant">OCT</div>
+</div>
+<div class="flex-1 h-[45%] bg-outline-variant/10 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full h-[70%] bg-outline-variant/30 transition-all group-hover:h-[75%]"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-on-surface-variant">NOV</div>
+</div>
+<div class="flex-1 h-[50%] bg-outline-variant/10 rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full h-[85%] bg-outline-variant/30 transition-all group-hover:h-[90%]"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-on-surface-variant">DEC</div>
+</div>
+<div class="flex-1 h-[65%] bg-primary-container/10 rounded-t-sm relative group overflow-hidden">
+<div class="absolute bottom-0 w-full h-[95%] bg-primary/80 transition-all group-hover:bg-primary"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary">JAN</div>
+</div>
+<div class="flex-1 h-[75%] bg-primary-container/10 rounded-t-sm relative group overflow-hidden">
+<div class="absolute bottom-0 w-full h-[85%] bg-primary/80 transition-all group-hover:bg-primary"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary">FEB</div>
+</div>
+<div class="flex-1 h-[85%] bg-primary-container/10 rounded-t-sm relative group overflow-hidden">
+<div class="absolute bottom-0 w-full h-[100%] bg-primary/80 transition-all group-hover:bg-primary"></div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary">MAR</div>
+</div>
+</div>
+</div>
+<!-- Stock Risk Table -->
+<div class="bg-surface-container-low rounded-3xl flex flex-col overflow-hidden">
+<div class="p-6">
+<h4 class="font-headline font-bold text-xl text-primary">Stock Risk</h4>
+<p class="text-sm text-on-surface-variant">Critical inventory alerts</p>
+</div>
+<div class="flex-1 overflow-y-auto px-6 pb-6 space-y-4 custom-scrollbar">
+<!-- Risk Item 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between group cursor-pointer hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Premium Rice" class="w-full h-full object-cover" data-alt="Macro photography of high-quality organic jasmine rice grains spilling from a rustic linen bag. The lighting is warm and organic, with soft shadows that emphasize the texture of the grain. The visual style is premium and editorial, using a natural color palette of creams and subtle earth tones to convey authenticity and cooperative quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZMkbtG5iHpHvpw3NHRkzJbCt4oo5VjPUoLlPlPHjreJ3PzntXDyu3gTF9SZ3Gs7LuUW4AVJoN6qYJKzBdSnNjqEvAlOogZD19sgGlqjsYCcnBD7vvqi7s6d1PqlPM5mSOr_Pwl2x8ZeU_ITlK1cplWlK0Grj-WYwZ9s3rDuo_ZeVgbtxotDlAlalm4-e_gQDznSH7TE3Ga30v39hDMo9e_uN95wuPBhuCZLDtL0aJ-e_o0E98D9JngfG-i2Z-ahyZNWpJyOZj38Q">
+</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface">Premium Rice</h5>
+<p class="text-[10px] text-error font-bold uppercase tracking-tighter">Depletion in 4 days</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-medium text-on-surface-variant">Demand: <span class="text-on-surface">High</span></p>
+<div class="flex gap-0.5 mt-1">
+<div class="w-3 h-1.5 bg-error rounded-full"></div>
+<div class="w-3 h-1.5 bg-surface-container-high rounded-full"></div>
+<div class="w-3 h-1.5 bg-surface-container-high rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Risk Item 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between group cursor-pointer hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Cooking Oil" class="w-full h-full object-cover" data-alt="A top-down architectural view of golden organic cooking oil inside a minimalist glass bottle. The liquid catches the light with a brilliant amber glow, surrounded by a clean, high-contrast light-mode background. The aesthetic is modern and sophisticated, emphasizing purity and high-end artisanal quality through cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTVPn028_OUeXP5_dVOtk_k1dNrf9zuQ2QzhFaxz55_POygDtiflLQOS_OuyGGfUlxDCY_pXXrPoa7Kj9Qs2SBH_X6Ib1Xwwsb9iBG1G9-bI1V_ZU15b5Y7oJsEeAuPBZrb0fUpn6R8-RGi8cR8suYnXcfxrilu5Fehnbs-1ACRO-fiR74gTu3AJyhj3wBJqIpi-W1w2tNwyrYhJgRXz-TIvpiq4Htbq_NW9iTq9nuCpN3vOl4BbSwv5POfNN5j4SQaS-whut0qEo">
+</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface">Artisan Oil</h5>
+<p class="text-[10px] text-tertiary font-bold uppercase tracking-tighter">Depletion in 12 days</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-medium text-on-surface-variant">Demand: <span class="text-on-surface">Medium</span></p>
+<div class="flex gap-0.5 mt-1">
+<div class="w-3 h-1.5 bg-tertiary rounded-full"></div>
+<div class="w-3 h-1.5 bg-tertiary rounded-full"></div>
+<div class="w-3 h-1.5 bg-surface-container-high rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Risk Item 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between group cursor-pointer hover:shadow-md transition-shadow">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Coffee Beans" class="w-full h-full object-cover" data-alt="A cluster of freshly harvested organic coffee beans presented on a dark, slate-like surface. The shot uses shallow depth of field to focus on the intricate textures of the beans. The atmosphere is sophisticated and moody, with highlights of deep brown and charcoal, creating a luxurious editorial look for high-end cooperative goods." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDniDs3sJTQ8KG6yVNrCGik_7QGYKFOQFxkbw7IEbVti-5S-xqfRzntocii4mfEPkm6StUomGw5gZXRdPE5tZ5KYsbihFqCwHMaZgk4YUHnfdUENJ2BJISgwKihdFHFUbwVanv3HCrBSgEYVllE9t8nIxElpaSMtwhZS7dv8e83NMD8cO4l_ayfXX_84L53EJ0KO_URYobEvBV5zskmwOkkaDl_O_2ivoV2bPlMp2vtJB2fojIzl5dY1qB7BlvcRtaE-El-c3NSCc">
+</div>
+<div>
+<h5 class="text-sm font-bold text-on-surface">Java Reserve</h5>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">Depletion in 22 days</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-medium text-on-surface-variant">Demand: <span class="text-on-surface">Stable</span></p>
+<div class="flex gap-0.5 mt-1">
+<div class="w-3 h-1.5 bg-primary rounded-full"></div>
+<div class="w-3 h-1.5 bg-surface-container-high rounded-full"></div>
+<div class="w-3 h-1.5 bg-surface-container-high rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Recommendations Section -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-xl">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-xl text-primary">Intelligent Recommendations</h4>
+<p class="text-sm text-on-surface-variant">Heuristic logic applied to current market trends</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Recommendation 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-primary flex gap-6 relative overflow-hidden group">
+<div class="absolute right-0 top-0 opacity-5 -mr-4 -mt-4 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-8xl">shopping_cart_checkout</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-primary-fixed text-[10px] font-bold text-primary rounded-full">INVENTORY</span>
+<span class="text-xs text-on-surface-variant font-medium">Predicted ROI: +12%</span>
+</div>
+<p class="text-on-surface leading-relaxed font-medium">Increase inventory for <span class="text-primary font-bold">Premium Rice</span> by 20% due to upcoming seasonal demand and regional festivals in February.</p>
+<button class="mt-4 text-sm font-bold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Execute Recommendation <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Recommendation 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-tertiary flex gap-6 relative overflow-hidden group">
+<div class="absolute right-0 top-0 opacity-5 -mr-4 -mt-4 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-8xl">sell</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-[10px] font-bold text-tertiary rounded-full">PRICING</span>
+<span class="text-xs text-on-surface-variant font-medium">Predicted ROI: +8%</span>
+</div>
+<p class="text-on-surface leading-relaxed font-medium">Adjust price point for <span class="text-tertiary font-bold">Artisan Oil</span> by 5%. Current demand elasticity suggests high member willingness to pay for artisanal tiers.</p>
+<button class="mt-4 text-sm font-bold text-tertiary flex items-center gap-1 group-hover:gap-2 transition-all">
+                                Review Pricing Strategy <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Padding -->
+<div class="h-12 w-full"></div>
+</main>
+<!-- Floating Action Button (Mobile Only) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        // Micro-interactions and subtle effects
+        document.querySelectorAll('.group').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Potential for adding subtle hover sound or dynamic light tracking
+            });
+        });
+
+        // Simulating loading states
+        window.addEventListener('load', () => {
+            document.body.classList.add('opacity-100');
+            document.body.classList.remove('opacity-0');
+        });
+    </script>
+
+
+</body></html>

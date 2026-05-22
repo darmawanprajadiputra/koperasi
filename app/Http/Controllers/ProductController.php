@@ -75,7 +75,7 @@ class ProductController extends Controller
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
             'unit_id'       => 'nullable|integer|exists:unit,id',
-            'stock'         => 'required|integer|min:0',
+            'stock'         => 'required|integer|min:0', // nilai dikirim dari readonly input
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',
         ]);

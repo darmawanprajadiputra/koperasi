@@ -25,6 +25,17 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
+// Shop & Checkout — bisa diakses tanpa login
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+// API publik untuk shop (tanpa login)
+Route::prefix('api')->group(function () {
+    Route::get('/get_products', [ShopController::class, 'getProducts'])->name('api.products');
+    Route::post('/add-to-cart', [ShopController::class, 'addToCart'])->name('api.add-to-cart');
+});
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -38,13 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::patch('/product/{product}/toggle', [ProductController::class, 'toggle'])->name('product.toggle');
 
-    // Shop
-    Route::get('/shop', [ShopController::class, 'index'])->name('shop');
-
-    // Checkout
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-
     // Orders — Web (menampilkan blade view)
     Route::get('/order', [OrderController::class, 'index'])->name('order');
     Route::get('/order/{order_id}', [OrderController::class, 'show'])->name('order.show'); // ← hanya 1 route, panggil show()
@@ -54,8 +58,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/prediction/predict', [PredictionController::class, 'predict'])->name('prediction.predict');
 
     Route::prefix('api')->group(function () {
-        Route::get('/get_products', [ShopController::class, 'getProducts'])->name('api.products');
-        Route::post('/add-to-cart', [ShopController::class, 'addToCart'])->name('api.add-to-cart');
         Route::get('/get_orders', [OrderController::class, 'getOrders'])->name('api.orders');
 
         Route::get('/orders/{order_id}', [OrderController::class, 'getOrderDetail'])->name('api.order.detail');

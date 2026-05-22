@@ -1,17 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
 @section('title', 'Checkout')
 
 @section('content')
     <div class="px-8 py-8 max-w-6xl mx-auto">
 
-        <header class="mb-10">
+        <header class="mb-6">
             <div class="flex items-center gap-3 mb-1">
                 <a href="{{ route('shop') }}"
                     class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
                     <span class="material-symbols-outlined text-xl">arrow_back</span>
                 </a>
-                <h1 class="font-manrope text-4xl font-extrabold text-primary tracking-tight">Checkout</h1>
+                <h1 class="font-manrope text-2xl font-extrabold text-primary tracking-tight">Checkout</h1>
             </div>
         </header>
 
@@ -38,14 +38,13 @@
         <form action="{{ route('checkout.store') }}" method="POST" id="checkoutForm">
             @csrf
 
-            {{-- Hidden: serialized cart items (filled by JS from sessionStorage) --}}
             <input type="hidden" name="cart_items" id="cartItemsInput">
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-
-                {{-- ─── LEFT COLUMN ─────────────────────────────────────────────────── --}}
+                
+                {{-- Kolom Kiri --}}
                 <div class="lg:col-span-2 space-y-8">
-
+                    
                     {{-- Informasi Penerima --}}
                     <section class="bg-surface-container-low rounded-xl p-8 transition-all hover:shadow-sm">
                         <div class="flex items-center gap-3 mb-6">
@@ -63,7 +62,7 @@
                                         Nama Pemesan <span class="text-error">*</span>
                                     </label>
                                     <input id="name_customer" name="name_customer" type="text" required
-                                        value="{{ old('name_customer', auth()->user()->name ?? '') }}"
+                                        value="{{ old('name_customer', auth()->user()?->name ?? '') }}"
                                         placeholder="Nama lengkap pemesan"
                                         class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm @error('name_customer') ring-2 ring-error @enderror" />
                                 </div>
@@ -168,14 +167,14 @@
 
                 </div>
 
-                {{-- ─── RIGHT COLUMN: Order Summary ─────────────────────────────────── --}}
+                {{-- Kolom Kanan --}}
                 <aside class="space-y-6 lg:sticky absolute lg:top-24">
                     <div
                         class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(25,28,29,0.04)] border border-outline-variant/10">
 
                         <h2 class="text-xl font-bold font-manrope mb-6">Ringkasan Pesanan</h2>
 
-                        {{-- Cart Items (filled by JS) --}}
+                        {{-- Cart Items --}}
                         <div id="orderItemsList" class="space-y-4 mb-6 min-h-[80px]">
                             <div class="flex items-center justify-center py-6 text-on-surface-variant" id="cartEmptyMsg">
                                 <span class="material-symbols-outlined text-2xl opacity-30 mr-2">shopping_basket</span>
@@ -196,7 +195,6 @@
                             </div>
                         </div>
 
-                        {{-- Hidden: total_amount sent to server --}}
                         <input type="hidden" name="total_amount" id="totalAmountInput" value="0">
 
                         {{-- Submit --}}
@@ -219,7 +217,7 @@
 
     </div>
 
-    {{-- Decorative background --}}
+    {{-- Background --}}
     <div
         class="fixed top-0 right-0 -z-10 w-1/2 h-full bg-gradient-to-bl from-primary/5 to-transparent pointer-events-none">
     </div>
@@ -230,7 +228,7 @@
 
 @push('scripts')
     <script>
-        // ─── Utility ──────────────────────────────────────────────────────────────────
+
         function formatRp(value) {
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -239,7 +237,6 @@
             }).format(value);
         }
 
-        // ─── Load Cart from sessionStorage ───────────────────────────────────────────
         function loadCartFromSession() {
             let cart = {};
             try {
@@ -299,7 +296,6 @@
             cartInput.value = JSON.stringify(cart);
         }
 
-        // ─── Payment Method UI ────────────────────────────────────────────────────────
         function setupPaymentCards() {
             const cards = document.querySelectorAll('.payment-card');
 
@@ -344,7 +340,6 @@
             });
         }
 
-        // ─── Init ─────────────────────────────────────────────────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
             const cart = loadCartFromSession();
             renderOrderSummary(cart);

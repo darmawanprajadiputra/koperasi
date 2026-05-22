@@ -14,26 +14,27 @@
     <nav class="sidebar-nav">
         <a href="{{ route('dashboard') }}"
             class="nav-item {{ Route::currentRouteName() === 'dashboard' ? 'active' : '' }}">
-            <span class="nav-icon">📊</span>
+            <span class="material-symbols-outlined">dashboard</span>
             <span class="nav-label">Dashboard</span>
         </a>
         <a href="{{ route('storage') }}" class="nav-item {{ Route::currentRouteName() === 'storage' ? 'active' : '' }}">
-            <span class="nav-icon">📦</span>
-            <span class="nav-label">Storage</span>
-        </a>
-        <a href="{{ route('shop') }}" class="nav-item {{ Route::currentRouteName() === 'shop' ? 'active' : '' }}">
-            <span class="nav-icon">🏪</span>
-            <span class="nav-label">Shop</span>
+            <span class="material-symbols-outlined"
+                style="font-variation-settings: &quot;FILL&quot; 1">inventory_2</span>
+            <span class="nav-label">Gudang</span>
         </a>
         <a href="{{ route('order') }}" class="nav-item {{ Route::currentRouteName() === 'order' ? 'active' : '' }}">
-            <span class="nav-icon">🛍️</span>
+            <span class="material-symbols-outlined">shopping_bag</span>
             <span class="nav-label">Pesanan</span>
         </a>
         <a href="{{ route('prediction') }}"
             class="nav-item {{ Route::currentRouteName() === 'prediction' ? 'active' : '' }}">
-            <span class="nav-icon">📈</span>
+            <span class="material-symbols-outlined text-outline-variant">insights</span>
             <span class="nav-label">Prediksi</span>
         </a>
+        {{-- <a href="{{ route('shop') }}" class="nav-item {{ Route::currentRouteName() === 'shop' ? 'active' : '' }}">
+        <span class="material-symbols-outlined">storefront</span>
+        <span class="nav-label">Shop</span>
+        </a> --}}
     </nav>
 </aside>
 
