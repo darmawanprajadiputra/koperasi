@@ -12,6 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+    <link rel="icon" type="image/png" href="{{ asset('koperasi.png') }}">
 
     <!-- CSS -->
     @vite(['resources/css/app.css'])

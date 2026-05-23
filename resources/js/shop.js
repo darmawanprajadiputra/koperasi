@@ -21,7 +21,7 @@ function createProductCard(product) {
          data-price="${product.price}"
          data-stock="${product.stock}"
          data-image="${product.image || ''}">
-      <div class="relative h-64 overflow-hidden bg-surface-container-low">
+      <div class="relative h-44 overflow-hidden bg-surface-container-low">
         <img src="${product.image || '/assets/pictures/produk.jpg'}"
              alt="${product.name_product}"
              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -30,14 +30,14 @@ function createProductCard(product) {
           <span class="bg-secondary text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">${product.category || 'Produk'}</span>
         </div>
       </div>
-      <div class="p-6 flex flex-col flex-1">
-        <div class="flex justify-between items-start mb-2">
-          <h3 class="font-manrope font-bold text-xl text-primary product-name">${product.name_product}</h3>
-          <span class="font-manrope font-extrabold text-lg text-secondary">${formatCurrency(product.price)}</span>
+      <div class="p-4 flex flex-col flex-1">
+        <div class="flex justify-between items-start mb-1">
+          <h3 class="font-manrope font-bold text-sm text-primary product-name leading-tight">${product.name_product}</h3>
+          <span class="font-manrope font-extrabold text-sm text-secondary ml-2 whitespace-nowrap">${formatCurrency(product.price)}</span>
         </div>
-        <p class="text-sm text-on-surface-variant mb-6 line-clamp-2">${product.description || ''}</p>
+        <p class="text-xs text-on-surface-variant mb-3 line-clamp-2">${product.description || ''}</p>
         <div class="mt-auto">
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-semibold text-secondary flex items-center gap-1">
               <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check_circle</span>
               Stok: ${product.stock}
@@ -46,13 +46,13 @@ function createProductCard(product) {
               <button class="qty-minus p-1 hover:text-primary transition-colors" type="button">
                 <span class="material-symbols-outlined text-sm">remove</span>
               </button>
-              <span class="qty-display px-3 text-sm font-bold">1</span>
+              <input class="qty-display text-sm font-bold text-center bg-transparent border-none outline-none w-8" type="number" value="1" min="1" />
               <button class="qty-plus p-1 hover:text-primary transition-colors" type="button">
                 <span class="material-symbols-outlined text-sm">add</span>
               </button>
             </div>
           </div>
-          <button class="add-to-cart w-full py-3 bg-gradient-to-br from-[#00342b] to-[#004d40] text-white rounded-full font-bold text-sm flex items-center justify-center gap-2 group-hover:opacity-90 transition-all active:scale-95" type="button">
+          <button class="add-to-cart w-full py-2.5 bg-gradient-to-br from-[#00342b] to-[#004d40] text-white rounded-full font-bold text-xs flex items-center justify-center gap-1.5 group-hover:opacity-90 transition-all active:scale-95" type="button">
             <span class="material-symbols-outlined text-lg">shopping_basket</span>
             Tambah ke Keranjang
           </button>
@@ -82,6 +82,7 @@ async function loadShopProducts() {
       buildCategoryFilter(data.products);
       setupQuantityHandlers();
       setupAddToCartHandlers();
+      setupSearchHandler();
     } else {
       emptyState?.classList.remove('hidden');
     }
@@ -147,15 +148,21 @@ function setupQuantityHandlers() {
     const display = selector.querySelector('.qty-display');
     const card    = selector.closest('.product-card');
 
-    minus?.addEventListener('click', () => {
-      let qty = parseInt(display.textContent);
-      if (qty > 1) display.textContent = qty - 1;
-    });
+    const getStock = () => parseInt(card?.dataset.stock ?? 999);
+    const getQty   = () => parseInt(display.value) || 1;
+    const setQty   = (v) => { display.value = Math.min(Math.max(1, v), getStock()); };
 
-    plus?.addEventListener('click', () => {
-      let qty     = parseInt(display.textContent);
-      const stock = parseInt(card?.dataset.stock ?? 999);
-      if (qty < stock) display.textContent = qty + 1;
+    minus?.addEventListener('click', () => setQty(getQty() - 1));
+    plus?.addEventListener('click',  () => setQty(getQty() + 1));
+
+    // Validate on blur (when user finishes typing)
+    display.addEventListener('blur', () => setQty(getQty()));
+
+    // Prevent non-numeric keys except control keys
+    display.addEventListener('keydown', (e) => {
+      const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Enter'];
+      if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) e.preventDefault();
+      if (e.key === 'Enter') display.blur();
     });
   });
 }
@@ -169,7 +176,7 @@ function setupAddToCartHandlers() {
       const name  = card.dataset.name;
       const price = parseFloat(card.dataset.price);
       const image = card.dataset.image || '';
-      const qty   = parseInt(card.querySelector('.qty-display').textContent);
+      const qty   = parseInt(card.querySelector('.qty-display').value) || 1;
 
       // Update local cart state
       if (cart[id]) {
@@ -231,6 +238,22 @@ function showToast(message) {
 
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => toast.classList.add('hidden'), 2500);
+}
+
+// ─── Search Handler ───────────────────────────────────────────────────────────
+function setupSearchHandler() {
+  const searchInput = document.getElementById('searchInput');
+  if (!searchInput) return;
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const container = document.getElementById('productsContainer');
+    container?.querySelectorAll('.product-card').forEach(card => {
+      const name = card.dataset.name?.toLowerCase() || '';
+      const cat  = card.querySelector('.bg-secondary')?.textContent?.trim().toLowerCase() || '';
+      card.style.display = (!query || name.includes(query) || cat.includes(query)) ? '' : 'none';
+    });
+  });
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────

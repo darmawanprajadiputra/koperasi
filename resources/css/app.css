@@ -4,6 +4,7 @@
 @import './prediction.css';
 @import './shop.css';
 @import './order.css';
+@import './datamaster.css';
 
 @tailwind base;
 @tailwind components;

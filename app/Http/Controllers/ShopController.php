@@ -22,6 +22,7 @@ class ShopController extends Controller
     {
         $products = Product::with('category')
             ->where('is_active', true)
+            ->orderBy('name_product', 'asc')
             ->latest()
             ->get()
             ->map(function ($product) {

@@ -26,6 +26,11 @@
             <span class="material-symbols-outlined">shopping_bag</span>
             <span class="nav-label">Pesanan</span>
         </a>
+        <a href="{{ route('datamaster') }}"
+            class="nav-item {{ Route::currentRouteName() === 'datamaster' ? 'active' : '' }}">
+            <span class="material-symbols-outlined">storage</span>
+            <span class="nav-label">Data Master</span>
+        </a>
         <a href="{{ route('prediction') }}"
             class="nav-item {{ Route::currentRouteName() === 'prediction' ? 'active' : '' }}">
             <span class="material-symbols-outlined text-outline-variant">insights</span>

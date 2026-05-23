@@ -52,37 +52,62 @@
                 <div class="col-span-12 lg:col-span-8 space-y-8">
 
                     {{-- Status Pesanan --}}
-                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+                    <section class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5">
                         <h3 class="text-lg font-bold text-primary mb-10">Status Pesanan</h3>
-                        <div class="relative">
-                            <div class="absolute top-5 left-0 w-full h-[2px] bg-surface-container-high"></div>
-                            <div id="progressLine" class="absolute top-5 left-0 h-[2px] bg-primary transition-all duration-500"></div>
-                            <div class="relative flex justify-between">
-                                <div class="flex flex-col items-center text-center" id="step1">
-                                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md">
-                                        <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1">check</span>
-                                    </div>
-                                    <p class="mt-4 text-xs font-bold text-on-surface">Pesanan Diterima</p>
-                                    <p id="step1Date" class="text-[10px] text-on-surface-variant">—</p>
+
+                        {{-- Step track --}}
+                        <div class="flex items-start">
+
+                            {{-- Step 1: Pesanan Diterima --}}
+                            <div class="flex flex-col items-center text-center min-w-[80px]" id="step1">
+                                <div id="step1Icon"
+                                    class="w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-sm"
+                                        style="font-variation-settings:'FILL' 1">check</span>
                                 </div>
-                                <div class="flex flex-col items-center text-center" id="step2">
-                                    <div id="step2Icon" class="w-10 h-10 rounded-full bg-white border-4 border-primary text-primary flex items-center justify-center z-10 shadow-sm">
-                                        <span class="w-2 h-2 rounded-full bg-primary"></span>
-                                    </div>
-                                    <p class="mt-4 text-xs font-bold text-primary" id="step2Label">Diproses</p>
-                                    <p class="text-[10px] text-on-surface-variant" id="step2Sub">Sedang disiapkan</p>
-                                </div>
-                                <div class="flex flex-col items-center text-center opacity-40" id="step3">
-                                    <div id="step3Icon" class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-transparent flex items-center justify-center z-10"></div>
-                                    <p class="mt-4 text-xs font-bold text-on-surface">Selesai</p>
-                                    <p class="text-[10px] text-on-surface-variant" id="step3Sub">—</p>
+                                <p class="mt-3 text-xs font-bold text-[#005c20]">Pesanan Diterima</p>
+                                <p id="step1Date" class="text-[10px] text-gray-400 mt-0.5">—</p>
+                            </div>
+
+                            {{-- Line 1→2 --}}
+                            <div class="flex-1 flex flex-col items-stretch mt-5">
+                                <div class="h-[2px] w-full bg-gray-200 relative">
+                                    <div id="line1" class="absolute inset-0 bg-[#005c20] transition-all duration-500" style="width:100%"></div>
                                 </div>
                             </div>
+
+                            {{-- Step 2: Diproses --}}
+                            <div class="flex flex-col items-center text-center min-w-[80px]" id="step2">
+                                <div id="step2Icon"
+                                    class="w-10 h-10 rounded-full bg-white border-[3px] border-[#005c20] flex items-center justify-center shadow-sm">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-[#005c20]"></span>
+                                </div>
+                                <p class="mt-3 text-xs font-bold text-[#005c20]" id="step2Label">Diproses</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5" id="step2Sub">Sedang disiapkan</p>
+                            </div>
+
+                            {{-- Line 2→3 --}}
+                            <div class="flex-1 flex flex-col items-stretch mt-5">
+                                <div class="h-[2px] w-full bg-gray-200 relative">
+                                    <div id="line2" class="absolute inset-0 bg-[#005c20] transition-all duration-500" style="width:0%"></div>
+                                </div>
+                            </div>
+
+                            {{-- Step 3: Selesai --}}
+                            <div class="flex flex-col items-center text-center min-w-[80px]" id="step3">
+                                <div id="step3Icon"
+                                    class="w-10 h-10 rounded-full bg-gray-100 border-2 border-gray-300 flex items-center justify-center">
+                                </div>
+                                <p class="mt-3 text-xs font-bold text-gray-400" id="step3Label">Selesai</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5" id="step3Sub">—</p>
+                            </div>
+
                         </div>
                     </section>
 
                     {{-- Ringkasan Pesanan --}}
-                    <section class="bg-surface-container-lowest overflow-hidden rounded-xl shadow-sm border border-outline-variant/5">
+                    <section
+                        class="bg-white overflow-hidden rounded-xl shadow-sm border border-outline-variant/5">
                         <div class="px-8 py-6 border-b border-surface-container-low flex justify-between items-center">
                             <h3 class="text-lg font-bold text-primary">Ringkasan Pesanan</h3>
                             <span id="itemsCount" class="text-sm font-medium text-on-surface-variant"></span>
@@ -93,7 +118,7 @@
                     {{-- Tombol Selesaikan --}}
                     <div id="completeOrderSection" class="hidden">
                         <button id="completeOrderBtn"
-                            class="w-full flex items-center justify-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.99] transition-all">
+                            class="w-full bg-green-600 flex items-center justify-center gap-3 text-white px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.99] transition-all">
                             <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">task_alt</span>
                             Tandai Pesanan Selesai
                         </button>
@@ -105,7 +130,7 @@
                 <div class="col-span-12 lg:col-span-4 space-y-8">
 
                     {{-- Info Pemesan --}}
-                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/5">
+                    <section class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5">
                         <div class="flex items-center gap-2 mb-6">
                             <span class="material-symbols-outlined text-primary text-xl">person</span>
                             <h3 class="text-lg font-bold text-primary">Info Pemesan</h3>
@@ -116,24 +141,29 @@
                                 <p id="infoName" class="text-sm font-bold text-on-surface mt-1">—</p>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">No. Telepon</p>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">No.
+                                    Telepon</p>
                                 <p id="infoPhone" class="text-sm text-on-surface-variant mt-1">—</p>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Penerima</p>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Penerima
+                                </p>
                                 <p id="infoRecipient" class="text-sm text-on-surface-variant mt-1">—</p>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Alamat Pengiriman</p>
+                                <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Alamat
+                                    Pengiriman</p>
                                 <p id="infoAddress" class="text-sm text-on-surface-variant mt-1 leading-relaxed">—</p>
                             </div>
                         </div>
                     </section>
 
                     {{-- Detail Pembayaran --}}
-                    <section class="bg-primary text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
+                    <section
+                        class="bg-white text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
                         <div class="absolute -right-4 -bottom-4 opacity-10">
-                            <span class="material-symbols-outlined text-9xl" style="font-variation-settings:'FILL' 1">account_balance_wallet</span>
+                            <span class="material-symbols-outlined text-9xl"
+                                style="font-variation-settings:'FILL' 1">account_balance_wallet</span>
                         </div>
                         <h3 class="text-lg font-bold mb-6 relative z-10">Detail Pembayaran</h3>
                         <div class="space-y-4 relative z-10">
@@ -152,7 +182,8 @@
                             <div class="h-[1px] bg-white/20 my-4"></div>
                             <div class="flex justify-between items-end">
                                 <div>
-                                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Total Pembayaran</p>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Total Pembayaran
+                                    </p>
                                     <p id="payTotal" class="font-manrope text-2xl font-extrabold tracking-tight">—</p>
                                 </div>
                                 <div class="text-right">
@@ -170,23 +201,27 @@
     </div>
 
     {{-- Confirm Modal --}}
-    <div id="confirmModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-        <div class="bg-surface-container-lowest rounded-2xl shadow-2xl max-w-sm w-full p-8 animate-fade-in">
+    <div id="confirmModal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 animate-fade-in">
             <div class="flex items-center justify-center w-16 h-16 bg-[#c8f5d5] rounded-full mx-auto mb-5">
-                <span class="material-symbols-outlined text-3xl text-[#005c20]" style="font-variation-settings:'FILL' 1">task_alt</span>
+                <span class="material-symbols-outlined text-3xl text-[#005c20]"
+                    style="font-variation-settings:'FILL' 1">task_alt</span>
             </div>
-            <h2 class="font-manrope text-xl font-extrabold text-on-surface text-center mb-2">Konfirmasi Pesanan Selesai</h2>
+            <h2 class="font-manrope text-xl font-extrabold text-on-surface text-center mb-2">Konfirmasi Pesanan Selesai
+            </h2>
             <p class="text-sm text-on-surface-variant text-center mb-8">
                 Pesanan ini akan ditandai sebagai <strong>Selesai</strong>.<br>Tindakan ini tidak dapat diurungkan.
             </p>
             <div class="flex gap-3">
                 <button id="cancelConfirm"
-                    class="flex-1 py-3 rounded-xl border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container transition-colors">
+                    class="flex-1 py-3 rounded-xl border border-red-200 text-red-600 font-semibold text-sm hover:bg-red-50 transition-colors">
                     Batal
                 </button>
                 <button id="confirmComplete"
-                    class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-bold text-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
-                    <span id="confirmSpinner" class="hidden material-symbols-outlined text-sm animate-spin">progress_activity</span>
+                    class="flex-1 py-3 rounded-xl bg-[#005c20] text-white font-bold text-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <span id="confirmSpinner"
+                        class="hidden material-symbols-outlined text-sm animate-spin">progress_activity</span>
                     Selesaikan
                 </button>
             </div>

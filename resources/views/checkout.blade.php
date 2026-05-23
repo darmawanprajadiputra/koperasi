@@ -5,8 +5,8 @@
 @section('content')
     <div class="px-8 py-8 max-w-6xl mx-auto">
 
-        <header class="mb-6">
-            <div class="flex items-center gap-3 mb-1">
+        <header class="mb-2">
+            <div class="flex items-center gap-3">
                 <a href="{{ route('shop') }}"
                     class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
                     <span class="material-symbols-outlined text-xl">arrow_back</span>
@@ -41,12 +41,13 @@
             <input type="hidden" name="cart_items" id="cartItemsInput">
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                
+
                 {{-- Kolom Kiri --}}
                 <div class="lg:col-span-2 space-y-8">
-                    
+
                     {{-- Informasi Penerima --}}
-                    <section class="bg-surface-container-low rounded-xl p-8 transition-all hover:shadow-sm">
+                    <section
+                        class="bg-white rounded-xl p-8 transition-all hover:shadow-sm border border-outline-variant/10">
                         <div class="flex items-center gap-3 mb-6">
                             <span class="material-symbols-outlined text-primary">person</span>
                             <h2 class="text-xl font-bold font-manrope">Informasi Penerima</h2>
@@ -63,8 +64,8 @@
                                     </label>
                                     <input id="name_customer" name="name_customer" type="text" required
                                         value="{{ old('name_customer', auth()->user()?->name ?? '') }}"
-                                        placeholder="Nama lengkap pemesan"
-                                        class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm @error('name_customer') ring-2 ring-error @enderror" />
+                                        placeholder="Nama lengkap"
+                                        class="w-full bg-gray-100 border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm @error('name_customer') ring-2 ring-error @enderror" />
                                 </div>
 
                                 <div class="space-y-2">
@@ -74,8 +75,8 @@
                                         <span class="text-on-surface-variant font-normal normal-case">(jika berbeda)</span>
                                     </label>
                                     <input id="recipient" name="recipient" type="text" value="{{ old('recipient') }}"
-                                        placeholder="Kosongkan jika sama dengan pemesan"
-                                        class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
+                                        placeholder="Kosongkan jika sama"
+                                        class="w-full bg-gray-100 border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
                                 </div>
                             </div>
 
@@ -91,7 +92,7 @@
                                     </span>
                                     <input id="no_telephone" name="no_telephone" type="tel"
                                         value="{{ old('no_telephone') }}" placeholder="+62 812-3456-7890"
-                                        class="w-full bg-surface-container-highest border-none rounded-lg pl-11 pr-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
+                                        class="w-full bg-gray-100 border-none rounded-lg pl-11 pr-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
                                 </div>
                             </div>
 
@@ -102,14 +103,14 @@
                                     Alamat Pengiriman
                                 </label>
                                 <textarea id="address" name="address" rows="3" placeholder="Jl. Sudirman No. 45, Kelurahan, Kecamatan, Kota"
-                                    class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm resize-none">{{ old('address') }}</textarea>
+                                    class="w-full bg-gray-100 border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm resize-none">{{ old('address') }}</textarea>
                             </div>
 
                         </div>
                     </section>
 
                     {{-- Metode Pembayaran --}}
-                    <section class="bg-surface-container-low rounded-xl p-8">
+                    <section class="bg-white rounded-xl p-8 border border-outline-variant/10">
                         <div class="flex items-center gap-3 mb-6">
                             <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
                             <h2 class="text-xl font-bold font-manrope">Metode Pembayaran</h2>
@@ -118,7 +119,8 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="paymentOptions">
 
                             <label
-                                class="payment-card relative flex flex-col p-5 bg-surface-container-lowest rounded-xl cursor-pointer ring-2 ring-primary transition-all"
+                                class="payment-card relative flex flex-col p-5 rounded-xl cursor-pointer ring-2 ring-primary
+                                transition-all shadow-[0_20px_40px_rgba(25,28,29,0.04)] border border-outline-variant/10"
                                 data-value="tunai">
                                 <input class="sr-only" name="payment_method" type="radio" value="tunai"
                                     {{ old('payment_method', 'tunai') === 'tunai' ? 'checked' : '' }} required />
@@ -132,8 +134,8 @@
                             </label>
 
                             <label
-                                class="payment-card relative flex flex-col p-5 bg-surface-container-highest/50 rounded-xl cursor-pointer hover:bg-surface-container-highest transition-all"
-                                data-value="transfer">
+                                class="payment-card relative flex flex-col p-5 bg-surface-container-highest/50 rounded-xl cursor-pointer hover:bg-surface-container-highest
+                                transition-all shadow-[0_20px_40px_rgba(25,28,29,0.04)] border border-outline-variant/10" data-value="transfer">
                                 <input class="sr-only" name="payment_method" type="radio" value="transfer"
                                     {{ old('payment_method') === 'transfer' ? 'checked' : '' }} />
                                 <div class="flex justify-between items-start mb-4">
@@ -149,7 +151,7 @@
                     </section>
 
                     {{-- Catatan --}}
-                    <section class="bg-surface-container-low rounded-xl p-8">
+                    <section class="bg-white rounded-xl p-8 border border-outline-variant/10">
                         <div class="flex items-center gap-3 mb-6">
                             <span class="material-symbols-outlined text-primary">sticky_note_2</span>
                             <h2 class="text-xl font-bold font-manrope">Catatan Pesanan</h2>
@@ -161,8 +163,9 @@
                             </label>
                             <textarea id="notes" name="notes" rows="3"
                                 placeholder="Contoh: tolong kirim sebelum jam 12 siang, atau instruksi khusus lainnya..."
-                                class="w-full bg-surface-container-highest border-none rounded-lg px-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm resize-none">{{ old('notes') }}</textarea>
+                               class="w-full bg-gray-100 border-none rounded-lg pl-11 pr-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm">{{ old('notes') }}</textarea>
                         </div>
+                        
                     </section>
 
                 </div>
@@ -204,11 +207,6 @@
                             <span>Proses Pesanan</span>
                             <span class="material-symbols-outlined text-sm opacity-70">arrow_forward</span>
                         </button>
-
-                        <p class="text-center text-xs text-on-surface-variant mt-4">
-                            Dengan menekan tombol di atas, Anda menyetujui syarat & ketentuan koperasi.
-                        </p>
-
                     </div>
                 </aside>
 
@@ -228,7 +226,6 @@
 
 @push('scripts')
     <script>
-
         function formatRp(value) {
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -277,8 +274,8 @@
         ${item.image
           ? `<img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-surface-container" />`
           : `<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center flex-shrink-0">
-                   <span class="material-symbols-outlined text-on-surface-variant text-lg">inventory_2</span>
-                 </div>`
+                           <span class="material-symbols-outlined text-on-surface-variant text-lg">inventory_2</span>
+                         </div>`
         }
         <div class="flex-1 min-w-0">
           <p class="text-sm font-bold text-on-surface truncate">${item.name}</p>

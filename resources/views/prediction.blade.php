@@ -35,7 +35,6 @@
                         <span class="material-symbols-outlined text-base">auto_awesome</span>
                     </button>
                 </div>
-
             </div>
         </div>
 
@@ -104,7 +103,6 @@
                     </div>
                 </div>
 
-                {{-- Stok Terkini + Kondisi --}}
                 {{-- Kondisi AMAN (stok >= ROP) --}}
                 <div id="result-stock-safe" class="hidden bg-green-50 border border-green-200 rounded-xl p-5 flex items-start gap-3">
                     <span class="material-symbols-outlined text-green-600 mt-0.5">check_circle</span>
@@ -145,11 +143,124 @@
             <p id="result-error-msg" class="text-sm text-red-700"></p>
         </div>
 
+        <!-- Label Riwayat Prediksi Seluruh Produk -->
+        <div class="mt-10">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="font-headline font-extrabold text-xl uppercase text-on-surface">Riwayat Prediksi Produk</h2>
+                </div>
+                <span class="px-3 py-1 bg-surface-container-high rounded-full text-xs font-semibold text-on-surface-variant">
+                    {{ $historyRows->count() }} produk
+                </span>
+            </div>
+
+            <div class="bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_rgba(25,28,27,0.04)] overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-[#00342b] to-[#004d40] text-white">
+                                <th class="text-left px-5 py-4 font-semibold text-xs uppercase tracking-wider">Nama Produk</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Safety Stock</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok Tersedia</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok ROP</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Tanggal Prediksi</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body" class="divide-y divide-outline-variant/10">
+                            @foreach ($historyRows as $row)
+                                @php
+                                    $hasPrediction = $row['safety_stock'] !== null;
+                                    $isAman        = $hasPrediction && $row['stock'] >= $row['rop'];
+                                @endphp
+                                <tr class="hover:bg-surface-container-low transition-colors duration-150"
+                                    id="history-row-{{ $row['product_id'] }}"
+                                    data-product-id="{{ $row['product_id'] }}">
+
+                                    {{-- Nama Produk --}}
+                                    <td class="px-5 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <span class="font-semibold text-on-surface">{{ $row['product_name'] }}</span>
+                                        </div>
+                                    </td>
+
+                                    {{-- Safety Stock --}}
+                                    <td class="px-5 py-4 text-center">
+                                        @if ($hasPrediction)
+                                            <span class="history-safety-stock font-bold text-on-surface">{{ $row['safety_stock'] }}</span>
+                                            <span class="text-xs text-on-surface-variant ml-1">unit</span>
+                                        @else
+                                            <span class="history-safety-stock text-outline-variant font-medium">-</span>
+                                        @endif
+                                    </td>
+
+                                    {{-- Stok Tersedia --}}
+                                    <td class="px-5 py-4 text-center">
+                                        <span class="history-stock font-bold text-on-surface">{{ $row['stock'] }}</span>
+                                        <span class="text-xs text-on-surface-variant ml-1">unit</span>
+                                    </td>
+
+                                    {{-- Stok ROP --}}
+                                    <td class="px-5 py-4 text-center">
+                                        @if ($hasPrediction)
+                                            <span class="history-rop font-bold text-on-surface">{{ $row['rop'] }}</span>
+                                            <span class="text-xs text-on-surface-variant ml-1">unit</span>
+                                        @else
+                                            <span class="history-rop text-outline-variant font-medium">-</span>
+                                        @endif
+                                    </td>
+
+                                    {{-- Tanggal Prediksi --}}
+                                    <td class="px-5 py-4 text-center">
+                                        @if ($hasPrediction)
+                                            <span class="history-tanggal text-xs text-on-surface-variant">
+                                                {{ \Carbon\Carbon::parse($row['tanggal'])->translatedFormat('d F Y') }}
+                                            </span>
+                                        @else
+                                            <span class="history-tanggal text-outline-variant font-medium">-</span>
+                                        @endif
+                                    </td>
+
+                                    {{-- Status --}}
+                                    <td class="px-5 py-4 text-center">
+                                        @if (!$hasPrediction)
+                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-surface-container-high text-outline-variant">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-outline-variant inline-block"></span>
+                                                Belum Diprediksi
+                                            </span>
+                                        @elseif ($isAman)
+                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
+                                                Aman
+                                            </span>
+                                        @else
+                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
+                                                Perlu Restock
+                                            </span>
+                                        @endif
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                @if ($historyRows->isEmpty())
+                    <div class="py-16 text-center">
+                        <span class="material-symbols-outlined text-4xl text-outline-variant">table_rows</span>
+                        <p class="text-on-surface-variant text-sm mt-2">Belum ada data produk.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+
     </div>
 
     <script>
         const PREDICT_URL = "{{ route('prediction.predict') }}";
-        const CSRF_TOKEN = "{{ csrf_token() }}";
+        const CSRF_TOKEN  = "{{ csrf_token() }}";
     </script>
     <script src="{{ asset('js/prediction.js') }}"></script>
 @endsection

@@ -8,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/pictures/koperasi.png') }}">
 </head>
 
 <body>
@@ -26,21 +27,22 @@
 
             <div class="bg-green-700 md:flex h-[90vh] flex-col justify-between p-14 overflow-y-auto">
                 <div>
-                    <h1 class="font-headline font-black text-2xl uppercase tracking-widest">Koperasi Bismillah Indonesia Sejahtera</h1>
+                    <h1 class="text-white text-3xl font-bold uppercase tracking-widest">Koperasi Bismillah Indonesia
+                        Sejahtera</h1>
                 </div>
                 <div class="space-y-4">
-                    <div class=" w-12 bg-tertiary-fixed"></div>
-                    <blockquote class="text-3xl font-headline font-bold leading-tight">
-                        "Connecting local farmers with modern consumers through digital precision."
+                    <blockquote class="text-3xl text-white font-headline font-bold leading-tight">
+                        "Menghubungkan kebutuhan masyarakat dengan layanan koperasi modern."
                     </blockquote>
+                    <div class=" w-12 bg-tertiary-fixed"></div>
                 </div>
-                <div class="text-xs opacity-60">
+                <div class="text-xs text-white opacity-60">
                     © 2024 Koperasi Bismillah Indonesia Sejahtera.
                 </div>
             </div>
 
             <!-- Form Side -->
-            <div class="md:p-14 h-[90vh] flex flex-col justify-center bg-surface-container-lowest"> 
+            <div class="md:p-14 h-[90vh] flex flex-col justify-center bg-surface-container-lowest">
 
                 @if ($errors->any())
                     <div class="mb-6 p-4 bg-error/10 border border-error rounded-lg">
@@ -83,16 +85,14 @@
                             Forgot Password
                         </a> --}}
                         </div>
-                        <div class="relative">
+                        <div class="relative w-full">
                             <span
                                 class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
-                            <input
-                                class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-container text-on-surface font-body transition-all @error('password') ring-2 ring-error @enderror"
-                                id="password" name="password" placeholder="••••••••" type="password" required>
-                            <button
-                                class="toggle-password absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors"
-                                type="button" data-toggle="password">
-                                <span class="material-symbols-outlined visibility-icon">visibility</span>
+                            <input id="passwordInput" name="password" type="password" placeholder="Password"
+                                class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-container text-on-surface font-body transition-all">
+                            <button type="button" id="togglePassword"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-outline hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined" id="visibilityIcon">visibility</span>
                             </button>
                         </div>
                         @error('password')
@@ -111,7 +111,7 @@
 
                     <!-- Submit Button -->
                     <button type="submit"
-                        class="bg-green-700 w-full editorial-gradient text-on-primary py-3 rounded-full font-headline font-bold text-lg shadow-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        class="bg-green-700 w-full editorial-gradient text-white py-3 rounded-full font-headline font-bold text-lg shadow-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
                         <span>Masuk</span>
                         <span class="material-symbols-outlined arrow-icon">arrow_forward</span>
                     </button>
@@ -131,6 +131,21 @@
         <div class="hidden lg:block fixed -bottom-20 -left-20 w-80 h-80 bg-tertiary/5 rounded-full blur-3xl"></div>
         <div class="hidden lg:block fixed top-10 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
     </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('visibilityIcon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+    </script>
 </body>
 
 </html>

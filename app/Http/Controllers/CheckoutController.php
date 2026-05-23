@@ -39,7 +39,8 @@ class CheckoutController extends Controller
             $product = Product::where('id', $productId)->where('is_active', true)->first();
             if (!$product) continue;
 
-            $lineTotal = $product->price * (int) ($item['qty'] ?? 1);
+            $qty       = (int) ($item['qty'] ?? 1);
+            $lineTotal = $product->price * $qty;
 
             Transaction::create([
                 'num_factur'     => $numFactur,
@@ -48,13 +49,14 @@ class CheckoutController extends Controller
                 'address'        => $request->address,
                 'recipient'      => $request->recipient ?: $request->name_customer,
                 'id_products'    => $product->id,
+                'total_item'     => $qty,
                 'total_amount'   => $lineTotal,
                 'payment_method' => $request->payment_method,
                 'payment_status' => 'pending',
                 'notes'          => $request->notes,
             ]);
 
-            $product->decrement('stock', (int) ($item['qty'] ?? 1));
+            $product->decrement('stock', $qty);
             $created++;
         }
 

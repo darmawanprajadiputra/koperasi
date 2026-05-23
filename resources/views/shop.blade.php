@@ -5,7 +5,7 @@
 @section('content')
     <div class="px-8 py-8 max-w-7xl mx-auto">
 
-        {{-- Success Banner setelah checkout --}}
+        {{-- Validation Messages --}}
         @if (session('order_success'))
             <div id="orderSuccessBanner"
                 class="mb-6 flex items-center gap-3 bg-[#e8f5e9] text-[#1b5e20] border border-[#a5d6a7] px-5 py-4 rounded-xl text-sm font-medium shadow-sm">
@@ -19,6 +19,15 @@
             </div>
         @endif
 
+        <!-- Search Bar -->
+        <div class="relative mb-4">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl pointer-events-none">search</span>
+            <input type="text"
+                   id="searchInput"
+                   placeholder="Cari produk..."
+                   class="w-full pl-11 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-full text-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-tertiary/40 focus:border-tertiary transition-all" />
+        </div>
+
         <!-- Category Filter -->
         <div id="categoryFilter" class="flex flex-wrap gap-2 mb-6">
             <span
@@ -28,7 +37,6 @@
             </span>
         </div>
 
-        <!-- Loading State -->
         <div id="loadingSpinner" class="text-center py-12">
             <div class="inline-block animate-spin">
                 <span class="material-symbols-outlined text-4xl text-primary">hourglass_empty</span>
@@ -36,7 +44,6 @@
             <p class="mt-4 text-on-surface-variant">Memuat produk...</p>
         </div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-12">
             <span class="material-symbols-outlined text-5xl text-outline/30 block mb-4">inventory_2</span>
             <p class="text-on-surface-variant font-medium">Belum ada produk tersedia</p>
@@ -45,8 +52,7 @@
         </div>
 
         <!-- Products Grid -->
-        <div id="productsContainer" class="hidden grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
-            <!-- Product cards will be loaded here -->
+        <div id="productsContainer" class="hidden grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         </div>
     </div>
 

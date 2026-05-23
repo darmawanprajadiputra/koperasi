@@ -43,7 +43,6 @@ class Product extends Model
         return $this->hasMany(Prediction::class);
     }
 
-    // Ambil prediksi terbaru
     public function latestPrediction()
     {
         return $this->hasOne(Prediction::class)->latestOfMany();

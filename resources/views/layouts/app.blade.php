@@ -12,6 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+    <link rel="icon" type="image/png" href="{{ asset('koperasi.png') }}">
 
     <!-- CSS -->
     @vite(['resources/css/app.css'])
@@ -28,7 +29,8 @@
         <main class="dashboard-main">
 
             <!-- Header -->
-            <header class="dashboard-header sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white border-b border-gray-100 shadow-sm">
+            <header
+                class="dashboard-header sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white border-b border-gray-100 shadow-sm">
                 <!-- Page Title -->
                 <div class="flex items-center gap-3">
                     <h2 class="text-3xl font-extrabold text-teal-900 text-primary uppercase tracking-wide">
@@ -40,18 +42,24 @@
                 <div class="relative">
                     <button id="profileButton"
                         class="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-100 transition-all group">
-                        <span class="material-symbols-outlined text-teal-700 group-hover:text-teal-900 transition-colors" style="font-size: 32px;">account_circle</span>
-                        <span class="text-sm font-semibold text-gray-700 group-hover:text-teal-900 transition-colors hidden sm:inline">
+                        <span
+                            class="material-symbols-outlined text-teal-700 group-hover:text-teal-900 transition-colors"
+                            style="font-size: 32px;">account_circle</span>
+                        <span
+                            class="text-sm font-semibold text-gray-700 group-hover:text-teal-900 transition-colors hidden sm:inline">
                             {{ Auth::user()->username }}
                         </span>
-                        <span class="material-symbols-outlined text-gray-400 group-hover:text-teal-700 transition-colors" style="font-size: 18px;">expand_more</span>
+                        <span
+                            class="material-symbols-outlined text-gray-400 group-hover:text-teal-700 transition-colors"
+                            style="font-size: 18px;">expand_more</span>
                     </button>
 
                     <div id="profileDropdown"
                         class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50">
                         <!-- Username -->
                         <div class="px-4 py-3 border-b border-gray-100 bg-teal-50">
-                            <p class="text-xs text-teal-600 font-medium uppercase tracking-wider mb-0.5">Masuk sebagai</p>
+                            <p class="text-xs text-teal-600 font-medium uppercase tracking-wider mb-0.5">Masuk sebagai
+                            </p>
                             <p class="text-sm font-bold text-teal-900">{{ Auth::user()->username }}</p>
                         </div>
                         <!-- Logout -->

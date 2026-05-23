@@ -16,8 +16,31 @@ class PredictionController extends Controller
 
     public function index()
     {
-        $products = Product::where('is_active', true)->get();
-        return view('prediction', compact('products'));
+        $products = Product::where('is_active', true)
+            ->orderBy('name_product', 'asc')
+            ->get();
+
+        // Ambil semua prediksi terakhir per produk (sudah pakai updateOrCreate, jadi 1 per produk)
+        $predictions = Prediction::with('product')
+            ->whereHas('product', fn($q) => $q->where('is_active', true))
+            ->get()
+            ->keyBy('product_id');
+
+        // Gabungkan: semua produk aktif + data prediksi jika ada
+        $historyRows = $products->map(function ($product) use ($predictions) {
+            $pred = $predictions->get($product->id);
+
+            return [
+                'product_id'   => $product->id,
+                'product_name' => $product->name_product,
+                'stock'        => (int) ($product->stock ?? 0),
+                'safety_stock' => $pred ? (int) $pred->rekomendasi_stok : null,
+                'rop'          => $pred ? (int) $pred->rop : null,
+                'tanggal'      => $pred ? $pred->tanggal_prediksi : null,
+            ];
+        });
+
+        return view('prediction', compact('products', 'historyRows'));
     }
 
     public function predict(Request $request)
@@ -38,7 +61,6 @@ class PredictionController extends Controller
 
         $pesanError = "Data transaksi untuk \"{$product->name_product}\" belum mencukupi (minimal 30 hari).";
 
-        // Validasi semua file yang dibutuhkan
         if ((!file_exists($modelKeras) && !file_exists($modelH5)) ||
             !file_exists($scaler) ||
             !file_exists($lastSeq)) {
@@ -48,10 +70,8 @@ class PredictionController extends Controller
             ], 422);
         }
 
-        // Ambil stok terkini produk
         $currentStock = (int) ($product->stock ?? 0);
 
-        // Ambil data historis dari DB
         $history = DB::table('transactions')
             ->where('id_products', $product->id)
             ->whereNotNull('total_item')
@@ -85,11 +105,13 @@ class PredictionController extends Controller
             return response()->json([
                 'success' => true,
                 'data'    => [
+                    'product_id'       => $product->id,
                     'product_name'     => $product->name_product,
                     'rekomendasi_stok' => round($hasil['recommended_order']),
                     'rop'              => round($hasil['rop']),
                     'current_stock'    => $currentStock,
                     'tanggal'          => today()->translatedFormat('d F Y'),
+                    'tanggal_raw'      => today()->toDateString(),
                 ],
             ]);
 

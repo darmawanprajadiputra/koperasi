@@ -12,8 +12,8 @@
             {{-- Pesanan Baru --}}
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-teal-100 rounded-xl">
-                        <span class="text-xl">🛒</span>
+                    <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl text-tertiary" data-icon="shopping_basket">shopping_basket</span>
                     </div>
                     <span
                         class="text-xs font-semibold px-2 py-1 rounded-full
@@ -29,8 +29,8 @@
             {{-- Pendapatan Koperasi --}}
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-blue-100 rounded-xl">
-                        <span class="text-xl">💳</span>
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl" data-icon="account_balance_wallet">account_balance_wallet</span>
                     </div>
                     <span
                         class="text-xs font-semibold px-2 py-1 rounded-full
@@ -46,8 +46,8 @@
             {{-- Jumlah Pemesan --}}
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-purple-100 rounded-xl">
-                        <span class="text-xl">👥</span>
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <span class="material-symbols-outlined text-2xl text-primary" data-icon="group_add">group_add</span>
                     </div>
                     <span
                         class="text-xs font-semibold px-2 py-1 rounded-full

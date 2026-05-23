@@ -9,6 +9,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PredictionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DataMasterController;
 
 Route::get('/', function () {
     return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
@@ -48,6 +49,15 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::patch('/product/{product}/toggle', [ProductController::class, 'toggle'])->name('product.toggle');
+
+    // Data Master (Kategori & Satuan)
+    Route::get('/datamaster', [DataMasterController::class, 'index'])->name('datamaster');
+    Route::post('/datamaster/category', [DataMasterController::class, 'storeCategory'])->name('datamaster.category.store');
+    Route::put('/datamaster/category/{category}', [DataMasterController::class, 'updateCategory'])->name('datamaster.category.update');
+    Route::delete('/datamaster/category/{category}', [DataMasterController::class, 'destroyCategory'])->name('datamaster.category.destroy');
+    Route::post('/datamaster/unit', [DataMasterController::class, 'storeUnit'])->name('datamaster.unit.store');
+    Route::put('/datamaster/unit/{unit}', [DataMasterController::class, 'updateUnit'])->name('datamaster.unit.update');
+    Route::delete('/datamaster/unit/{unit}', [DataMasterController::class, 'destroyUnit'])->name('datamaster.unit.destroy');
 
     // Orders — Web (menampilkan blade view)
     Route::get('/order', [OrderController::class, 'index'])->name('order');

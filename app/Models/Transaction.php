@@ -28,21 +28,18 @@ class Transaction extends Model
         'address',
         'recipient',
         'id_products',
+        'total_item',
         'total_amount',
         'payment_method',
         'payment_status',
         'notes',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
+        'total_item'   => 'integer',
         'total_amount' => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'created_at'   => 'datetime',
+        'updated_at'   => 'datetime',
     ];
 
     /**

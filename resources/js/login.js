@@ -19,22 +19,23 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initPasswordToggle() {
     const toggleButtons = document.querySelectorAll('.toggle-password');
-    
+
     toggleButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            const passwordInput = this.closest('div').querySelector('input[type="password"], input[type="text"]');
+            e.stopPropagation();
+
+            const input = document.getElementById('password');
             const icon = this.querySelector('.visibility-icon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
+
+            if (!input) return;
+
+            if (input.type === 'password') {
+                input.type = 'text';
                 icon.textContent = 'visibility_off';
-                this.setAttribute('data-visible', 'true');
             } else {
-                passwordInput.type = 'password';
+                input.type = 'password';
                 icon.textContent = 'visibility';
-                this.setAttribute('data-visible', 'false');
             }
         });
     });

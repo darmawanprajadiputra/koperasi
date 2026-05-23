@@ -80,27 +80,31 @@
         document.getElementById("step1Date").textContent = data.date ?? "—";
 
         if (isCompleted) {
-            document.getElementById("progressLine").style.width = "100%";
+            // Line 1 sudah penuh (default), fill line 2
+            document.getElementById("line2").style.width = "100%";
 
+            // Step 2 → centang hijau
             const s2icon = document.getElementById("step2Icon");
             s2icon.className =
-                "w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md";
+                "w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md";
             s2icon.innerHTML =
                 '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">check</span>';
             document.getElementById("step2Label").className =
-                "mt-4 text-xs font-bold text-on-surface";
+                "mt-3 text-xs font-bold text-[#005c20]";
             document.getElementById("step2Sub").textContent = "—";
 
-            const s3 = document.getElementById("step3");
-            s3.classList.remove("opacity-40");
+            // Step 3 → aktif hijau
             const s3icon = document.getElementById("step3Icon");
             s3icon.className =
-                "w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md";
+                "w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md";
             s3icon.innerHTML =
                 '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">check</span>';
+            document.getElementById("step3Label").className =
+                "mt-3 text-xs font-bold text-[#005c20]";
             document.getElementById("step3Sub").textContent = data.date ?? "—";
         } else {
-            document.getElementById("progressLine").style.width = "50%";
+            // Line 2 tetap kosong (abu-abu)
+            document.getElementById("line2").style.width = "0%";
         }
 
         // Info pemesan
@@ -253,23 +257,23 @@
                     "px-3 py-1 rounded-full text-[11px] font-bold bg-[#c8f5d5] text-[#005c20]";
 
                 document.getElementById("payStatus").textContent = "SELESAI";
-                document.getElementById("progressLine").style.width = "100%";
+                document.getElementById("line2").style.width = "100%";
 
                 const s2icon = document.getElementById("step2Icon");
                 s2icon.className =
-                    "w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md";
+                    "w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md";
                 s2icon.innerHTML =
                     '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">check</span>';
                 document.getElementById("step2Label").className =
-                    "mt-4 text-xs font-bold text-on-surface";
+                    "mt-3 text-xs font-bold text-[#005c20]";
 
-                const s3 = document.getElementById("step3");
-                s3.classList.remove("opacity-40");
                 const s3icon = document.getElementById("step3Icon");
                 s3icon.className =
-                    "w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center z-10 shadow-md";
+                    "w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md";
                 s3icon.innerHTML =
                     '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">check</span>';
+                document.getElementById("step3Label").className =
+                    "mt-3 text-xs font-bold text-[#005c20]";
                 document.getElementById("step3Sub").textContent =
                     new Date().toLocaleDateString("id-ID", {
                         day: "2-digit",
