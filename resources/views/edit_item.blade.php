@@ -225,5 +225,4 @@
             originalStock: {{ $product->stock }},
         };
     </script>
-
 @endsection
