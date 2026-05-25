@@ -22,9 +22,8 @@ def load_model_compat(produk_key):
     h5_path    = os.path.join(MODELS_DIR, f'lstm_{produk_key}_model.h5')
 
     if os.path.exists(keras_path):
-        return tf.keras.models.load_model(keras_path)
+        return tf.keras.models.load_model(keras_path, compile=False)
 
-    # Fallback: bangun ulang arsitektur + load weight dari .h5
     model = tf.keras.Sequential([
         tf.keras.layers.Input(shape=(WINDOW_SIZE, 1)),
         tf.keras.layers.LSTM(60, return_sequences=False, activation='tanh',
@@ -34,6 +33,16 @@ def load_model_compat(produk_key):
     ])
     model.load_weights(h5_path, by_name=False)
     return model
+
+def calculate_mape(actual, predicted):
+    """Hitung MAPE, konsisten dengan notebook Colab."""
+    actual    = np.array(actual).flatten()
+    predicted = np.array(predicted).flatten()
+    mask      = actual != 0
+    if mask.sum() == 0:
+        return None
+    ape  = np.abs((actual[mask] - predicted[mask]) / actual[mask]) * 100
+    return float(np.mean(ape))
 
 def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
     produk_key    = produk.lower().replace(' ', '_')
@@ -57,6 +66,35 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
             f'File last_seq_{produk_key}.npy tidak ditemukan di folder models/.'
         )
 
+    # ── MAPE
+    actuals = []
+    preds   = []
+
+    if history and len(history) >= WINDOW_SIZE + 1:
+        eval_scaled = scaler.transform(np.array(history).reshape(-1, 1))
+        n_eval      = min(len(history) - WINDOW_SIZE, 30)
+        for i in range(n_eval):
+            start    = len(eval_scaled) - WINDOW_SIZE - n_eval + i
+            seq_in   = eval_scaled[start : start + WINDOW_SIZE].reshape(1, WINDOW_SIZE, 1)
+            pred_s   = model.predict(seq_in, verbose=0)
+            actual_s = eval_scaled[start + WINDOW_SIZE]
+            actuals.append(scaler.inverse_transform(actual_s.reshape(1, 1))[0][0])
+            preds.append(scaler.inverse_transform(pred_s)[0][0])
+    else:
+
+        for i in range(WINDOW_SIZE - 1):
+            pad_size = WINDOW_SIZE - (i + 1)
+            window   = current_seq[: i + 1]                          
+            if pad_size > 0:
+                pad    = np.full((pad_size, 1), current_seq[0])      
+                window = np.vstack([pad, window])                    
+            pred_s   = model.predict(window.reshape(1, WINDOW_SIZE, 1), verbose=0)
+            actual_s = current_seq[i + 1]
+            actuals.append(scaler.inverse_transform(actual_s.reshape(1, 1))[0][0])
+            preds.append(scaler.inverse_transform(pred_s)[0][0])
+
+    mape = calculate_mape(actuals, preds) if actuals else None
+
     predictions_scaled = []
     seq = current_seq.copy()
     for _ in range(forecast_days):
@@ -64,7 +102,7 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
         predictions_scaled.append(pred[0][0])
         seq = np.append(seq[1:], pred.reshape(1, 1), axis=0)
 
-    predictions  = scaler.inverse_transform(
+    predictions = scaler.inverse_transform(
         np.array(predictions_scaled).reshape(-1, 1)
     ).flatten().tolist()
 
@@ -74,15 +112,19 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
     rop          = (avg_demand * lead_time) + safety_stock
     recommended  = (avg_demand * forecast_days) + safety_stock
 
-    return {
+    result = {
         'produk'           : produk,
         'rop'              : round(rop, 2),
         'recommended_order': round(recommended, 2),
     }
 
+    if mape is not None:
+        result['mape'] = round(mape, 2)
+
+    return result
+
 if __name__ == '__main__':
     try:
-        # Baca input dari --file (temp JSON file) atau dari argv[1]
         if '--file' in sys.argv:
             file_idx   = sys.argv.index('--file')
             input_path = sys.argv[file_idx + 1]

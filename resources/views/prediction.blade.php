@@ -38,7 +38,6 @@
             </div>
         </div>
 
-        {{-- Result Section --}}
 
         {{-- Empty State --}}
         <div id="result-empty"
@@ -62,8 +61,6 @@
 
         {{-- Result State --}}
         <div id="result-data" class="hidden space-y-4">
-
-            {{-- Info produk & tanggal --}}
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs text-on-surface-variant mb-1">Hasil Prediksi untuk</p>
@@ -85,9 +82,14 @@
                 </p>
                 <p id="result-qty" class="text-7xl font-extrabold mb-3"></p>
                 <p class="text-sm opacity-60">unit &bull; untuk 30 hari ke depan</p>
+                <div id="result-mape-container" class="hidden mt-3">
+                    <p class="text-xs opacity-50 uppercase tracking-wider mb-1">Akurasi Model (MAPE)</p>
+                    <p id="result-mape-value" class="text-2xl font-bold"></p>
+                    <p id="result-mape-label" class="text-xs opacity-60 mt-0.5"></p>
+                </div>
             </div>
 
-            {{-- Info ROP + Status Stok --}}
+            {{-- ROP & Status Stok --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                 {{-- ROP Info --}}
@@ -143,7 +145,7 @@
             <p id="result-error-msg" class="text-sm text-red-700"></p>
         </div>
 
-        <!-- Label Riwayat Prediksi Seluruh Produk -->
+        <!-- Riwayat Prediksi -->
         <div class="mt-10">
             <div class="flex items-center justify-between mb-4">
                 <div>

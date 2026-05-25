@@ -37,6 +37,7 @@ class PredictionController extends Controller
                 'safety_stock' => $pred ? (int) $pred->rekomendasi_stok : null,
                 'rop'          => $pred ? (int) $pred->rop : null,
                 'tanggal'      => $pred ? $pred->tanggal_prediksi : null,
+                'mape'         => $pred ? $pred->mape : null,
             ];
         });
 
@@ -93,12 +94,16 @@ class PredictionController extends Controller
                 forecastDays: 30,
             );
 
+            // mape bisa null jika history tidak cukup untuk evaluasi
+            $mape = isset($hasil['mape']) ? round((float) $hasil['mape'], 2) : null;
+
             Prediction::updateOrCreate(
                 ['product_id' => $product->id],
                 [
                     'rekomendasi_stok' => round($hasil['recommended_order']),
                     'rop'              => round($hasil['rop']),
                     'tanggal_prediksi' => today(),
+                    'mape'             => $mape,
                 ]
             );
 
@@ -112,6 +117,7 @@ class PredictionController extends Controller
                     'current_stock'    => $currentStock,
                     'tanggal'          => today()->translatedFormat('d F Y'),
                     'tanggal_raw'      => today()->toDateString(),
+                    'mape'             => $mape,
                 ],
             ]);
 

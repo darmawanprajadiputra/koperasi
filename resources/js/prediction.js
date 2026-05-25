@@ -63,29 +63,28 @@ function updateHistoryRow(data) {
     const safetyStock  = data.rekomendasi_stok;
     const isAman       = currentStock >= rop;
 
-    // Safety Stock
+    // Safety Stock — cukup update textContent, span "unit" di blade tidak ikut diganti
     const ssEl = row.querySelector(".history-safety-stock");
-    if (ssEl) {
-        ssEl.outerHTML =
-            `<span class="history-safety-stock font-bold text-on-surface">${safetyStock}</span>` +
-            `<span class="text-xs text-on-surface-variant ml-1">unit</span>`;
-    }
+    if (ssEl) ssEl.textContent = safetyStock;
 
     // Stok Tersedia (nilai ini sudah dari DB, tidak berubah di sini — biarkan)
 
     // Stok ROP
     const ropEl = row.querySelector(".history-rop");
-    if (ropEl) {
-        ropEl.outerHTML =
-            `<span class="history-rop font-bold text-on-surface">${rop}</span>` +
-            `<span class="text-xs text-on-surface-variant ml-1">unit</span>`;
-    }
+    if (ropEl) ropEl.textContent = rop;
 
     // Tanggal Prediksi
     const tglEl = row.querySelector(".history-tanggal");
-    if (tglEl) {
-        tglEl.outerHTML =
-            `<span class="history-tanggal text-xs text-on-surface-variant">${data.tanggal}</span>`;
+    if (tglEl) tglEl.textContent = data.tanggal;
+
+    // MAPE
+    const mapeEl = row.querySelector(".history-mape");
+    if (mapeEl) {
+        if (data.mape !== null && data.mape !== undefined) {
+            mapeEl.outerHTML = renderMapeBadge(data.mape, "history-mape");
+        } else {
+            mapeEl.outerHTML = `<span class="history-mape text-xs text-on-surface-variant">—</span>`;
+        }
     }
 
     // Status
@@ -108,6 +107,44 @@ function updateHistoryRow(data) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Helper: label & warna MAPE sesuai interpretasi notebook            */
+/* ------------------------------------------------------------------ */
+function getMapeInfo(mape) {
+    if (mape < 10)  return { label: "Akurasi Sangat Baik" };
+    if (mape < 20)  return { label: "Akurasi Baik" };
+    if (mape < 50)  return { label: "Akurasi Cukup" };
+    return              { label: "Akurasi Rendah" };
+}
+
+/* ------------------------------------------------------------------ */
+/*  Helper: render badge MAPE (dipakai di tabel riwayat jika perlu)    */
+/* ------------------------------------------------------------------ */
+function renderMapeBadge(mape, extraClass = "") {
+    let colorClass, label;
+
+    if (mape < 10) {
+        colorClass = "bg-green-100 text-green-700";
+        label      = "Sangat Baik";
+    } else if (mape < 20) {
+        colorClass = "bg-blue-100 text-blue-700";
+        label      = "Baik";
+    } else if (mape < 50) {
+        colorClass = "bg-amber-100 text-amber-700";
+        label      = "Cukup";
+    } else {
+        colorClass = "bg-red-100 text-red-700";
+        label      = "Rendah";
+    }
+
+    return (
+        `<span class="${extraClass} inline-flex flex-col items-center px-2 py-0.5 rounded-lg ${colorClass} text-xs font-semibold leading-tight">` +
+        `<span>${mape.toFixed(2)}%</span>` +
+        `<span class="font-normal opacity-75">${label}</span>` +
+        `</span>`
+    );
+}
+
+/* ------------------------------------------------------------------ */
 
 function showLoading() {
     setState("loading");
@@ -121,6 +158,19 @@ function showResult(data) {
     document.getElementById("result-qty").textContent          = data.rekomendasi_stok;
     document.getElementById("result-rop").textContent          = data.rop;
     document.getElementById("result-date").textContent         = "Diprediksi: " + data.tanggal;
+
+    // MAPE
+    const mapeContainer = document.getElementById("result-mape-container");
+    if (mapeContainer) {
+        if (data.mape !== null && data.mape !== undefined) {
+            const { label } = getMapeInfo(data.mape);
+            document.getElementById("result-mape-value").textContent = data.mape.toFixed(2) + "%";
+            document.getElementById("result-mape-label").textContent = label;
+            mapeContainer.classList.remove("hidden");
+        } else {
+            mapeContainer.classList.add("hidden");
+        }
+    }
 
     const currentStock = data.current_stock ?? 0;
     const rop          = data.rop;

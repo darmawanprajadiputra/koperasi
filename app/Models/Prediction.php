@@ -11,10 +11,12 @@ class Prediction extends Model
         'rekomendasi_stok',
         'rop',
         'tanggal_prediksi',
+        'mape',
     ];
 
     protected $casts = [
         'tanggal_prediksi' => 'date',
+        'mape'             => 'float',
     ];
 
     public function product()

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->decimal('rekomendasi_stok', 8, 2);
             $table->decimal('rop', 8, 2);
             $table->date('tanggal_prediksi');
+            $table->float('mape')->nullable();
             $table->timestamps();
         });
     }
