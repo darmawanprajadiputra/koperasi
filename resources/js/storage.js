@@ -287,11 +287,8 @@ function initBladeProducts() {
     if (menuDelete) {
         menuDelete.addEventListener('click', () => {
             if (!activeProduct) return;
-            if (!confirm(`Hapus produk "${activeProduct.name_product}"?`)) return;
             if (actionMenu) actionMenu.classList.add('hidden');
-            const form = document.getElementById('deleteForm');
-            form.action = `${cfg.deleteBase}/${activeProduct.id}`;
-            form.submit();
+            showDeleteModal(activeProduct);
         });
     }
 
@@ -415,10 +412,99 @@ function handleSearch(event) {
     renderDummyTable();
 }
 
-// ─── Entry point ─────────────────────────────────────────────────────────────
+function injectDeleteModal() {
+    if (document.getElementById('deleteConfirmModal')) return;
+
+    const modal = document.createElement('div');
+    modal.id = 'deleteConfirmModal';
+    modal.className = 'fixed inset-0 z-[100] flex items-center justify-center';
+    modal.style.display = 'none';
+    modal.innerHTML = `
+        <!-- Backdrop -->
+        <div id="deleteModalBackdrop"
+             class="absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-200"></div>
+
+        <!-- Dialog -->
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm mx-4 p-8 flex flex-col items-center text-center
+                    transform transition-all duration-200 scale-95 opacity-0"
+             id="deleteModalCard">
+
+            <!-- Icon -->
+            <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-5">
+                <span class="material-symbols-outlined text-red-600" style="font-size:32px">delete_forever</span>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-xl font-bold text-gray-900 mb-2">Hapus Produk</h2>
+
+            <!-- Body -->
+            <p class="text-sm text-gray-500 mb-4">
+                Produk <span id="deleteProductName" class="font-semibold text-gray-800"></span>
+                akan dihapus secara permanen.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 w-full">
+                <button id="deleteCancelBtn"
+                    class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm font-semibold text-red-600
+                           hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300">
+                    Batal
+                </button>
+                <button id="deleteConfirmBtn"
+                    class="flex-1 px-4 py-2.5 rounded-xl bg-teal-800 text-sm font-semibold text-white
+                           hover:bg-teal-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500">
+                    Hapus
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('deleteCancelBtn').addEventListener('click', hideDeleteModal);
+    document.getElementById('deleteModalBackdrop').addEventListener('click', hideDeleteModal);
+
+    document.getElementById('deleteConfirmBtn').addEventListener('click', () => {
+        if (!activeProduct) return;
+        hideDeleteModal();
+        const form = document.getElementById('deleteForm');
+        form.action = `${cfg.deleteBase}/${activeProduct.id}`;
+        form.submit();
+    });
+}
+
+function showDeleteModal(product) {
+    const modal = document.getElementById('deleteConfirmModal');
+    const card  = document.getElementById('deleteModalCard');
+    const nameEl = document.getElementById('deleteProductName');
+
+    if (!modal || !card || !nameEl) return;
+
+    nameEl.textContent  = `"${product.name_product}"`;
+    modal.style.display = 'flex';
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            card.classList.remove('scale-95', 'opacity-0');
+            card.classList.add('scale-100', 'opacity-100');
+        });
+    });
+}
+
+function hideDeleteModal() {
+    const modal = document.getElementById('deleteConfirmModal');
+    const card  = document.getElementById('deleteModalCard');
+    if (!modal || !card) return;
+
+    card.classList.remove('scale-100', 'opacity-100');
+    card.classList.add('scale-95', 'opacity-0');
+
+    setTimeout(() => { modal.style.display = 'none'; }, 200);
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('[v0] Storage module loaded');
+
+    injectDeleteModal();
 
     const bladeReady = initBladeProducts();
     if (!bladeReady) {

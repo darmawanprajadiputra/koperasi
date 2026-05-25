@@ -6,7 +6,6 @@
     let currentPage = 1;
     let activeFilter = 'all';
 
-    // ── Status helpers ─────────────────────────────────────────────────────────
     const STATUS_LABEL = {
         pending: 'DIPROSES',
         processing: 'DIPROSES',
@@ -28,7 +27,6 @@
         return STATUS_CLASS[s] ?? 'bg-surface-container text-on-surface-variant';
     }
 
-    // ── Currency ───────────────────────────────────────────────────────────────
     function formatRp(v) {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -37,10 +35,9 @@
         }).format(v);
     }
 
-    // ── Build one order card ───────────────────────────────────────────────────
     function createOrderCard(order) {
         return `
-            <div class="order-card bg-surface-container-lowest rounded-2xl overflow-hidden flex items-stretch shadow-sm hover:shadow-md transition-shadow"
+            <div class="order-card bg-white rounded-2xl overflow-hidden flex items-stretch shadow-sm hover:shadow-md transition-shadow"
                  data-status="${order.payment_status ?? 'pending'}">
 
                 <div class="relative w-28 flex-shrink-0">
@@ -100,7 +97,6 @@
         `;
     }
 
-    // ── Render current page ────────────────────────────────────────────────────
     function render() {
         const container    = document.getElementById('ordersContainer');
         const emptyState   = document.getElementById('emptyState');
@@ -131,14 +127,12 @@
         container.classList.remove('hidden');
         container.innerHTML = slice.map(createOrderCard).join('');
 
-        // detail button → redirect ke halaman detail
         container.querySelectorAll('.detail-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 window.location.href = '/order/' + btn.dataset.factur;
             });
         });
 
-        // pagination
         if (totalPages > 1) {
             paginationWr.classList.remove('hidden');
             pagContainer.innerHTML = Array.from({ length: totalPages }, (_, i) => `
@@ -163,7 +157,6 @@
         }
     }
 
-    // ── Load dari API ──────────────────────────────────────────────────────────
     async function loadOrders() {
         const loading = document.getElementById('loadingState');
         try {
@@ -185,7 +178,6 @@
         }
     }
 
-    // ── Filter buttons ─────────────────────────────────────────────────────────
     function setupFilters() {
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {

@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <div class="flex items-center gap-3 mt-6 mx-10">
+    <div class="flex items-center gap-3 my-6 mx-4">
         <a href="{{ route('storage') }}"
             class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
             <span class="material-symbols-outlined text-xl">arrow_back</span>
@@ -21,7 +21,7 @@
 
             <!-- Left Side -->
             <div class="lg:col-span-8 space-y-8">
-                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
                     <h2 class="text-xl font-bold mb-8 text-primary flex items-center gap-2">
                         <span class="material-symbols-outlined">inventory_2</span> Detail Produk
                     </h2>
@@ -142,7 +142,7 @@
             <div class="lg:col-span-4 space-y-8">
 
                 <!-- Image Upload -->
-                <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm text-center">
+                <section class="bg-white p-8 rounded-xl shadow-sm text-center">
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
                         Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
                     </h2>
@@ -151,12 +151,10 @@
                     <div id="imageUploadBox"
                         class="relative aspect-square rounded-xl bg-surface-container-low border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-6 cursor-pointer hover:bg-surface-variant transition-colors overflow-hidden">
 
-                        {{-- Preview: foto lama jika ada, atau default --}}
                         <img id="previewImage" class="absolute inset-0 w-full h-full object-cover"
                             src="{{ $product->image ? asset('storage/' . $product->image) : '/assets/pictures/produk.jpg' }}"
                             onerror="this.src='/assets/pictures/produk.jpg'" alt="Foto Produk" />
 
-                        {{-- Overlay gelap saat hover --}}
                         <div id="uploadOverlay"
                             class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity z-10">
                             <span class="material-symbols-outlined text-4xl text-white mb-2">photo_camera</span>

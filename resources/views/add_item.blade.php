@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <div class="flex items-center gap-3 mt-6 mx-10">
+    <div class="flex items-center gap-3 my-6 mx-4">
         <a href="{{ route('storage') }}"
             class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
             <span class="material-symbols-outlined text-xl">arrow_back</span>
@@ -20,7 +20,7 @@
 
             <!-- Left Side -->
             <div class="lg:col-span-8 space-y-8">
-                <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+                <div class="bg-white p-8 rounded-xl shadow-sm">
                     <h2 class="text-xl font-bold mb-8 text-primary flex items-center gap-2">
                         <span class="material-symbols-outlined">inventory_2</span> Detail Produk
                     </h2>
@@ -112,7 +112,7 @@
 
             <!-- Right Side -->
             <div class="lg:col-span-4 space-y-8">
-                <section class="bg-surface-container-lowest p-8 rounded-xl shadow-sm text-center">
+                <section class="bg-white p-8 rounded-xl shadow-sm text-center">
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
                         Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
                     </h2>
