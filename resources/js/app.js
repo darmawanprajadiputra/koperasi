@@ -9,4 +9,3 @@ import './edit';
 import './prediction';
 import './detail_transaction';
 import './datamaster';
-import './checkout';
