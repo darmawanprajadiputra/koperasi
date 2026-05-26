@@ -19,6 +19,7 @@
             <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-tertiary text-on-tertiary shadow-lg shadow-tertiary/10 transition-all" data-filter="all">Semua</button>
             <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="process">Proses</button>
             <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="completed">Selesai</button>
+            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="cancelled">Dibatalkan</button>
         </div>
 
         <!-- Loading -->

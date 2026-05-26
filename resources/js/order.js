@@ -108,6 +108,7 @@
             : allOrders.filter(o => {
                 if (activeFilter === 'process')   return ['pending', 'processing'].includes(o.payment_status);
                 if (activeFilter === 'completed') return o.payment_status === 'completed';
+                if (activeFilter === 'cancelled') return o.payment_status === 'cancelled';
                 return true;
             });
 
@@ -197,11 +198,9 @@
         document.getElementById('nextBtn').addEventListener('click', () => { currentPage++; render(); });
     }
 
-    // ── Auto-dismiss flash ─────────────────────────────────────────────────────
     const flash = document.getElementById('flashSuccess');
     if (flash) setTimeout(() => flash.style.display = 'none', 5000);
 
-    // ── Init ──────────────────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
         setupFilters();
         loadOrders();

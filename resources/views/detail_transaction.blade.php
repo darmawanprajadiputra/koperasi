@@ -30,7 +30,7 @@
             <p class="text-sm mt-1">Pastikan nomor faktur yang Anda akses benar.</p>
         </div>
 
-        {{-- Main Content (diisi oleh JS) --}}
+        {{-- Main Content --}}
         <div id="detailContent" class="hidden">
 
             {{-- Header --}}
@@ -45,7 +45,6 @@
                 </div>
             </div>
 
-            {{-- Grid --}}
             <div class="grid grid-cols-12 gap-8">
 
                 {{-- Kolom Kiri --}}
@@ -58,7 +57,7 @@
                         {{-- Step track --}}
                         <div class="flex items-start">
 
-                            {{-- Step 1: Pesanan Diterima --}}
+                            {{-- Pesanan Diterima --}}
                             <div class="flex flex-col items-center text-center min-w-[80px]" id="step1">
                                 <div id="step1Icon"
                                     class="w-10 h-10 rounded-full bg-[#005c20] text-white flex items-center justify-center shadow-md">
@@ -69,14 +68,13 @@
                                 <p id="step1Date" class="text-[10px] text-gray-400 mt-0.5">—</p>
                             </div>
 
-                            {{-- Line 1→2 --}}
                             <div class="flex-1 flex flex-col items-stretch mt-5">
                                 <div class="h-[2px] w-full bg-gray-200 relative">
                                     <div id="line1" class="absolute inset-0 bg-[#005c20] transition-all duration-500" style="width:100%"></div>
                                 </div>
                             </div>
 
-                            {{-- Step 2: Diproses --}}
+                            {{-- Diproses --}}
                             <div class="flex flex-col items-center text-center min-w-[80px]" id="step2">
                                 <div id="step2Icon"
                                     class="w-10 h-10 rounded-full bg-white border-[3px] border-[#005c20] flex items-center justify-center shadow-sm">
@@ -86,14 +84,13 @@
                                 <p class="text-[10px] text-gray-400 mt-0.5" id="step2Sub">Sedang disiapkan</p>
                             </div>
 
-                            {{-- Line 2→3 --}}
                             <div class="flex-1 flex flex-col items-stretch mt-5">
                                 <div class="h-[2px] w-full bg-gray-200 relative">
                                     <div id="line2" class="absolute inset-0 bg-[#005c20] transition-all duration-500" style="width:0%"></div>
                                 </div>
                             </div>
 
-                            {{-- Step 3: Selesai --}}
+                            {{-- Selesai --}}
                             <div class="flex flex-col items-center text-center min-w-[80px]" id="step3">
                                 <div id="step3Icon"
                                     class="w-10 h-10 rounded-full bg-gray-100 border-2 border-gray-300 flex items-center justify-center">
@@ -121,6 +118,15 @@
                             class="w-full bg-green-600 flex items-center justify-center gap-3 text-white px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.99] transition-all">
                             <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">task_alt</span>
                             Tandai Pesanan Selesai
+                        </button>
+                    </div>
+
+                    {{-- Batal --}}
+                    <div id="cancelOrderSection" class="hidden">
+                        <button id="cancelOrderBtn"
+                            class="w-full bg-white border-2 border-red-400 flex items-center justify-center gap-3 text-red-500 px-8 py-4 rounded-xl font-bold text-base hover:bg-red-50 active:scale-[0.99] transition-all">
+                            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">cancel</span>
+                            Batalkan Pesanan
                         </button>
                     </div>
 
@@ -227,6 +233,35 @@
             </div>
         </div>
     </div>
+    
+    {{-- Cancel Modal --}}
+    <div id="cancelModal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 animate-fade-in">
+            <div class="flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mx-auto mb-5">
+                <span class="material-symbols-outlined text-3xl text-red-500"
+                    style="font-variation-settings:'FILL' 1">cancel</span>
+            </div>
+            <h2 class="font-manrope text-xl font-extrabold text-on-surface text-center mb-2">Batalkan Pesanan?</h2>
+            <p class="text-sm text-on-surface-variant text-center mb-8">
+                Pesanan ini akan dibatalkan dan stok produk akan <strong>dikembalikan</strong> secara otomatis.<br>
+                Tindakan ini tidak dapat diurungkan.
+            </p>
+            <div class="flex gap-3">
+                <button id="closeCancelModal"
+                    class="flex-1 py-3 rounded-xl border border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors">
+                    Kembali
+                </button>
+                <button id="confirmCancel"
+                    class="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold text-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <span id="cancelSpinner"
+                        class="hidden material-symbols-outlined text-sm animate-spin">progress_activity</span>
+                    Ya, Batalkan
+                </button>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('scripts')

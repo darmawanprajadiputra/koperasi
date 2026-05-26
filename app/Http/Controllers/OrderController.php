@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -84,17 +86,48 @@ class OrderController extends Controller
 
     public function updateStatus(Request $request, $order_id)
     {
-        $request->validate(['status' => 'required|string']);
+        $request->validate(['status' => 'required|string|in:pending,processing,completed,cancelled']);
 
-        $updated = Transaction::where('num_factur', $order_id)
-            ->update(['payment_status' => $request->status]);
+        $transactions = Transaction::with('product')
+            ->where('num_factur', $order_id)
+            ->get();
+
+        if ($transactions->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'Order not found'], 404);
+        }
+
+        $current = $transactions->first()->payment_status;
+
+        // Validasi transisi status
+        if ($current === 'completed') {
+            return response()->json(['success' => false, 'message' => 'Pesanan yang sudah selesai tidak dapat diubah'], 422);
+        }
+        if ($current === 'cancelled') {
+            return response()->json(['success' => false, 'message' => 'Pesanan sudah dibatalkan'], 422);
+        }
+
+        DB::transaction(function () use ($transactions, $order_id, $request) {
+            // Jika dibatalkan, kembalikan stok setiap produk
+            if ($request->status === 'cancelled') {
+                foreach ($transactions as $trx) {
+                    if ($trx->id_products && $trx->total_item) {
+                        Product::where('id', $trx->id_products)
+                            ->increment('stock', (int) $trx->total_item);
+                    }
+                }
+            }
+
+            Transaction::where('num_factur', $order_id)
+                ->update(['payment_status' => $request->status]);
+        });
 
         return response()->json([
             'success'    => true,
-            'message'    => 'Status pesanan diperbarui',
+            'message'    => $request->status === 'cancelled'
+                ? 'Pesanan dibatalkan dan stok telah dikembalikan'
+                : 'Status pesanan diperbarui',
             'num_factur' => $order_id,
             'new_status' => $request->status,
-            'updated'    => $updated,
         ]);
     }
 }

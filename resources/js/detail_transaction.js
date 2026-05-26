@@ -51,16 +51,23 @@
     const detailEl = document.getElementById("detailContent");
     const completeSection = document.getElementById("completeOrderSection");
     const completeBtn = document.getElementById("completeOrderBtn");
+    const cancelSection = document.getElementById("cancelOrderSection");
+    const cancelOrderBtn = document.getElementById("cancelOrderBtn");
     const confirmModal = document.getElementById("confirmModal");
     const cancelConfirmBtn = document.getElementById("cancelConfirm");
     const confirmCompleteBtn = document.getElementById("confirmComplete");
     const confirmSpinner = document.getElementById("confirmSpinner");
+    const cancelModal = document.getElementById("cancelModal");
+    const closeCancelModalBtn = document.getElementById("closeCancelModal");
+    const confirmCancelBtn = document.getElementById("confirmCancel");
+    const cancelSpinner = document.getElementById("cancelSpinner");
 
     // ── Render detail ─────────────────────────────────────────────────────────
     function renderDetail(data, transactions) {
         const status = data.payment_status ?? "pending";
         const isPending = ["pending", "processing"].includes(status);
         const isCompleted = status === "completed";
+        const isCancelled = status === "cancelled";
 
         // Header
         document.getElementById("headerInvoice").textContent =
@@ -102,6 +109,21 @@
             document.getElementById("step3Label").className =
                 "mt-3 text-xs font-bold text-[#005c20]";
             document.getElementById("step3Sub").textContent = data.date ?? "—";
+        } else if (isCancelled) {
+            // Step 2 → merah silang
+            const s2icon = document.getElementById("step2Icon");
+            s2icon.className =
+                "w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center shadow-md";
+            s2icon.innerHTML =
+                '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">close</span>';
+            document.getElementById("step2Label").textContent = "Dibatalkan";
+            document.getElementById("step2Label").className =
+                "mt-3 text-xs font-bold text-red-500";
+            document.getElementById("step2Sub").textContent = "Stok dikembalikan";
+            document.getElementById("step2Sub").className =
+                "text-[10px] text-red-400 mt-0.5";
+            // Line 1 merah
+            document.getElementById("line1").classList.replace("bg-[#005c20]", "bg-red-400");
         } else {
             // Line 2 tetap kosong (abu-abu)
             document.getElementById("line2").style.width = "0%";
@@ -165,9 +187,10 @@
             )
             .join("");
 
-        // Tampilkan tombol selesai hanya jika masih pending
+        // Tampilkan tombol selesai & batalkan hanya jika masih pending
         if (isPending) {
             completeSection.classList.remove("hidden");
+            cancelSection.classList.remove("hidden");
         }
 
         loadingEl.classList.add("hidden");
@@ -250,6 +273,7 @@
             if (data.success) {
                 confirmModal.classList.add("hidden");
                 completeSection.classList.add("hidden");
+                cancelSection.classList.add("hidden");
 
                 const badge = document.getElementById("headerBadge");
                 badge.textContent = "SELESAI";
@@ -290,6 +314,80 @@
             alert("Terjadi kesalahan jaringan. Silakan coba lagi.");
             confirmCompleteBtn.disabled = false;
             confirmSpinner.classList.add("hidden");
+        }
+    });
+
+    // ── Batalkan pesanan ──────────────────────────────────────────────────────
+    cancelOrderBtn.addEventListener("click", () => {
+        cancelModal.classList.remove("hidden");
+    });
+
+    closeCancelModalBtn.addEventListener("click", () => {
+        cancelModal.classList.add("hidden");
+    });
+
+    cancelModal.addEventListener("click", (e) => {
+        if (e.target === cancelModal) cancelModal.classList.add("hidden");
+    });
+
+    confirmCancelBtn.addEventListener("click", async () => {
+        confirmCancelBtn.disabled = true;
+        cancelSpinner.classList.remove("hidden");
+
+        try {
+            const res = await fetch("/api/orders/" + numFactur + "/status", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN":
+                        (
+                            document.querySelector('meta[name="csrf-token"]') ||
+                            {}
+                        ).content ?? "",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({ status: "cancelled" }),
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                cancelModal.classList.add("hidden");
+                completeSection.classList.add("hidden");
+                cancelSection.classList.add("hidden");
+
+                const badge = document.getElementById("headerBadge");
+                badge.textContent = "DIBATALKAN";
+                badge.className =
+                    "px-3 py-1 rounded-full text-[11px] font-bold bg-red-100 text-red-700";
+
+                document.getElementById("payStatus").textContent = "DIBATALKAN";
+
+                // Step 2 → merah silang
+                const s2icon = document.getElementById("step2Icon");
+                s2icon.className =
+                    "w-10 h-10 rounded-full bg-red-500 text-white flex items-center justify-center shadow-md";
+                s2icon.innerHTML =
+                    '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1">close</span>';
+                document.getElementById("step2Label").textContent = "Dibatalkan";
+                document.getElementById("step2Label").className =
+                    "mt-3 text-xs font-bold text-red-500";
+                document.getElementById("step2Sub").textContent = "Stok dikembalikan";
+                document.getElementById("step2Sub").className =
+                    "text-[10px] text-red-400 mt-0.5";
+                // Line 1 merah
+                const line1 = document.getElementById("line1");
+                line1.classList.remove("bg-[#005c20]");
+                line1.classList.add("bg-red-400");
+            } else {
+                alert(data.message ?? "Gagal membatalkan pesanan.");
+                confirmCancelBtn.disabled = false;
+                cancelSpinner.classList.add("hidden");
+            }
+        } catch (err) {
+            console.error("[CANCEL]", err);
+            alert("Terjadi kesalahan jaringan. Silakan coba lagi.");
+            confirmCancelBtn.disabled = false;
+            cancelSpinner.classList.add("hidden");
         }
     });
 
