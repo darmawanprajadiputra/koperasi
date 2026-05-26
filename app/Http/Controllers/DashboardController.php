@@ -23,6 +23,7 @@ class DashboardController extends Controller
             ->count('num_factur');
 
         $revenue = Transaction::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->where('payment_status', 'completed')
             ->sum('total_amount');
 
         $totalCustomers = Transaction::whereBetween('created_at', [$startOfWeek, $endOfWeek])
@@ -69,7 +70,7 @@ class DashboardController extends Controller
         $prevEnd   = Carbon::now()->subWeek()->endOfWeek();
 
         $prevOrders    = Transaction::whereBetween('created_at', [$prevStart, $prevEnd])->distinct('num_factur')->count('num_factur');
-        $prevRevenue   = Transaction::whereBetween('created_at', [$prevStart, $prevEnd])->sum('total_amount');
+        $prevRevenue   = Transaction::whereBetween('created_at', [$prevStart, $prevEnd])->where('payment_status', 'completed')->sum('total_amount');
         $prevCustomers = Transaction::whereBetween('created_at', [$prevStart, $prevEnd])->distinct('name_customer')->count('name_customer');
 
         $orderChange    = $this->percentChange($prevOrders, $totalOrders);
