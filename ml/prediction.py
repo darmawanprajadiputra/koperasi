@@ -17,6 +17,7 @@ tf.get_logger().setLevel('ERROR')
 MODELS_DIR  = os.path.join(os.path.dirname(__file__), 'models')
 WINDOW_SIZE = 30
 
+# Load model
 def load_model_compat(produk_key):
     keras_path = os.path.join(MODELS_DIR, f'lstm_{produk_key}_model.keras')
     h5_path    = os.path.join(MODELS_DIR, f'lstm_{produk_key}_model.h5')
@@ -34,15 +35,64 @@ def load_model_compat(produk_key):
     model.load_weights(h5_path, by_name=False)
     return model
 
+# MAPE
 def calculate_mape(actual, predicted):
-    """Hitung MAPE"""
     actual    = np.array(actual).flatten()
     predicted = np.array(predicted).flatten()
     mask      = actual != 0
     if mask.sum() == 0:
         return None
-    ape  = np.abs((actual[mask] - predicted[mask]) / actual[mask]) * 100
+    ape = np.abs((actual[mask] - predicted[mask]) / actual[mask]) * 100
     return float(np.mean(ape))
+
+def load_mape_from_test_data(produk_key, model, scaler):
+
+    test_path  = os.path.join(MODELS_DIR, f'test_data_{produk_key}.npy')
+    train_path = os.path.join(MODELS_DIR, f'train_data_{produk_key}.npy')
+
+    if not os.path.exists(test_path):
+        return None
+
+    test_values = np.load(test_path)
+    if len(test_values) <= WINDOW_SIZE:
+        return None
+
+    if os.path.exists(train_path):
+        train_values = np.load(train_path)
+        split_idx    = len(train_values)
+        all_values   = np.concatenate([train_values, test_values])
+        all_scaled   = scaler.transform(all_values.reshape(-1, 1)).flatten()
+
+        X_all, y_all = [], []
+        for i in range(len(all_scaled) - WINDOW_SIZE):
+            X_all.append(all_scaled[i : i + WINDOW_SIZE])
+            y_all.append(all_values[i + WINDOW_SIZE])
+        X_all = np.array(X_all)
+        y_all = np.array(y_all)
+
+        X_test = X_all[split_idx - WINDOW_SIZE:]
+        y_test = y_all[split_idx - WINDOW_SIZE:]
+    else:
+        test_scaled = scaler.transform(test_values.reshape(-1, 1)).flatten()
+        X_test, y_test = [], []
+        for i in range(len(test_scaled) - WINDOW_SIZE):
+            X_test.append(test_scaled[i : i + WINDOW_SIZE])
+            y_test.append(test_values[i + WINDOW_SIZE])
+        X_test = np.array(X_test)
+        y_test = np.array(y_test)
+
+    if len(X_test) == 0:
+        return None
+
+    actuals, preds = [], []
+    for i in range(len(X_test)):
+        seq_in   = X_test[i].reshape(1, WINDOW_SIZE, 1)
+        pred_s   = model.predict(seq_in, verbose=0)
+        pred_v   = scaler.inverse_transform(pred_s)[0][0]
+        actuals.append(y_test[i])
+        preds.append(pred_v)
+
+    return calculate_mape(actuals, preds)
 
 def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
     produk_key    = produk.lower().replace(' ', '_')
@@ -66,35 +116,9 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
             f'File last_seq_{produk_key}.npy tidak ditemukan di folder models/.'
         )
 
-    # MAPE
-    actuals = []
-    preds   = []
+    mape = load_mape_from_test_data(produk_key, model, scaler)
 
-    if history and len(history) >= WINDOW_SIZE + 1:
-        eval_scaled = scaler.transform(np.array(history).reshape(-1, 1))
-        n_eval      = min(len(history) - WINDOW_SIZE, 30)
-        for i in range(n_eval):
-            start    = len(eval_scaled) - WINDOW_SIZE - n_eval + i
-            seq_in   = eval_scaled[start : start + WINDOW_SIZE].reshape(1, WINDOW_SIZE, 1)
-            pred_s   = model.predict(seq_in, verbose=0)
-            actual_s = eval_scaled[start + WINDOW_SIZE]
-            actuals.append(scaler.inverse_transform(actual_s.reshape(1, 1))[0][0])
-            preds.append(scaler.inverse_transform(pred_s)[0][0])
-    else:
-
-        for i in range(WINDOW_SIZE - 1):
-            pad_size = WINDOW_SIZE - (i + 1)
-            window   = current_seq[: i + 1]                          
-            if pad_size > 0:
-                pad    = np.full((pad_size, 1), current_seq[0])      
-                window = np.vstack([pad, window])                    
-            pred_s   = model.predict(window.reshape(1, WINDOW_SIZE, 1), verbose=0)
-            actual_s = current_seq[i + 1]
-            actuals.append(scaler.inverse_transform(actual_s.reshape(1, 1))[0][0])
-            preds.append(scaler.inverse_transform(pred_s)[0][0])
-
-    mape = calculate_mape(actuals, preds) if actuals else None
-
+    # Forecast ke depan
     predictions_scaled = []
     seq = current_seq.copy()
     for _ in range(forecast_days):
@@ -123,6 +147,7 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
 
     return result
 
+# CLI
 if __name__ == '__main__':
     try:
         if '--file' in sys.argv:
