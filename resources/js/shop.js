@@ -20,6 +20,7 @@ function createProductCard(product) {
          data-name="${product.name_product}"
          data-price="${product.price}"
          data-stock="${product.stock}"
+         data-unit="${product.unit || ''}"
          data-image="${product.image || ''}">
       <div class="relative h-44 overflow-hidden bg-surface-container-low">
         <img src="${product.image || '/assets/pictures/produk.jpg'}"
@@ -40,7 +41,7 @@ function createProductCard(product) {
           <div class="flex items-center justify-between mb-3">
             <span class="text-xs font-semibold text-secondary flex items-center gap-1">
               <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check_circle</span>
-              Stok: ${product.stock}
+              Stok: ${product.stock}${product.unit ? ' ' + product.unit.toUpperCase() : ''}
             </span>
             <div class="quantity-selector flex items-center bg-surface-container-low rounded-full px-2 py-1">
               <button class="qty-minus p-1 hover:text-primary transition-colors" type="button">
@@ -246,13 +247,23 @@ function setupSearchHandler() {
   if (!searchInput) return;
 
   searchInput.addEventListener('input', () => {
-    const query = searchInput.value.trim().toLowerCase();
+    const query     = searchInput.value.trim().toLowerCase();
     const container = document.getElementById('productsContainer');
+    const emptySearch = document.getElementById('emptySearchState');
+
+    let visibleCount = 0;
     container?.querySelectorAll('.product-card').forEach(card => {
       const name = card.dataset.name?.toLowerCase() || '';
       const cat  = card.querySelector('.bg-secondary')?.textContent?.trim().toLowerCase() || '';
-      card.style.display = (!query || name.includes(query) || cat.includes(query)) ? '' : 'none';
+      const show = !query || name.includes(query) || cat.includes(query);
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
     });
+
+    // Tampilkan/sembunyikan empty search state
+    if (emptySearch) {
+      emptySearch.classList.toggle('hidden', visibleCount > 0);
+    }
   });
 }
 

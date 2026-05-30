@@ -25,11 +25,17 @@
                 <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Total Produk</p>
                 <span class="text-3xl font-bold text-teal-900">{{ $products->count() }}</span>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Hampir Habis</p>
-                <span class="text-3xl font-bold text-teal-900">{{ $products->where('stock', '<=', 10)->count() }}</span>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-amber-200">
+                <p class="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-3">Perlu Restock</p>
+                <div class="flex items-end gap-2">
+                    <span class="text-3xl font-bold text-amber-600">{{ $restockCount ?? 0 }}</span>
+                    @if (($restockCount ?? 0) > 0)
+                        <span class="text-xs text-amber-500 mb-1 font-medium">stok di bawah ROP</span>
+                    @else
+                        <span class="text-xs text-gray-400 mb-1 font-medium">semua aman</span>
+                    @endif
+                </div>
+            </div>            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Produk Aktif</p>
                 <span class="text-3xl font-bold text-teal-900">{{ $products->where('is_active', true)->count() }}</span>
             </div>

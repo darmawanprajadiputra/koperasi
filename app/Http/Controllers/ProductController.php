@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Unit;
+use App\Models\Prediction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,7 +21,17 @@ class ProductController extends Controller
                     : asset('assets/pictures/produk.jpg');
                 return $product;
             });
-        return view('storage', compact('products'));
+        // Hitung produk yang perlu restock: stok < ROP berdasarkan hasil prediksi terakhir
+        $restockCount = Prediction::whereHas('product', fn($q) => $q->where('is_active', true))
+            ->with('product')
+            ->get()
+            ->filter(function ($pred) {
+                $stock = (int) ($pred->product->stock ?? 0);
+                return $stock < (int) $pred->rop;
+            })
+            ->count();
+
+        return view('storage', compact('products', 'restockCount'));
     }
 
     public function create()

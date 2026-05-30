@@ -12,7 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DataMasterController;
 
 Route::get('/', function () {
-    return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
+    return redirect()->route('shop');
 })->name('home');
 
 Route::middleware('guest')->group(function () {

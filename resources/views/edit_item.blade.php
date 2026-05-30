@@ -66,7 +66,7 @@
 
                         <!-- Unit (Autocomplete) -->
                         <div>
-                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan / Unit</label>
+                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Satuan</label>
                             <div class="relative" id="unitWrapper">
                                 <span
                                     class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
@@ -121,7 +121,7 @@
 
                         <!-- Harga Jual -->
                         <div class="relative">
-                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Harga Jual</label>
+                            <label class="block text-sm font-semibold text-on-surface-variant mb-2">Harga</label>
                             <div class="flex items-center">
                                 <span class="absolute left-4 font-bold text-on-surface-variant">Rp</span>
                                 <input name="price"
@@ -144,7 +144,7 @@
                 <!-- Image Upload -->
                 <section class="bg-white p-8 rounded-xl shadow-sm text-center">
                     <h2 class="text-sm font-bold mb-4 text-on-surface-variant uppercase tracking-widest">
-                        Foto Produk <span class="text-outline font-normal normal-case">(opsional)</span>
+                        Foto Produk
                     </h2>
                     <input type="file" id="image" name="image" accept="image/jpeg,image/png"
                         style="display:none;" />

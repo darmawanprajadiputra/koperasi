@@ -51,6 +51,13 @@
             </p>
         </div>
 
+        {{-- Empty state saat search tidak menemukan hasil --}}
+        <div id="emptySearchState" class="hidden text-center py-16">
+            <span class="material-symbols-outlined text-6xl text-outline/20 block mb-4">search_off</span>
+            <p class="text-on-surface-variant font-semibold text-base">Produk tidak ditemukan</p>
+            <p class="text-on-surface-variant text-sm mt-1">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+        </div>
+
         <!-- Products Grid -->
         <div id="productsContainer" class="hidden grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         </div>

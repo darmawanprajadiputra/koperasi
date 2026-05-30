@@ -20,7 +20,7 @@ class ShopController extends Controller
      */
     public function getProducts()
     {
-        $products = Product::with('category')
+        $products = Product::with('category', 'unit')
             ->where('is_active', true)
             ->orderBy('name_product', 'asc')
             ->latest()
@@ -30,6 +30,7 @@ class ShopController extends Controller
                     'id'           => $product->id,
                     'name_product' => $product->name_product,
                     'category'     => $product->category?->name_categories ?? 'Produk',
+                    'unit'         => $product->unit?->name_unit ?? '',
                     'price'        => $product->price,
                     'stock'        => $product->stock,
                     'image'        => $product->image

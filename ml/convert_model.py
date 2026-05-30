@@ -24,7 +24,6 @@ NEW_MODEL_PATH = os.path.join(MODELS_DIR, 'lstm_beras_model.keras')
 
 print('Membangun ulang arsitektur model...')
 
-# Bangun ulang arsitektur sesuai config yang terbaca
 model = tf.keras.Sequential([
     tf.keras.layers.Input(shape=(30, 1)),
     tf.keras.layers.LSTM(60, return_sequences=False, activation='tanh',

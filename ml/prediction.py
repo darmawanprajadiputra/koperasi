@@ -35,7 +35,7 @@ def load_model_compat(produk_key):
     return model
 
 def calculate_mape(actual, predicted):
-    """Hitung MAPE, konsisten dengan notebook Colab."""
+    """Hitung MAPE"""
     actual    = np.array(actual).flatten()
     predicted = np.array(predicted).flatten()
     mask      = actual != 0
@@ -66,7 +66,7 @@ def predict(produk, lead_time=7, z_score=1.65, forecast_days=30, history=None):
             f'File last_seq_{produk_key}.npy tidak ditemukan di folder models/.'
         )
 
-    # ── MAPE
+    # MAPE
     actuals = []
     preds   = []
 

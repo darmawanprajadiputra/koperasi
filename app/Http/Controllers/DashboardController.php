@@ -77,31 +77,19 @@ class DashboardController extends Controller
         $revenueChange  = $this->percentChange($prevRevenue, $revenue);
         $customerChange = $this->percentChange($prevCustomers, $totalCustomers);
 
-        // Notifikasi ROP
-        $totalTerjualPerProduk = DB::table('transactions')
-            ->select('id_products', DB::raw('SUM(total_item) as total_terjual'))
-            ->whereNotNull('total_item')
-            ->groupBy('id_products')
-            ->pluck('total_terjual', 'id_products');
-
+        // Notifikasi ROP — gunakan product->stock langsung (konsisten dengan tabel prediksi & gudang)
         $restockAlerts = Prediction::with('product')
             ->whereNotNull('rop')
+            ->whereHas('product', fn($q) => $q->where('is_active', true))
             ->get()
-            ->filter(function ($pred) use ($totalTerjualPerProduk) {
+            ->filter(function ($pred) {
                 $product = $pred->product;
                 if (!$product) return false;
 
-                $initialStock = $product->initial_stock
-                    ?? $product->stock
-                    ?? $pred->rekomendasi_stok
-                    ?? 0;
-
-                $totalTerjual        = (int) ($totalTerjualPerProduk[$pred->product_id] ?? 0);
-                $currentStock        = max(0, (int) $initialStock - $totalTerjual);
-
+                $currentStock        = (int) ($product->stock ?? 0);
                 $pred->current_stock = $currentStock;
 
-                return $currentStock <= (int) $pred->rop;
+                return $currentStock < (int) $pred->rop;
             })
             ->map(function ($pred) {
                 return [
@@ -125,7 +113,7 @@ class DashboardController extends Controller
             'revenue'         => $revenueFormatted,
             'totalCustomers'  => number_format($totalCustomers),
 
-            // Persentase perubahan
+            // Persentase
             'orderChange'     => $orderChange,
             'revenueChange'   => $revenueChange,
             'customerChange'  => $customerChange,
@@ -142,7 +130,6 @@ class DashboardController extends Controller
         return view('dashboard', $dashboardData);
     }
 
-    // Helper: Format Rupiah
     private function formatRupiah(float $amount): string
     {
         if ($amount >= 1_000_000_000) {
@@ -157,7 +144,6 @@ class DashboardController extends Controller
         return 'Rp ' . number_format($amount);
     }
 
-    // Helper: Persentase perubahan
     private function percentChange(float $old, float $new): array
     {
         if ($old == 0) {
