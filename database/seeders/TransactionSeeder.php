@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -31,8 +30,8 @@ class TransactionSeeder extends Seeder
 
         $notes = [null, null, null, 'Titip ke satpam', 'Hubungi sebelum kirim', null, 'Packing rapi', null];
 
-        $startDate = Carbon::create(2026, 3, 1, 0, 0, 0);
-        $endDate   = Carbon::create(2026, 5, 1, 23, 59, 59);
+        $startDate = Carbon::create(2026, 1, 17, 0, 0, 0);
+        $endDate   = Carbon::create(2026, 5, 29, 23, 59, 59);
 
         // Ambil nomor faktur terakhir dari DB, fallback ke 10 (sesuai data existing)
         $lastId = DB::table('transactions')->max('id') ?? 10;
