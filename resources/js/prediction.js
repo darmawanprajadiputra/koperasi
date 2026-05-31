@@ -144,13 +144,12 @@ function renderMapeBadge(mape, extraClass = "") {
     );
 }
 
-/* ------------------------------------------------------------------ */
-
 function showLoading() {
     setState("loading");
-    const btn = document.getElementById("btn-predict");
-    btn.disabled = true;
-    document.getElementById("btn-text").textContent = "Menghitung...";
+    document.getElementById("btn-predict").disabled  = true;
+    document.getElementById("product-select").disabled = true;
+    document.getElementById("lead-time").disabled      = true;
+    document.getElementById("btn-text").textContent   = "Menghitung...";
 }
 
 function showResult(data) {
@@ -212,7 +211,8 @@ function setState(state) {
 }
 
 function resetButton() {
-    const btn = document.getElementById("btn-predict");
-    btn.disabled = false;
-    document.getElementById("btn-text").textContent = "Hitung Prediksi";
+    document.getElementById("btn-predict").disabled    = false;
+    document.getElementById("product-select").disabled = false;
+    document.getElementById("lead-time").disabled      = false;
+    document.getElementById("btn-text").textContent    = "Hitung Prediksi";
 }
