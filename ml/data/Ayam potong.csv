@@ -65,7 +65,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-08-03,Ayam potong,109,KG
 2022-08-04,Ayam potong,132,KG
 2022-08-05,Ayam potong,,KG
-2022-08-06,Ayam potong,147,KG
+2022-08-06,Ayam potong,,KG
 2022-08-07,Ayam potong,,KG
 2022-08-08,Ayam potong,93,KG
 2022-08-09,Ayam potong,72,KG
@@ -133,7 +133,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-10-10,Ayam potong,87,KG
 2022-10-11,Ayam potong,64,KG
 2022-10-12,Ayam potong,100,KG
-2022-10-13,Ayam potong,126,KG
+2022-10-13,Ayam potong,,KG
 2022-10-14,Ayam potong,141,KG
 2022-10-15,Ayam potong,138,KG
 2022-10-16,Ayam potong,69,KG
@@ -202,7 +202,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-12-18,Ayam potong,59,KG
 2022-12-19,Ayam potong,,KG
 2022-12-20,Ayam potong,,KG
-2022-12-21,Ayam potong,115,KG
+2022-12-21,Ayam potong,,KG
 2022-12-22,Ayam potong,124,KG
 2022-12-23,Ayam potong,,KG
 2022-12-24,Ayam potong,132,KG
@@ -268,7 +268,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-02-22,Ayam potong,110,KG
 2023-02-23,Ayam potong,124,KG
 2023-02-24,Ayam potong,148,KG
-2023-02-25,Ayam potong,151,KG
+2023-02-25,Ayam potong,,KG
 2023-02-26,Ayam potong,72,KG
 2023-02-27,Ayam potong,98,KG
 2023-02-28,Ayam potong,86,KG
@@ -339,7 +339,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-05-04,Ayam potong,,KG
 2023-05-05,Ayam potong,154,KG
 2023-05-06,Ayam potong,154,KG
-2023-05-07,Ayam potong,78,KG
+2023-05-07,Ayam potong,,KG
 2023-05-08,Ayam potong,101,KG
 2023-05-09,Ayam potong,101,KG
 2023-05-10,Ayam potong,129,KG
@@ -406,7 +406,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-07-10,Ayam potong,101,KG
 2023-07-11,Ayam potong,104,KG
 2023-07-12,Ayam potong,127,KG
-2023-07-13,Ayam potong,161,KG
+2023-07-13,Ayam potong,,KG
 2023-07-14,Ayam potong,174,KG
 2023-07-15,Ayam potong,157,KG
 2023-07-16,Ayam potong,,KG
@@ -484,7 +484,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-09-26,Ayam potong,101,KG
 2023-09-27,Ayam potong,129,KG
 2023-09-28,Ayam potong,153,KG
-2023-09-29,Ayam potong,170,KG
+2023-09-29,Ayam potong,,KG
 2023-09-30,Ayam potong,160,KG
 2023-10-01,Ayam potong,68,KG
 2023-10-02,Ayam potong,84,KG
@@ -555,7 +555,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-12-06,Ayam potong,108,KG
 2023-12-07,Ayam potong,132,KG
 2023-12-08,Ayam potong,154,KG
-2023-12-09,Ayam potong,141,KG
+2023-12-09,Ayam potong,,KG
 2023-12-10,Ayam potong,69,KG
 2023-12-11,Ayam potong,84,KG
 2023-12-12,Ayam potong,86,KG
@@ -622,7 +622,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-02-11,Ayam potong,63,KG
 2024-02-12,Ayam potong,98,KG
 2024-02-13,Ayam potong,90,KG
-2024-02-14,Ayam potong,103,KG
+2024-02-14,Ayam potong,,KG
 2024-02-15,Ayam potong,135,KG
 2024-02-16,Ayam potong,156,KG
 2024-02-17,Ayam potong,,KG
@@ -697,7 +697,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-04-26,Ayam potong,,KG
 2024-04-27,Ayam potong,181,KG
 2024-04-28,Ayam potong,,KG
-2024-04-29,Ayam potong,123,KG
+2024-04-29,Ayam potong,,KG
 2024-04-30,Ayam potong,125,KG
 2024-05-01,Ayam potong,,KG
 2024-05-02,Ayam potong,166,KG
@@ -776,7 +776,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-07-14,Ayam potong,,KG
 2024-07-15,Ayam potong,,KG
 2024-07-16,Ayam potong,109,KG
-2024-07-17,Ayam potong,138,KG
+2024-07-17,Ayam potong,,KG
 2024-07-18,Ayam potong,,KG
 2024-07-19,Ayam potong,173,KG
 2024-07-20,Ayam potong,,KG
@@ -838,7 +838,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-09-14,Ayam potong,153,KG
 2024-09-15,Ayam potong,76,KG
 2024-09-16,Ayam potong,106,KG
-2024-09-17,Ayam potong,88,KG
+2024-09-17,Ayam potong,,KG
 2024-09-18,Ayam potong,109,KG
 2024-09-19,Ayam potong,,KG
 2024-09-20,Ayam potong,,KG
@@ -905,7 +905,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-11-20,Ayam potong,111,KG
 2024-11-21,Ayam potong,127,KG
 2024-11-22,Ayam potong,147,KG
-2024-11-23,Ayam potong,148,KG
+2024-11-23,Ayam potong,,KG
 2024-11-24,Ayam potong,72,KG
 2024-11-25,Ayam potong,,KG
 2024-11-26,Ayam potong,98,KG
@@ -981,7 +981,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-02-04,Ayam potong,,KG
 2025-02-05,Ayam potong,115,KG
 2025-02-06,Ayam potong,144,KG
-2025-02-07,Ayam potong,170,KG
+2025-02-07,Ayam potong,,KG
 2025-02-08,Ayam potong,161,KG
 2025-02-09,Ayam potong,,KG
 2025-02-10,Ayam potong,,KG
@@ -1049,7 +1049,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-04-13,Ayam potong,96,KG
 2025-04-14,Ayam potong,117,KG
 2025-04-15,Ayam potong,106,KG
-2025-04-16,Ayam potong,127,KG
+2025-04-16,Ayam potong,,KG
 2025-04-17,Ayam potong,149,KG
 2025-04-18,Ayam potong,,KG
 2025-04-19,Ayam potong,173,KG
@@ -1118,7 +1118,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-06-21,Ayam potong,182,KG
 2025-06-22,Ayam potong,102,KG
 2025-06-23,Ayam potong,116,KG
-2025-06-24,Ayam potong,108,KG
+2025-06-24,Ayam potong,,KG
 2025-06-25,Ayam potong,169,KG
 2025-06-26,Ayam potong,190,KG
 2025-06-27,Ayam potong,,KG
@@ -1184,7 +1184,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-08-26,Ayam potong,126,KG
 2025-08-27,Ayam potong,150,KG
 2025-08-28,Ayam potong,176,KG
-2025-08-29,Ayam potong,194,KG
+2025-08-29,Ayam potong,,KG
 2025-08-30,Ayam potong,184,KG
 2025-08-31,Ayam potong,106,KG
 2025-09-01,Ayam potong,111,KG
@@ -1252,7 +1252,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-11-02,Ayam potong,83,KG
 2025-11-03,Ayam potong,,KG
 2025-11-04,Ayam potong,100,KG
-2025-11-05,Ayam potong,133,KG
+2025-11-05,Ayam potong,,KG
 2025-11-06,Ayam potong,146,KG
 2025-11-07,Ayam potong,,KG
 2025-11-08,Ayam potong,162,KG

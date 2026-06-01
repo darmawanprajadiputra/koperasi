@@ -30,7 +30,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-06-29,Indomilk st_ck,175,DUS
 2022-06-30,Indomilk st_ck,192,DUS
 2022-07-01,Indomilk st_ck,197,DUS
-2022-07-02,Indomilk st_ck,189,DUS
+2022-07-02,Indomilk st_ck,,DUS
 2022-07-03,Indomilk st_ck,,DUS
 2022-07-04,Indomilk st_ck,,DUS
 2022-07-05,Indomilk st_ck,128,DUS
@@ -57,7 +57,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-07-26,Indomilk st_ck,151,DUS
 2022-07-27,Indomilk st_ck,,DUS
 2022-07-28,Indomilk st_ck,193,DUS
-2022-07-29,Indomilk st_ck,198,DUS
+2022-07-29,Indomilk st_ck,,DUS
 2022-07-30,Indomilk st_ck,196,DUS
 2022-07-31,Indomilk st_ck,,DUS
 2022-08-01,Indomilk st_ck,135,DUS
@@ -90,7 +90,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-08-28,Indomilk st_ck,128,DUS
 2022-08-29,Indomilk st_ck,146,DUS
 2022-08-30,Indomilk st_ck,140,DUS
-2022-08-31,Indomilk st_ck,170,DUS
+2022-08-31,Indomilk st_ck,,DUS
 2022-09-01,Indomilk st_ck,176,DUS
 2022-09-02,Indomilk st_ck,189,DUS
 2022-09-03,Indomilk st_ck,,DUS
@@ -121,7 +121,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-09-28,Indomilk st_ck,164,DUS
 2022-09-29,Indomilk st_ck,177,DUS
 2022-09-30,Indomilk st_ck,195,DUS
-2022-10-01,Indomilk st_ck,176,DUS
+2022-10-01,Indomilk st_ck,,DUS
 2022-10-02,Indomilk st_ck,113,DUS
 2022-10-03,Indomilk st_ck,134,DUS
 2022-10-04,Indomilk st_ck,122,DUS
@@ -151,7 +151,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-10-28,Indomilk st_ck,196,DUS
 2022-10-29,Indomilk st_ck,189,DUS
 2022-10-30,Indomilk st_ck,131,DUS
-2022-10-31,Indomilk st_ck,137,DUS
+2022-10-31,Indomilk st_ck,,DUS
 2022-11-01,Indomilk st_ck,114,DUS
 2022-11-02,Indomilk st_ck,140,DUS
 2022-11-03,Indomilk st_ck,,DUS
@@ -183,7 +183,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-11-29,Indomilk st_ck,,DUS
 2022-11-30,Indomilk st_ck,,DUS
 2022-12-01,Indomilk st_ck,171,DUS
-2022-12-02,Indomilk st_ck,183,DUS
+2022-12-02,Indomilk st_ck,,DUS
 2022-12-03,Indomilk st_ck,178,DUS
 2022-12-04,Indomilk st_ck,113,DUS
 2022-12-05,Indomilk st_ck,134,DUS
@@ -209,7 +209,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-12-25,Indomilk st_ck,122,DUS
 2022-12-26,Indomilk st_ck,147,DUS
 2022-12-27,Indomilk st_ck,133,DUS
-2022-12-28,Indomilk st_ck,153,DUS
+2022-12-28,Indomilk st_ck,,DUS
 2022-12-29,Indomilk st_ck,176,DUS
 2022-12-30,Indomilk st_ck,187,DUS
 2022-12-31,Indomilk st_ck,184,DUS
@@ -236,7 +236,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-01-21,Indomilk st_ck,181,DUS
 2023-01-22,Indomilk st_ck,117,DUS
 2023-01-23,Indomilk st_ck,129,DUS
-2023-01-24,Indomilk st_ck,120,DUS
+2023-01-24,Indomilk st_ck,,DUS
 2023-01-25,Indomilk st_ck,165,DUS
 2023-01-26,Indomilk st_ck,,DUS
 2023-01-27,Indomilk st_ck,,DUS
@@ -269,7 +269,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-02-23,Indomilk st_ck,176,DUS
 2023-02-24,Indomilk st_ck,,DUS
 2023-02-25,Indomilk st_ck,203,DUS
-2023-02-26,Indomilk st_ck,141,DUS
+2023-02-26,Indomilk st_ck,,DUS
 2023-02-27,Indomilk st_ck,154,DUS
 2023-02-28,Indomilk st_ck,141,DUS
 2023-03-01,Indomilk st_ck,156,DUS
@@ -294,7 +294,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-03-20,Indomilk st_ck,135,DUS
 2023-03-21,Indomilk st_ck,133,DUS
 2023-03-22,Indomilk st_ck,163,DUS
-2023-03-23,Indomilk st_ck,185,DUS
+2023-03-23,Indomilk st_ck,,DUS
 2023-03-24,Indomilk st_ck,,DUS
 2023-03-25,Indomilk st_ck,198,DUS
 2023-03-26,Indomilk st_ck,129,DUS
@@ -320,7 +320,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-04-15,Indomilk st_ck,187,DUS
 2023-04-16,Indomilk st_ck,123,DUS
 2023-04-17,Indomilk st_ck,149,DUS
-2023-04-18,Indomilk st_ck,140,DUS
+2023-04-18,Indomilk st_ck,,DUS
 2023-04-19,Indomilk st_ck,172,DUS
 2023-04-20,Indomilk st_ck,192,DUS
 2023-04-21,Indomilk st_ck,,DUS
@@ -348,7 +348,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-05-13,Indomilk st_ck,,DUS
 2023-05-14,Indomilk st_ck,,DUS
 2023-05-15,Indomilk st_ck,148,DUS
-2023-05-16,Indomilk st_ck,141,DUS
+2023-05-16,Indomilk st_ck,,DUS
 2023-05-17,Indomilk st_ck,,DUS
 2023-05-18,Indomilk st_ck,191,DUS
 2023-05-19,Indomilk st_ck,,DUS
@@ -372,7 +372,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-06-06,Indomilk st_ck,144,DUS
 2023-06-07,Indomilk st_ck,162,DUS
 2023-06-08,Indomilk st_ck,187,DUS
-2023-06-09,Indomilk st_ck,198,DUS
+2023-06-09,Indomilk st_ck,,DUS
 2023-06-10,Indomilk st_ck,193,DUS
 2023-06-11,Indomilk st_ck,130,DUS
 2023-06-12,Indomilk st_ck,143,DUS
@@ -403,7 +403,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-07-07,Indomilk st_ck,,DUS
 2023-07-08,Indomilk st_ck,188,DUS
 2023-07-09,Indomilk st_ck,131,DUS
-2023-07-10,Indomilk st_ck,148,DUS
+2023-07-10,Indomilk st_ck,,DUS
 2023-07-11,Indomilk st_ck,137,DUS
 2023-07-12,Indomilk st_ck,,DUS
 2023-07-13,Indomilk st_ck,,DUS
@@ -434,7 +434,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-08-07,Indomilk st_ck,,DUS
 2023-08-08,Indomilk st_ck,,DUS
 2023-08-09,Indomilk st_ck,161,DUS
-2023-08-10,Indomilk st_ck,180,DUS
+2023-08-10,Indomilk st_ck,,DUS
 2023-08-11,Indomilk st_ck,189,DUS
 2023-08-12,Indomilk st_ck,189,DUS
 2023-08-13,Indomilk st_ck,,DUS
@@ -471,7 +471,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-09-13,Indomilk st_ck,160,DUS
 2023-09-14,Indomilk st_ck,179,DUS
 2023-09-15,Indomilk st_ck,,DUS
-2023-09-16,Indomilk st_ck,188,DUS
+2023-09-16,Indomilk st_ck,,DUS
 2023-09-17,Indomilk st_ck,120,DUS
 2023-09-18,Indomilk st_ck,,DUS
 2023-09-19,Indomilk st_ck,132,DUS
@@ -505,7 +505,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-10-17,Indomilk st_ck,,DUS
 2023-10-18,Indomilk st_ck,150,DUS
 2023-10-19,Indomilk st_ck,172,DUS
-2023-10-20,Indomilk st_ck,191,DUS
+2023-10-20,Indomilk st_ck,,DUS
 2023-10-21,Indomilk st_ck,184,DUS
 2023-10-22,Indomilk st_ck,,DUS
 2023-10-23,Indomilk st_ck,139,DUS
@@ -542,7 +542,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-11-23,Indomilk st_ck,171,DUS
 2023-11-24,Indomilk st_ck,,DUS
 2023-11-25,Indomilk st_ck,194,DUS
-2023-11-26,Indomilk st_ck,129,DUS
+2023-11-26,Indomilk st_ck,,DUS
 2023-11-27,Indomilk st_ck,145,DUS
 2023-11-28,Indomilk st_ck,133,DUS
 2023-11-29,Indomilk st_ck,155,DUS
@@ -572,7 +572,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-12-23,Indomilk st_ck,171,DUS
 2023-12-24,Indomilk st_ck,117,DUS
 2023-12-25,Indomilk st_ck,146,DUS
-2023-12-26,Indomilk st_ck,137,DUS
+2023-12-26,Indomilk st_ck,,DUS
 2023-12-27,Indomilk st_ck,,DUS
 2023-12-28,Indomilk st_ck,185,DUS
 2023-12-29,Indomilk st_ck,205,DUS
@@ -603,7 +603,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-01-23,Indomilk st_ck,,DUS
 2024-01-24,Indomilk st_ck,165,DUS
 2024-01-25,Indomilk st_ck,,DUS
-2024-01-26,Indomilk st_ck,209,DUS
+2024-01-26,Indomilk st_ck,,DUS
 2024-01-27,Indomilk st_ck,194,DUS
 2024-01-28,Indomilk st_ck,,DUS
 2024-01-29,Indomilk st_ck,152,DUS
@@ -630,7 +630,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-02-19,Indomilk st_ck,137,DUS
 2024-02-20,Indomilk st_ck,131,DUS
 2024-02-21,Indomilk st_ck,,DUS
-2024-02-22,Indomilk st_ck,174,DUS
+2024-02-22,Indomilk st_ck,,DUS
 2024-02-23,Indomilk st_ck,198,DUS
 2024-02-24,Indomilk st_ck,194,DUS
 2024-02-25,Indomilk st_ck,,DUS
@@ -661,7 +661,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-03-21,Indomilk st_ck,188,DUS
 2024-03-22,Indomilk st_ck,,DUS
 2024-03-23,Indomilk st_ck,,DUS
-2024-03-24,Indomilk st_ck,127,DUS
+2024-03-24,Indomilk st_ck,,DUS
 2024-03-25,Indomilk st_ck,159,DUS
 2024-03-26,Indomilk st_ck,149,DUS
 2024-03-27,Indomilk st_ck,177,DUS
@@ -690,7 +690,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-04-19,Indomilk st_ck,204,DUS
 2024-04-20,Indomilk st_ck,,DUS
 2024-04-21,Indomilk st_ck,138,DUS
-2024-04-22,Indomilk st_ck,161,DUS
+2024-04-22,Indomilk st_ck,,DUS
 2024-04-23,Indomilk st_ck,,DUS
 2024-04-24,Indomilk st_ck,177,DUS
 2024-04-25,Indomilk st_ck,200,DUS
@@ -717,7 +717,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-05-16,Indomilk st_ck,187,DUS
 2024-05-17,Indomilk st_ck,211,DUS
 2024-05-18,Indomilk st_ck,202,DUS
-2024-05-19,Indomilk st_ck,139,DUS
+2024-05-19,Indomilk st_ck,,DUS
 2024-05-20,Indomilk st_ck,,DUS
 2024-05-21,Indomilk st_ck,145,DUS
 2024-05-22,Indomilk st_ck,177,DUS
@@ -751,7 +751,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-06-19,Indomilk st_ck,175,DUS
 2024-06-20,Indomilk st_ck,200,DUS
 2024-06-21,Indomilk st_ck,,DUS
-2024-06-22,Indomilk st_ck,208,DUS
+2024-06-22,Indomilk st_ck,,DUS
 2024-06-23,Indomilk st_ck,140,DUS
 2024-06-24,Indomilk st_ck,152,DUS
 2024-06-25,Indomilk st_ck,,DUS
@@ -779,7 +779,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-07-17,Indomilk st_ck,178,DUS
 2024-07-18,Indomilk st_ck,186,DUS
 2024-07-19,Indomilk st_ck,205,DUS
-2024-07-20,Indomilk st_ck,197,DUS
+2024-07-20,Indomilk st_ck,,DUS
 2024-07-21,Indomilk st_ck,,DUS
 2024-07-22,Indomilk st_ck,150,DUS
 2024-07-23,Indomilk st_ck,142,DUS
@@ -806,7 +806,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-08-13,Indomilk st_ck,136,DUS
 2024-08-14,Indomilk st_ck,,DUS
 2024-08-15,Indomilk st_ck,190,DUS
-2024-08-16,Indomilk st_ck,204,DUS
+2024-08-16,Indomilk st_ck,,DUS
 2024-08-17,Indomilk st_ck,200,DUS
 2024-08-18,Indomilk st_ck,,DUS
 2024-08-19,Indomilk st_ck,155,DUS
@@ -833,7 +833,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-09-09,Indomilk st_ck,147,DUS
 2024-09-10,Indomilk st_ck,,DUS
 2024-09-11,Indomilk st_ck,164,DUS
-2024-09-12,Indomilk st_ck,186,DUS
+2024-09-12,Indomilk st_ck,,DUS
 2024-09-13,Indomilk st_ck,202,DUS
 2024-09-14,Indomilk st_ck,193,DUS
 2024-09-15,Indomilk st_ck,140,DUS
@@ -860,7 +860,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-10-06,Indomilk st_ck,,DUS
 2024-10-07,Indomilk st_ck,143,DUS
 2024-10-08,Indomilk st_ck,,DUS
-2024-10-09,Indomilk st_ck,166,DUS
+2024-10-09,Indomilk st_ck,,DUS
 2024-10-10,Indomilk st_ck,180,DUS
 2024-10-11,Indomilk st_ck,198,DUS
 2024-10-12,Indomilk st_ck,,DUS
@@ -892,7 +892,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-11-07,Indomilk st_ck,181,DUS
 2024-11-08,Indomilk st_ck,,DUS
 2024-11-09,Indomilk st_ck,194,DUS
-2024-11-10,Indomilk st_ck,126,DUS
+2024-11-10,Indomilk st_ck,,DUS
 2024-11-11,Indomilk st_ck,138,DUS
 2024-11-12,Indomilk st_ck,132,DUS
 2024-11-13,Indomilk st_ck,159,DUS
@@ -916,7 +916,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-12-01,Indomilk st_ck,131,DUS
 2024-12-02,Indomilk st_ck,140,DUS
 2024-12-03,Indomilk st_ck,133,DUS
-2024-12-04,Indomilk st_ck,172,DUS
+2024-12-04,Indomilk st_ck,,DUS
 2024-12-05,Indomilk st_ck,192,DUS
 2024-12-06,Indomilk st_ck,,DUS
 2024-12-07,Indomilk st_ck,191,DUS
@@ -946,7 +946,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-12-31,Indomilk st_ck,146,DUS
 2025-01-01,Indomilk st_ck,157,DUS
 2025-01-02,Indomilk st_ck,,DUS
-2025-01-03,Indomilk st_ck,197,DUS
+2025-01-03,Indomilk st_ck,,DUS
 2025-01-04,Indomilk st_ck,192,DUS
 2025-01-05,Indomilk st_ck,,DUS
 2025-01-06,Indomilk st_ck,145,DUS
@@ -978,7 +978,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-02-01,Indomilk st_ck,191,DUS
 2025-02-02,Indomilk st_ck,129,DUS
 2025-02-03,Indomilk st_ck,142,DUS
-2025-02-04,Indomilk st_ck,136,DUS
+2025-02-04,Indomilk st_ck,,DUS
 2025-02-05,Indomilk st_ck,170,DUS
 2025-02-06,Indomilk st_ck,188,DUS
 2025-02-07,Indomilk st_ck,,DUS
@@ -1008,7 +1008,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-03-03,Indomilk st_ck,,DUS
 2025-03-04,Indomilk st_ck,,DUS
 2025-03-05,Indomilk st_ck,175,DUS
-2025-03-06,Indomilk st_ck,189,DUS
+2025-03-06,Indomilk st_ck,,DUS
 2025-03-07,Indomilk st_ck,210,DUS
 2025-03-08,Indomilk st_ck,194,DUS
 2025-03-09,Indomilk st_ck,125,DUS
@@ -1039,7 +1039,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-04-03,Indomilk st_ck,195,DUS
 2025-04-04,Indomilk st_ck,,DUS
 2025-04-05,Indomilk st_ck,214,DUS
-2025-04-06,Indomilk st_ck,143,DUS
+2025-04-06,Indomilk st_ck,,DUS
 2025-04-07,Indomilk st_ck,168,DUS
 2025-04-08,Indomilk st_ck,152,DUS
 2025-04-09,Indomilk st_ck,178,DUS
@@ -1068,7 +1068,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-05-02,Indomilk st_ck,,DUS
 2025-05-03,Indomilk st_ck,209,DUS
 2025-05-04,Indomilk st_ck,146,DUS
-2025-05-05,Indomilk st_ck,160,DUS
+2025-05-05,Indomilk st_ck,,DUS
 2025-05-06,Indomilk st_ck,144,DUS
 2025-05-07,Indomilk st_ck,175,DUS
 2025-05-08,Indomilk st_ck,196,DUS
@@ -1098,7 +1098,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-06-01,Indomilk st_ck,142,DUS
 2025-06-02,Indomilk st_ck,165,DUS
 2025-06-03,Indomilk st_ck,154,DUS
-2025-06-04,Indomilk st_ck,180,DUS
+2025-06-04,Indomilk st_ck,,DUS
 2025-06-05,Indomilk st_ck,203,DUS
 2025-06-06,Indomilk st_ck,215,DUS
 2025-06-07,Indomilk st_ck,209,DUS
@@ -1125,7 +1125,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-06-28,Indomilk st_ck,216,DUS
 2025-06-29,Indomilk st_ck,151,DUS
 2025-06-30,Indomilk st_ck,165,DUS
-2025-07-01,Indomilk st_ck,150,DUS
+2025-07-01,Indomilk st_ck,,DUS
 2025-07-02,Indomilk st_ck,180,DUS
 2025-07-03,Indomilk st_ck,198,DUS
 2025-07-04,Indomilk st_ck,212,DUS
@@ -1154,7 +1154,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-07-27,Indomilk st_ck,150,DUS
 2025-07-28,Indomilk st_ck,175,DUS
 2025-07-29,Indomilk st_ck,164,DUS
-2025-07-30,Indomilk st_ck,180,DUS
+2025-07-30,Indomilk st_ck,,DUS
 2025-07-31,Indomilk st_ck,210,DUS
 2025-08-01,Indomilk st_ck,215,DUS
 2025-08-02,Indomilk st_ck,,DUS
@@ -1183,7 +1183,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-08-25,Indomilk st_ck,166,DUS
 2025-08-26,Indomilk st_ck,138,DUS
 2025-08-27,Indomilk st_ck,177,DUS
-2025-08-28,Indomilk st_ck,201,DUS
+2025-08-28,Indomilk st_ck,,DUS
 2025-08-29,Indomilk st_ck,218,DUS
 2025-08-30,Indomilk st_ck,217,DUS
 2025-08-31,Indomilk st_ck,144,DUS
@@ -1210,7 +1210,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-09-21,Indomilk st_ck,136,DUS
 2025-09-22,Indomilk st_ck,155,DUS
 2025-09-23,Indomilk st_ck,138,DUS
-2025-09-24,Indomilk st_ck,169,DUS
+2025-09-24,Indomilk st_ck,,DUS
 2025-09-25,Indomilk st_ck,201,DUS
 2025-09-26,Indomilk st_ck,216,DUS
 2025-09-27,Indomilk st_ck,216,DUS
@@ -1237,7 +1237,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-10-18,Indomilk st_ck,194,DUS
 2025-10-19,Indomilk st_ck,132,DUS
 2025-10-20,Indomilk st_ck,148,DUS
-2025-10-21,Indomilk st_ck,150,DUS
+2025-10-21,Indomilk st_ck,,DUS
 2025-10-22,Indomilk st_ck,171,DUS
 2025-10-23,Indomilk st_ck,196,DUS
 2025-10-24,Indomilk st_ck,,DUS
@@ -1263,7 +1263,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-11-13,Indomilk st_ck,189,DUS
 2025-11-14,Indomilk st_ck,202,DUS
 2025-11-15,Indomilk st_ck,,DUS
-2025-11-16,Indomilk st_ck,127,DUS
+2025-11-16,Indomilk st_ck,,DUS
 2025-11-17,Indomilk st_ck,154,DUS
 2025-11-18,Indomilk st_ck,134,DUS
 2025-11-19,Indomilk st_ck,165,DUS
@@ -1293,7 +1293,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-12-13,Indomilk st_ck,197,DUS
 2025-12-14,Indomilk st_ck,136,DUS
 2025-12-15,Indomilk st_ck,146,DUS
-2025-12-16,Indomilk st_ck,139,DUS
+2025-12-16,Indomilk st_ck,,DUS
 2025-12-17,Indomilk st_ck,167,DUS
 2025-12-18,Indomilk st_ck,191,DUS
 2025-12-19,Indomilk st_ck,,DUS

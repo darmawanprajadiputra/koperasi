@@ -52,7 +52,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-07-21,Bawang putih,11,KG
 2022-07-22,Bawang putih,12,KG
 2022-07-23,Bawang putih,11,KG
-2022-07-24,Bawang putih,8,KG
+2022-07-24,Bawang putih,,KG
 2022-07-25,Bawang putih,9,KG
 2022-07-26,Bawang putih,10,KG
 2022-07-27,Bawang putih,,KG
@@ -112,7 +112,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-09-19,Bawang putih,9,KG
 2022-09-20,Bawang putih,8,KG
 2022-09-21,Bawang putih,10,KG
-2022-09-22,Bawang putih,10,KG
+2022-09-22,Bawang putih,,KG
 2022-09-23,Bawang putih,11,KG
 2022-09-24,Bawang putih,11,KG
 2022-09-25,Bawang putih,8,KG
@@ -164,7 +164,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-11-10,Bawang putih,,KG
 2022-11-11,Bawang putih,11,KG
 2022-11-12,Bawang putih,11,KG
-2022-11-13,Bawang putih,8,KG
+2022-11-13,Bawang putih,,KG
 2022-11-14,Bawang putih,8,KG
 2022-11-15,Bawang putih,8,KG
 2022-11-16,Bawang putih,9,KG
@@ -214,7 +214,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-12-30,Bawang putih,11,KG
 2022-12-31,Bawang putih,11,KG
 2023-01-01,Bawang putih,,KG
-2023-01-02,Bawang putih,8,KG
+2023-01-02,Bawang putih,,KG
 2023-01-03,Bawang putih,8,KG
 2023-01-04,Bawang putih,9,KG
 2023-01-05,Bawang putih,10,KG
@@ -269,7 +269,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-02-23,Bawang putih,11,KG
 2023-02-24,Bawang putih,,KG
 2023-02-25,Bawang putih,13,KG
-2023-02-26,Bawang putih,9,KG
+2023-02-26,Bawang putih,,KG
 2023-02-27,Bawang putih,10,KG
 2023-02-28,Bawang putih,9,KG
 2023-03-01,Bawang putih,10,KG
@@ -316,7 +316,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-04-11,Bawang putih,9,KG
 2023-04-12,Bawang putih,10,KG
 2023-04-13,Bawang putih,,KG
-2023-04-14,Bawang putih,12,KG
+2023-04-14,Bawang putih,,KG
 2023-04-15,Bawang putih,11,KG
 2023-04-16,Bawang putih,8,KG
 2023-04-17,Bawang putih,9,KG
@@ -364,7 +364,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-05-29,Bawang putih,10,KG
 2023-05-30,Bawang putih,10,KG
 2023-05-31,Bawang putih,11,KG
-2023-06-01,Bawang putih,11,KG
+2023-06-01,Bawang putih,,KG
 2023-06-02,Bawang putih,13,KG
 2023-06-03,Bawang putih,12,KG
 2023-06-04,Bawang putih,8,KG
@@ -413,7 +413,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-07-17,Bawang putih,9,KG
 2023-07-18,Bawang putih,8,KG
 2023-07-19,Bawang putih,10,KG
-2023-07-20,Bawang putih,11,KG
+2023-07-20,Bawang putih,,KG
 2023-07-21,Bawang putih,13,KG
 2023-07-22,Bawang putih,,KG
 2023-07-23,Bawang putih,8,KG
@@ -477,7 +477,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-09-19,Bawang putih,9,KG
 2023-09-20,Bawang putih,,KG
 2023-09-21,Bawang putih,11,KG
-2023-09-22,Bawang putih,12,KG
+2023-09-22,Bawang putih,,KG
 2023-09-23,Bawang putih,,KG
 2023-09-24,Bawang putih,8,KG
 2023-09-25,Bawang putih,,KG
@@ -542,7 +542,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-11-23,Bawang putih,10,KG
 2023-11-24,Bawang putih,,KG
 2023-11-25,Bawang putih,12,KG
-2023-11-26,Bawang putih,8,KG
+2023-11-26,Bawang putih,,KG
 2023-11-27,Bawang putih,9,KG
 2023-11-28,Bawang putih,9,KG
 2023-11-29,Bawang putih,10,KG
@@ -596,7 +596,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-01-16,Bawang putih,9,KG
 2024-01-17,Bawang putih,,KG
 2024-01-18,Bawang putih,11,KG
-2024-01-19,Bawang putih,12,KG
+2024-01-19,Bawang putih,,KG
 2024-01-20,Bawang putih,12,KG
 2024-01-21,Bawang putih,,KG
 2024-01-22,Bawang putih,9,KG
@@ -649,7 +649,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-03-09,Bawang putih,12,KG
 2024-03-10,Bawang putih,8,KG
 2024-03-11,Bawang putih,9,KG
-2024-03-12,Bawang putih,9,KG
+2024-03-12,Bawang putih,,KG
 2024-03-13,Bawang putih,10,KG
 2024-03-14,Bawang putih,12,KG
 2024-03-15,Bawang putih,12,KG
@@ -700,7 +700,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-04-29,Bawang putih,,KG
 2024-04-30,Bawang putih,10,KG
 2024-05-01,Bawang putih,10,KG
-2024-05-02,Bawang putih,12,KG
+2024-05-02,Bawang putih,,KG
 2024-05-03,Bawang putih,,KG
 2024-05-04,Bawang putih,13,KG
 2024-05-05,Bawang putih,9,KG
@@ -757,7 +757,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-06-25,Bawang putih,,KG
 2024-06-26,Bawang putih,12,KG
 2024-06-27,Bawang putih,,KG
-2024-06-28,Bawang putih,14,KG
+2024-06-28,Bawang putih,,KG
 2024-06-29,Bawang putih,14,KG
 2024-06-30,Bawang putih,11,KG
 2024-07-01,Bawang putih,9,KG
@@ -806,7 +806,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-08-13,Bawang putih,9,KG
 2024-08-14,Bawang putih,,KG
 2024-08-15,Bawang putih,12,KG
-2024-08-16,Bawang putih,13,KG
+2024-08-16,Bawang putih,,KG
 2024-08-17,Bawang putih,12,KG
 2024-08-18,Bawang putih,,KG
 2024-08-19,Bawang putih,10,KG
@@ -853,7 +853,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-09-29,Bawang putih,,KG
 2024-09-30,Bawang putih,9,KG
 2024-10-01,Bawang putih,9,KG
-2024-10-02,Bawang putih,10,KG
+2024-10-02,Bawang putih,,KG
 2024-10-03,Bawang putih,,KG
 2024-10-04,Bawang putih,12,KG
 2024-10-05,Bawang putih,12,KG
@@ -908,7 +908,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-11-23,Bawang putih,12,KG
 2024-11-24,Bawang putih,8,KG
 2024-11-25,Bawang putih,10,KG
-2024-11-26,Bawang putih,9,KG
+2024-11-26,Bawang putih,,KG
 2024-11-27,Bawang putih,11,KG
 2024-11-28,Bawang putih,12,KG
 2024-11-29,Bawang putih,13,KG
@@ -957,7 +957,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-01-11,Bawang putih,12,KG
 2025-01-12,Bawang putih,8,KG
 2025-01-13,Bawang putih,,KG
-2025-01-14,Bawang putih,9,KG
+2025-01-14,Bawang putih,,KG
 2025-01-15,Bawang putih,10,KG
 2025-01-16,Bawang putih,11,KG
 2025-01-17,Bawang putih,12,KG
@@ -1012,7 +1012,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-03-07,Bawang putih,13,KG
 2025-03-08,Bawang putih,12,KG
 2025-03-09,Bawang putih,8,KG
-2025-03-10,Bawang putih,9,KG
+2025-03-10,Bawang putih,,KG
 2025-03-11,Bawang putih,9,KG
 2025-03-12,Bawang putih,11,KG
 2025-03-13,Bawang putih,11,KG
@@ -1068,7 +1068,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-05-02,Bawang putih,,KG
 2025-05-03,Bawang putih,13,KG
 2025-05-04,Bawang putih,9,KG
-2025-05-05,Bawang putih,10,KG
+2025-05-05,Bawang putih,,KG
 2025-05-06,Bawang putih,9,KG
 2025-05-07,Bawang putih,11,KG
 2025-05-08,Bawang putih,12,KG
@@ -1121,7 +1121,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-06-24,Bawang putih,,KG
 2025-06-25,Bawang putih,12,KG
 2025-06-26,Bawang putih,13,KG
-2025-06-27,Bawang putih,14,KG
+2025-06-27,Bawang putih,,KG
 2025-06-28,Bawang putih,13,KG
 2025-06-29,Bawang putih,10,KG
 2025-06-30,Bawang putih,11,KG
@@ -1174,7 +1174,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-08-16,Bawang putih,12,KG
 2025-08-17,Bawang putih,,KG
 2025-08-18,Bawang putih,10,KG
-2025-08-19,Bawang putih,10,KG
+2025-08-19,Bawang putih,,KG
 2025-08-20,Bawang putih,11,KG
 2025-08-21,Bawang putih,12,KG
 2025-08-22,Bawang putih,13,KG
@@ -1220,7 +1220,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-10-01,Bawang putih,,KG
 2025-10-02,Bawang putih,12,KG
 2025-10-03,Bawang putih,13,KG
-2025-10-04,Bawang putih,12,KG
+2025-10-04,Bawang putih,,KG
 2025-10-05,Bawang putih,8,KG
 2025-10-06,Bawang putih,10,KG
 2025-10-07,Bawang putih,9,KG
@@ -1267,7 +1267,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-11-17,Bawang putih,10,KG
 2025-11-18,Bawang putih,9,KG
 2025-11-19,Bawang putih,10,KG
-2025-11-20,Bawang putih,11,KG
+2025-11-20,Bawang putih,,KG
 2025-11-21,Bawang putih,13,KG
 2025-11-22,Bawang putih,12,KG
 2025-11-23,Bawang putih,,KG

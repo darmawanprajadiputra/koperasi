@@ -44,7 +44,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-07-13,Buah naga,32,KG
 2022-07-14,Buah naga,39,KG
 2022-07-15,Buah naga,42,KG
-2022-07-16,Buah naga,40,KG
+2022-07-16,Buah naga,,KG
 2022-07-17,Buah naga,31,KG
 2022-07-18,Buah naga,,KG
 2022-07-19,Buah naga,33,KG
@@ -90,7 +90,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-08-28,Buah naga,31,KG
 2022-08-29,Buah naga,30,KG
 2022-08-30,Buah naga,33,KG
-2022-08-31,Buah naga,36,KG
+2022-08-31,Buah naga,,KG
 2022-09-01,Buah naga,35,KG
 2022-09-02,Buah naga,37,KG
 2022-09-03,Buah naga,,KG
@@ -135,7 +135,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-10-12,Buah naga,28,KG
 2022-10-13,Buah naga,29,KG
 2022-10-14,Buah naga,,KG
-2022-10-15,Buah naga,32,KG
+2022-10-15,Buah naga,,KG
 2022-10-16,Buah naga,23,KG
 2022-10-17,Buah naga,21,KG
 2022-10-18,Buah naga,,KG
@@ -183,7 +183,7 @@ Tanggal,Produk,Jumlah,Satuan
 2022-11-29,Buah naga,,KG
 2022-11-30,Buah naga,,KG
 2022-12-01,Buah naga,29,KG
-2022-12-02,Buah naga,31,KG
+2022-12-02,Buah naga,,KG
 2022-12-03,Buah naga,30,KG
 2022-12-04,Buah naga,22,KG
 2022-12-05,Buah naga,21,KG
@@ -223,7 +223,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-01-08,Buah naga,23,Kg
 2023-01-09,Buah naga,,Kg
 2023-01-10,Buah naga,22,Kg
-2023-01-11,Buah naga,27,Kg
+2023-01-11,Buah naga,,Kg
 2023-01-12,Buah naga,33,Kg
 2023-01-13,Buah naga,35,Kg
 2023-01-14,Buah naga,32,Kg
@@ -269,7 +269,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-02-23,Buah naga,34,Kg
 2023-02-24,Buah naga,,Kg
 2023-02-25,Buah naga,41,Kg
-2023-02-26,Buah naga,34,Kg
+2023-02-26,Buah naga,,Kg
 2023-02-27,Buah naga,31,Kg
 2023-02-28,Buah naga,32,Kg
 2023-03-01,Buah naga,32,Kg
@@ -307,7 +307,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-04-02,Buah naga,,Kg
 2023-04-03,Buah naga,31,Kg
 2023-04-04,Buah naga,32,Kg
-2023-04-05,Buah naga,35,Kg
+2023-04-05,Buah naga,,Kg
 2023-04-06,Buah naga,39,Kg
 2023-04-07,Buah naga,40,Kg
 2023-04-08,Buah naga,,Kg
@@ -348,7 +348,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-05-13,Buah naga,,Kg
 2023-05-14,Buah naga,,Kg
 2023-05-15,Buah naga,34,Kg
-2023-05-16,Buah naga,37,Kg
+2023-05-16,Buah naga,,Kg
 2023-05-17,Buah naga,,Kg
 2023-05-18,Buah naga,43,Kg
 2023-05-19,Buah naga,,Kg
@@ -387,7 +387,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-06-21,Buah naga,39,Kg
 2023-06-22,Buah naga,42,Kg
 2023-06-23,Buah naga,,Kg
-2023-06-24,Buah naga,42,Kg
+2023-06-24,Buah naga,,Kg
 2023-06-25,Buah naga,38,Kg
 2023-06-26,Buah naga,,Kg
 2023-06-27,Buah naga,38,Kg
@@ -434,7 +434,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-08-07,Buah naga,,Kg
 2023-08-08,Buah naga,,Kg
 2023-08-09,Buah naga,35,Kg
-2023-08-10,Buah naga,37,Kg
+2023-08-10,Buah naga,,Kg
 2023-08-11,Buah naga,38,Kg
 2023-08-12,Buah naga,39,Kg
 2023-08-13,Buah naga,,Kg
@@ -488,7 +488,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-09-30,Buah naga,,Kg
 2023-10-01,Buah naga,24,Kg
 2023-10-02,Buah naga,23,Kg
-2023-10-03,Buah naga,25,Kg
+2023-10-03,Buah naga,,Kg
 2023-10-04,Buah naga,30,Kg
 2023-10-05,Buah naga,35,Kg
 2023-10-06,Buah naga,,Kg
@@ -542,7 +542,7 @@ Tanggal,Produk,Jumlah,Satuan
 2023-11-23,Buah naga,28,Kg
 2023-11-24,Buah naga,,Kg
 2023-11-25,Buah naga,34,Kg
-2023-11-26,Buah naga,26,Kg
+2023-11-26,Buah naga,,Kg
 2023-11-27,Buah naga,23,Kg
 2023-11-28,Buah naga,25,Kg
 2023-11-29,Buah naga,27,Kg
@@ -585,7 +585,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-01-05,Buah naga,,Kg
 2024-01-06,Buah naga,32,Kg
 2024-01-07,Buah naga,23,Kg
-2024-01-08,Buah naga,22,Kg
+2024-01-08,Buah naga,,Kg
 2024-01-09,Buah naga,,Kg
 2024-01-10,Buah naga,29,Kg
 2024-01-11,Buah naga,32,Kg
@@ -630,7 +630,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-02-19,Buah naga,25,Kg
 2024-02-20,Buah naga,28,Kg
 2024-02-21,Buah naga,,Kg
-2024-02-22,Buah naga,33,Kg
+2024-02-22,Buah naga,,Kg
 2024-02-23,Buah naga,38,Kg
 2024-02-24,Buah naga,38,Kg
 2024-02-25,Buah naga,,Kg
@@ -673,7 +673,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-04-02,Buah naga,33,Kg
 2024-04-03,Buah naga,37,Kg
 2024-04-04,Buah naga,39,Kg
-2024-04-05,Buah naga,42,Kg
+2024-04-05,Buah naga,,Kg
 2024-04-06,Buah naga,,Kg
 2024-04-07,Buah naga,34,Kg
 2024-04-08,Buah naga,33,Kg
@@ -717,7 +717,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-05-16,Buah naga,41,Kg
 2024-05-17,Buah naga,46,Kg
 2024-05-18,Buah naga,44,Kg
-2024-05-19,Buah naga,37,Kg
+2024-05-19,Buah naga,,Kg
 2024-05-20,Buah naga,,Kg
 2024-05-21,Buah naga,37,Kg
 2024-05-22,Buah naga,41,Kg
@@ -765,7 +765,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-07-03,Buah naga,,Kg
 2024-07-04,Buah naga,41,Kg
 2024-07-05,Buah naga,43,Kg
-2024-07-06,Buah naga,41,Kg
+2024-07-06,Buah naga,,Kg
 2024-07-07,Buah naga,32,Kg
 2024-07-08,Buah naga,33,Kg
 2024-07-09,Buah naga,,Kg
@@ -806,7 +806,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-08-13,Buah naga,31,Kg
 2024-08-14,Buah naga,,Kg
 2024-08-15,Buah naga,38,Kg
-2024-08-16,Buah naga,41,Kg
+2024-08-16,Buah naga,,Kg
 2024-08-17,Buah naga,40,Kg
 2024-08-18,Buah naga,,Kg
 2024-08-19,Buah naga,31,Kg
@@ -845,7 +845,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-09-21,Buah naga,,Kg
 2024-09-22,Buah naga,29,Kg
 2024-09-23,Buah naga,26,Kg
-2024-09-24,Buah naga,29,Kg
+2024-09-24,Buah naga,,Kg
 2024-09-25,Buah naga,35,Kg
 2024-09-26,Buah naga,36,Kg
 2024-09-27,Buah naga,38,Kg
@@ -892,7 +892,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-11-07,Buah naga,30,Kg
 2024-11-08,Buah naga,,Kg
 2024-11-09,Buah naga,33,Kg
-2024-11-10,Buah naga,24,Kg
+2024-11-10,Buah naga,,Kg
 2024-11-11,Buah naga,21,Kg
 2024-11-12,Buah naga,25,Kg
 2024-11-13,Buah naga,27,Kg
@@ -930,7 +930,7 @@ Tanggal,Produk,Jumlah,Satuan
 2024-12-15,Buah naga,25,Kg
 2024-12-16,Buah naga,,Kg
 2024-12-17,Buah naga,23,Kg
-2024-12-18,Buah naga,28,Kg
+2024-12-18,Buah naga,,Kg
 2024-12-19,Buah naga,30,Kg
 2024-12-20,Buah naga,31,Kg
 2024-12-21,Buah naga,30,Kg
@@ -978,7 +978,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-02-01,Buah naga,34,Kg
 2025-02-02,Buah naga,27,Kg
 2025-02-03,Buah naga,24,Kg
-2025-02-04,Buah naga,28,Kg
+2025-02-04,Buah naga,,Kg
 2025-02-05,Buah naga,32,Kg
 2025-02-06,Buah naga,34,Kg
 2025-02-07,Buah naga,,Kg
@@ -1023,7 +1023,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-03-18,Buah naga,,Kg
 2025-03-19,Buah naga,36,Kg
 2025-03-20,Buah naga,,Kg
-2025-03-21,Buah naga,41,Kg
+2025-03-21,Buah naga,,Kg
 2025-03-22,Buah naga,43,Kg
 2025-03-23,Buah naga,33,Kg
 2025-03-24,Buah naga,33,Kg
@@ -1068,7 +1068,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-05-02,Buah naga,,Kg
 2025-05-03,Buah naga,45,Kg
 2025-05-04,Buah naga,38,Kg
-2025-05-05,Buah naga,35,Kg
+2025-05-05,Buah naga,,Kg
 2025-05-06,Buah naga,36,Kg
 2025-05-07,Buah naga,40,Kg
 2025-05-08,Buah naga,42,Kg
@@ -1112,7 +1112,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-06-15,Buah naga,38,Kg
 2025-06-16,Buah naga,35,Kg
 2025-06-17,Buah naga,37,Kg
-2025-06-18,Buah naga,42,Kg
+2025-06-18,Buah naga,,Kg
 2025-06-19,Buah naga,44,Kg
 2025-06-20,Buah naga,46,Kg
 2025-06-21,Buah naga,46,Kg
@@ -1154,7 +1154,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-07-27,Buah naga,37,Kg
 2025-07-28,Buah naga,37,Kg
 2025-07-29,Buah naga,39,Kg
-2025-07-30,Buah naga,39,Kg
+2025-07-30,Buah naga,,Kg
 2025-07-31,Buah naga,44,Kg
 2025-08-01,Buah naga,44,Kg
 2025-08-02,Buah naga,,Kg
@@ -1197,7 +1197,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-09-08,Buah naga,29,Kg
 2025-09-09,Buah naga,31,Kg
 2025-09-10,Buah naga,35,Kg
-2025-09-11,Buah naga,37,Kg
+2025-09-11,Buah naga,,Kg
 2025-09-12,Buah naga,40,Kg
 2025-09-13,Buah naga,38,Kg
 2025-09-14,Buah naga,28,Kg
@@ -1237,7 +1237,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-10-18,Buah naga,33,Kg
 2025-10-19,Buah naga,26,Kg
 2025-10-20,Buah naga,24,Kg
-2025-10-21,Buah naga,29,Kg
+2025-10-21,Buah naga,,Kg
 2025-10-22,Buah naga,30,Kg
 2025-10-23,Buah naga,34,Kg
 2025-10-24,Buah naga,,Kg
@@ -1278,7 +1278,7 @@ Tanggal,Produk,Jumlah,Satuan
 2025-11-28,Buah naga,37,Kg
 2025-11-29,Buah naga,37,Kg
 2025-11-30,Buah naga,27,Kg
-2025-12-01,Buah naga,22,Kg
+2025-12-01,Buah naga,,Kg
 2025-12-02,Buah naga,23,Kg
 2025-12-03,Buah naga,28,Kg
 2025-12-04,Buah naga,31,Kg
