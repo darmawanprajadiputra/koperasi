@@ -4,10 +4,10 @@
 @section('page_title', 'Dashboard')
 
 @section('content')
-    <div class="px-8 pt-10 max-w-7xl mx-auto">
+    <div class="px-8 pt-8 max-w-7xl mx-auto">
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
             {{-- Pesanan Baru --}}
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
@@ -65,7 +65,7 @@
         <!-- Charts and Activity Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <div class="lg:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                <div class="flex justify-between items-center mb-20">
+                <div class="flex justify-between items-center mb-10">
                     <div>
                         <h2 class="text-xl font-bold text-teal-900">Tren Pesanan 7 Hari Terakhir</h2>
                         <p class="text-sm text-gray-600">Jumlah transaksi unik per hari</p>

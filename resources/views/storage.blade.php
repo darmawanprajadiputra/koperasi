@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-8 mt-10">
+    <div class="max-w-7xl mx-8 mt-8">
 
         {{-- Flash Message --}}
         @if (session('success'))
@@ -20,7 +20,7 @@
         @endif
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Total Produk</p>
                 <span class="text-3xl font-bold text-teal-900">{{ $products->count() }}</span>
