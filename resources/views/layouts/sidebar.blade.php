@@ -22,14 +22,14 @@
                 style="font-variation-settings: &quot;FILL&quot; 1">inventory_2</span>
             <span class="nav-label">Gudang</span>
         </a>
-        <a href="{{ route('order') }}" class="nav-item {{ Route::currentRouteName() === 'order' ? 'active' : '' }}">
-            <span class="material-symbols-outlined">shopping_bag</span>
-            <span class="nav-label">Pesanan</span>
-        </a>
         <a href="{{ route('datamaster') }}"
             class="nav-item {{ Route::currentRouteName() === 'datamaster' ? 'active' : '' }}">
             <span class="material-symbols-outlined">storage</span>
             <span class="nav-label">Data Master</span>
+        </a>
+        <a href="{{ route('order') }}" class="nav-item {{ Route::currentRouteName() === 'order' ? 'active' : '' }}">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span class="nav-label">Pesanan</span>
         </a>
         <a href="{{ route('prediction') }}"
             class="nav-item {{ Route::currentRouteName() === 'prediction' ? 'active' : '' }}">
