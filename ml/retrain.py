@@ -355,11 +355,9 @@ def main():
             print(f"  {ada}  {nama}  →  {full_path}")
         sys.exit(0)
 
-    # Tentukan produk yang akan diproses
     if args.produk:
         produk_nama = args.produk.lower()
         if produk_nama not in PRODUK_CONFIG:
-            # Coba partial match
             matches = [k for k in PRODUK_CONFIG if produk_nama in k]
             if len(matches) == 1:
                 produk_nama = matches[0]

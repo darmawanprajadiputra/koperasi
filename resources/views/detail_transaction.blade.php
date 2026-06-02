@@ -4,10 +4,10 @@
 @section('page_title', 'Rincian Pesanan')
 
 @section('content')
-    <div class="pt-8 px-8 pb-20 max-w-7xl mx-auto">
+    <div class="pt-8 px-8 pb-10 max-w-7xl mx-auto">
 
         {{-- Back Button --}}
-        <div class="mb-8">
+        <div class="mb-6">
             <a href="{{ route('order') }}"
                 class="group inline-flex items-center gap-2 text-primary font-medium text-sm hover:-translate-x-1 transition-transform">
                 <span class="material-symbols-outlined text-base">arrow_back</span>
@@ -34,7 +34,7 @@
         <div id="detailContent" class="hidden">
 
             {{-- Header --}}
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
                         <span class="text-xs font-bold tracking-widest text-secondary uppercase">Status Pesanan</span>
@@ -52,7 +52,7 @@
 
                     {{-- Status Pesanan --}}
                     <section class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5">
-                        <h3 class="text-lg font-bold text-primary mb-10">Status Pesanan</h3>
+                        <h3 class="text-lg font-bold text-primary mb-8">Status Pesanan</h3>
 
                         {{-- Step track --}}
                         <div class="flex items-start">
@@ -136,8 +136,8 @@
                 <div class="col-span-12 lg:col-span-4 space-y-8">
 
                     {{-- Info Pemesan --}}
-                    <section class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/5">
-                        <div class="flex items-center gap-2 mb-6">
+                    <section class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/5">
+                        <div class="flex items-center gap-2 mb-4">
                             <span class="material-symbols-outlined text-primary text-xl">person</span>
                             <h3 class="text-lg font-bold text-primary">Info Pemesan</h3>
                         </div>
@@ -166,12 +166,12 @@
 
                     {{-- Detail Pembayaran --}}
                     <section
-                        class="bg-white text-on-primary p-8 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
+                        class="bg-white text-on-primary p-6 rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden">
                         <div class="absolute -right-4 -bottom-4 opacity-10">
                             <span class="material-symbols-outlined text-9xl"
                                 style="font-variation-settings:'FILL' 1">account_balance_wallet</span>
                         </div>
-                        <h3 class="text-lg font-bold mb-6 relative z-10">Detail Pembayaran</h3>
+                        <h3 class="text-lg font-bold mb-4 relative z-10">Detail Pembayaran</h3>
                         <div class="space-y-4 relative z-10">
                             <div class="flex justify-between text-sm opacity-80">
                                 <span>Metode</span>

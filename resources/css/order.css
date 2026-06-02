@@ -43,15 +43,16 @@ body {
 
 /* Filter Buttons */
 .filter-btn {
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+    background: #ffffff;
+    color: var(--on-surface);
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
 }
 
 .filter-btn.active {
-  background-color: var(--tertiary) !important;
-  color: white !important;
+    background: var(--tertiary) !important;
+    color: #fff !important;
+    border-color: var(--tertiary);
 }
 
 /* Order Card Styles */

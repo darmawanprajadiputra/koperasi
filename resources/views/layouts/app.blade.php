@@ -22,23 +22,20 @@
 
 <body class="bg-surface text-on-surface">
     <div class="dashboard-container">
-        <!-- Sidebar -->
+
         @include('layouts.sidebar')
 
-        <!-- Main Content -->
         <main class="dashboard-main">
 
-            <!-- Header -->
             <header
                 class="dashboard-header sticky top-0 z-30 flex items-center justify-between px-8 py-4 bg-white border-b border-gray-100 shadow-sm">
-                <!-- Page Title -->
                 <div class="flex items-center gap-3">
                     <h2 class="text-3xl font-extrabold text-teal-900 text-primary uppercase tracking-wide">
                         @yield('page_title')
                     </h2>
                 </div>
 
-                <!-- Profile Dropdown -->
+                <!-- Profile -->
                 <div class="relative">
                     <button id="profileButton"
                         class="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-100 transition-all group">
@@ -72,25 +69,18 @@
                 </div>
             </header>
 
-            <!-- Content -->
             <div class="content">
                 @yield('content')
             </div>
         </main>
     </div>
 
-    <!-- Mobile FAB -->
-    <button class="mobile-fab">+</button>
-
-    <!-- Logout Form (Hidden) -->
     <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
 
-    <!-- Page-specific data (ADD_UNITS, EDIT_CONFIG, dll) -->
     @stack('scripts')
 
-    <!-- JavaScript -->
     @vite(['resources/js/app.js'])
 
     <script>

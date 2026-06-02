@@ -22,7 +22,7 @@
 
                 {{-- Lead Time --}}
                 <div class="md:col-span-1">
-                    <label class="block font-bold text-on-surface mb-2 text-sm">Lead Time (hari)</label>
+                    <label class="block font-bold text-on-surface mb-2 text-sm">Pesanan Tiba (hari)</label>
                     <input type="number" id="lead-time" value="7" min="1" max="90"
                         class="w-full px-4 py-3 bg-surface-container-low border-0 focus:ring-2 focus:ring-primary rounded-xl text-on-surface text-sm" />
                 </div>
@@ -96,7 +96,8 @@
                 <div class="bg-surface-container-low rounded-xl p-5 flex items-start gap-3">
                     <span class="material-symbols-outlined text-on-surface-variant mt-0.5">moving</span>
                     <div>
-                        <p class="text-xs text-on-surface-variant mb-1 font-medium uppercase tracking-wide">Reorder Point (ROP)</p>
+                        <p class="text-xs text-on-surface-variant mb-1 font-medium uppercase tracking-wide">Reorder Point
+                            (ROP)</p>
                         <p class="text-3xl font-extrabold text-on-surface mb-1">
                             <span id="result-rop"></span>
                             <span class="text-base font-normal text-on-surface-variant ml-1">unit</span>
@@ -106,10 +107,12 @@
                 </div>
 
                 {{-- Kondisi AMAN (stok >= ROP) --}}
-                <div id="result-stock-safe" class="hidden bg-green-50 border border-green-200 rounded-xl p-5 flex items-start gap-3">
+                <div id="result-stock-safe"
+                    class="hidden bg-green-50 border border-green-200 rounded-xl p-5 flex items-start gap-3">
                     <span class="material-symbols-outlined text-green-600 mt-0.5">check_circle</span>
                     <div>
-                        <p class="text-xs text-green-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Aman</p>
+                        <p class="text-xs text-green-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Aman
+                        </p>
                         <p class="text-3xl font-extrabold text-green-800 mb-1">
                             <span id="result-current-stock-safe"></span>
                             <span class="text-base font-normal text-green-600 ml-1">unit tersedia</span>
@@ -121,16 +124,19 @@
                 </div>
 
                 {{-- Kondisi BAHAYA (stok < ROP) --}}
-                <div id="result-stock-danger" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3">
+                <div id="result-stock-danger"
+                    class="hidden bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3">
                     <span class="material-symbols-outlined text-amber-500 mt-0.5">warning</span>
                     <div>
-                        <p class="text-xs text-amber-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Perlu Restock</p>
+                        <p class="text-xs text-amber-700 mb-1 font-medium uppercase tracking-wide">Status Stok &mdash; Perlu
+                            Restock</p>
                         <p class="text-3xl font-extrabold text-amber-900 mb-1">
                             <span id="result-current-stock-danger"></span>
                             <span class="text-base font-normal text-amber-600 ml-1">unit tersedia</span>
                         </p>
                         <p class="text-xs text-amber-700">
-                            Stok saat ini <strong>di bawah ROP</strong>. Segera lakukan pemesanan ulang untuk menghindari kehabisan stok.
+                            Stok saat ini <strong>di bawah ROP</strong>. Segera lakukan pemesanan ulang untuk menghindari
+                            kehabisan stok.
                         </p>
                     </div>
                 </div>
@@ -151,7 +157,8 @@
                 <div>
                     <h2 class="font-headline font-extrabold text-xl uppercase text-on-surface">Riwayat Prediksi Produk</h2>
                 </div>
-                <span class="px-3 py-1 bg-surface-container-high rounded-full text-xs font-semibold text-on-surface-variant">
+                <span
+                    class="px-3 py-1 bg-surface-container-high rounded-full text-xs font-semibold text-on-surface-variant">
                     {{ $historyRows->count() }} produk
                 </span>
             </div>
@@ -161,11 +168,16 @@
                     <table class="w-full text-sm">
                         <thead>
                             <tr class="bg-gradient-to-r from-[#00342b] to-[#004d40] text-white">
-                                <th class="text-left px-5 py-4 font-semibold text-xs uppercase tracking-wider">Nama Produk</th>
-                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Safety Stock</th>
-                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok Tersedia</th>
-                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok ROP</th>
-                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Tanggal Prediksi</th>
+                                <th class="text-left px-5 py-4 font-semibold text-xs uppercase tracking-wider">Nama Produk
+                                </th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Safety
+                                    Stock</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok
+                                    Tersedia</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok ROP
+                                </th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Tanggal
+                                    Prediksi</th>
                                 <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Status</th>
                             </tr>
                         </thead>
@@ -173,11 +185,10 @@
                             @foreach ($historyRows as $row)
                                 @php
                                     $hasPrediction = $row['safety_stock'] !== null;
-                                    $isAman        = $hasPrediction && $row['stock'] >= $row['rop'];
+                                    $isAman = $hasPrediction && $row['stock'] >= $row['rop'];
                                 @endphp
                                 <tr class="hover:bg-surface-container-low transition-colors duration-150"
-                                    id="history-row-{{ $row['product_id'] }}"
-                                    data-product-id="{{ $row['product_id'] }}">
+                                    id="history-row-{{ $row['product_id'] }}" data-product-id="{{ $row['product_id'] }}">
 
                                     {{-- Nama Produk --}}
                                     <td class="px-5 py-4">
@@ -189,7 +200,8 @@
                                     {{-- Safety Stock --}}
                                     <td class="px-5 py-4 text-center">
                                         @if ($hasPrediction)
-                                            <span class="history-safety-stock font-bold text-on-surface">{{ $row['safety_stock'] }}</span>
+                                            <span
+                                                class="history-safety-stock font-bold text-on-surface">{{ $row['safety_stock'] }}</span>
                                             <span class="text-xs text-on-surface-variant ml-1">unit</span>
                                         @else
                                             <span class="history-safety-stock text-outline-variant font-medium">-</span>
@@ -226,17 +238,21 @@
                                     {{-- Status --}}
                                     <td class="px-5 py-4 text-center">
                                         @if (!$hasPrediction)
-                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-surface-container-high text-outline-variant">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-outline-variant inline-block"></span>
+                                            <span
+                                                class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-surface-container-high text-outline-variant">
+                                                <span
+                                                    class="w-1.5 h-1.5 rounded-full bg-outline-variant inline-block"></span>
                                                 Belum Diprediksi
                                             </span>
                                         @elseif ($isAman)
-                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                            <span
+                                                class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
                                                 <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
                                                 Aman
                                             </span>
                                         @else
-                                            <span class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+                                            <span
+                                                class="history-status inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
                                                 <span class="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
                                                 Perlu Restock
                                             </span>
@@ -262,7 +278,7 @@
 
     <script>
         const PREDICT_URL = "{{ route('prediction.predict') }}";
-        const CSRF_TOKEN  = "{{ csrf_token() }}";
+        const CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
     <script src="{{ asset('js/prediction.js') }}"></script>
 @endsection

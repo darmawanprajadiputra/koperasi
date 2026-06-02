@@ -93,8 +93,7 @@ class PredictionController extends Controller
                 leadTime    : (int) $request->lead_time,
                 forecastDays: 30,
             );
-
-            // mape bisa null jika history tidak cukup untuk evaluasi
+            -
             $mape = isset($hasil['mape']) ? round((float) $hasil['mape'], 2) : null;
 
             Prediction::updateOrCreate(

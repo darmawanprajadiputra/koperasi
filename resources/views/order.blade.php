@@ -14,12 +14,15 @@
             </div>
         @endif
 
-        <!-- Filter Buttons -->
         <div class="flex gap-3 mb-8 overflow-x-auto pb-2">
-            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-tertiary text-on-tertiary shadow-lg shadow-tertiary/10 transition-all" data-filter="all">Semua</button>
-            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="process">Proses</button>
-            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="completed">Selesai</button>
-            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all" data-filter="cancelled">Dibatalkan</button>
+            <<button class="filter-btn active px-8 py-2.5 rounded-full font-semibold text-sm"
+                data-filter="all"> Semua </button>
+            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm"
+                data-filter="process">Proses</button>
+            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm"
+                data-filter="completed">Selesai</button>
+            <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm"
+                data-filter="cancelled">Dibatalkan</button>
         </div>
 
         <!-- Loading -->
@@ -42,11 +45,13 @@
 
         <!-- Pagination -->
         <div id="paginationWrapper" class="mt-16 hidden flex justify-center items-center gap-4">
-            <button id="prevBtn" class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-surface-container-highest transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+            <button id="prevBtn"
+                class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-surface-container-highest transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
             <div id="paginationContainer" class="flex gap-2"></div>
-            <button id="nextBtn" class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-surface-container-highest transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+            <button id="nextBtn"
+                class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-surface-container-highest transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
         </div>

@@ -4,16 +4,16 @@
 @section('page_title', 'Dashboard')
 
 @section('content')
-    <div class="px-8 pt-8 max-w-7xl mx-auto">
 
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="px-8 pt-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
             {{-- Pesanan Baru --}}
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-start mb-4">
                     <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center">
-                        <span class="material-symbols-outlined text-2xl text-tertiary" data-icon="shopping_basket">shopping_basket</span>
+                        <span class="material-symbols-outlined text-2xl text-tertiary"
+                            data-icon="shopping_basket">shopping_basket</span>
                     </div>
                     <span
                         class="text-xs font-semibold px-2 py-1 rounded-full
@@ -30,7 +30,8 @@
             <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex justify-between items-start mb-4">
                     <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                        <span class="material-symbols-outlined text-2xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+                        <span class="material-symbols-outlined text-2xl"
+                            data-icon="account_balance_wallet">account_balance_wallet</span>
                     </div>
                     <span
                         class="text-xs font-semibold px-2 py-1 rounded-full
@@ -59,55 +60,70 @@
                 <h3 class="text-3xl font-extrabold text-teal-900">{{ $totalCustomers }}</h3>
                 <p class="text-xs text-gray-400 mt-1">vs. minggu lalu</p>
             </div>
-
         </div>
 
         <!-- Charts and Activity Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div class="lg:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-                <div class="flex justify-between items-center mb-10">
-                    <div>
-                        <h2 class="text-xl font-bold text-teal-900">Tren Pesanan 7 Hari Terakhir</h2>
-                        <p class="text-sm text-gray-600">Jumlah transaksi unik per hari</p>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-stretch">
+            <div class="lg:col-span-2 flex flex-col gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold text-teal-900">Grafik Pesanan 7 Hari Terakhir</h2>
+                        </div>
+                        <span class="flex items-center gap-2 text-xs font-semibold text-teal-900">
+                            <span class="w-3 h-3 rounded-full bg-teal-900 inline-block"></span> Pesanan
+                        </span>
                     </div>
-                    <span class="flex items-center gap-2 text-xs font-semibold text-teal-900">
-                        <span class="w-3 h-3 rounded-full bg-teal-900 inline-block"></span> Pesanan
-                    </span>
+
+                    {{-- Bar Chart --}}
+                    @php
+                        $maxVal = max(array_merge($orderTrend, [1]));
+                    @endphp
+                    <div class="flex items-end justify-between gap-4 px-2" style="height: 220px;">
+                        @foreach ($orderTrend as $i => $value)
+                            @php
+                                $heightPct = round(($value / $maxVal) * 100);
+                                $heightPct = max($heightPct, 4);
+                            @endphp
+                            <div class="flex flex-col items-center w-full group" style="height: 100%;">
+                                <div class="relative w-full flex-1">
+                                    <div class="absolute bottom-0 w-full bg-teal-900 rounded-t-lg
+                                            group-hover:opacity-75 transition-opacity"
+                                        style="height: {{ $heightPct }}%">
+                                        <span
+                                            class="absolute -top-5 left-1/2 -translate-x-1/2
+                                                 text-[10px] font-bold text-teal-900
+                                                 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                                            {{ $value }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-bold text-gray-600 mt-2 leading-none">{{ $dayLabels[$i] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
-                {{-- Bar Chart --}}
-                @php
-                    $maxVal = max(array_merge($orderTrend, [1]));
-                @endphp
-                <div class="h-64 flex items-end justify-between gap-4 px-2">
-                    @foreach ($orderTrend as $i => $value)
-                        @php
-                            $heightPct = round(($value / $maxVal) * 100);
-                            $heightPct = max($heightPct, 4);
-                        @endphp
-                        <div class="flex flex-col items-center gap-3 w-full group">
-                            <div class="relative w-full h-32">
-                                <span
-                                    class="absolute -top-6 left-1/2 -translate-x-1/2
-                                             text-[10px] font-bold text-teal-900
-                                             opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                                    {{ $value }}
-                                </span>
-                                <div class="absolute bottom-0 w-full bg-teal-900 rounded-t-lg
-                                            group-hover:opacity-75 transition-opacity"
-                                    style="height: {{ $heightPct }}%">
-                                </div>
-                                <div class="absolute bottom-0 w-full bg-gray-200 rounded-t-lg -z-10 h-full"></div>
-                            </div>
-                            <span class="text-xs font-bold text-gray-600">{{ $dayLabels[$i] }}</span>
-                        </div>
-                    @endforeach
-                </div>
+                <!-- Promotional Section -->
+                <section
+                    class="bg-teal-900 text-white rounded-xl px-6 py-5 flex flex-col md:flex-row md:items-center mb-2 justify-between gap-6">
+                    <div>
+                        <h3 class="text-xl font-extrabold text-white mb-2">Tingkatkan Efisiensi Distribusi</h3>
+                        <p class="max-w-xl text-sm text-white/80">
+                            Gunakan fitur analitik untuk memprediksi permintaan barang dan merencanakan stok koperasi dengan
+                            lebih akurat.
+                        </p>
+                    </div>
+                    <a href="/prediction"
+                        class="px-8 py-2 rounded-full bg-white text-teal-900 font-bold hover:opacity-90 transition-all whitespace-nowrap text-center">
+                        Mulai Analisis
+                    </a>
+                </section>
             </div>
 
             <!-- Recent Activity -->
-            <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 flex flex-col">
-                <div class="flex justify-between items-center mb-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-teal-900">Aktivitas Terkini</h2>
                 </div>
 
@@ -160,22 +176,5 @@
                 </div>
             </div>
         </div>
-
-        <!-- Promotional Section -->
-        <section
-            class="bg-teal-900 text-white rounded-xl p-8 flex flex-col md:flex-row md:items-center mb-4 justify-between gap-6">
-            <div>
-                <h3 class="text-3xl font-extrabold text-white mb-2">Tingkatkan Efisiensi Distribusi</h3>
-                <p class="max-w-2xl text-sm text-white/80">
-                    Gunakan fitur analitik untuk memprediksi permintaan barang dan merencanakan stok koperasi dengan lebih
-                    akurat.
-                </p>
-            </div>
-            <a href="/prediction"
-                class="px-8 py-3 rounded-full bg-white text-teal-900 font-bold hover:opacity-90 transition-all whitespace-nowrap text-center">
-                Mulai Analisis
-            </a>
-        </section>
-
     </div>
 @endsection

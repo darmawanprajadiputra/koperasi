@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     if (!document.getElementById("btn-predict")) return;
     document
@@ -45,7 +46,7 @@ async function handlePrediction() {
         }
 
         showResult(json.data);
-        updateHistoryRow(json.data);   // ← update tabel riwayat tanpa reload
+        updateHistoryRow(json.data);
     } catch (error) {
         showError("Gagal terhubung ke server: " + error.message);
     }
@@ -63,11 +64,10 @@ function updateHistoryRow(data) {
     const safetyStock  = data.rekomendasi_stok;
     const isAman       = currentStock >= rop;
 
-    // Safety Stock — cukup update textContent, span "unit" di blade tidak ikut diganti
+    // Safety Stock 
     const ssEl = row.querySelector(".history-safety-stock");
     if (ssEl) ssEl.textContent = safetyStock;
 
-    // Stok Tersedia (nilai ini sudah dari DB, tidak berubah di sini — biarkan)
 
     // Stok ROP
     const ropEl = row.querySelector(".history-rop");
@@ -101,7 +101,6 @@ function updateHistoryRow(data) {
         }
     }
 
-    // Highlight baris yang baru diupdate
     row.classList.add("bg-primary/5");
     setTimeout(() => row.classList.remove("bg-primary/5"), 2000);
 }

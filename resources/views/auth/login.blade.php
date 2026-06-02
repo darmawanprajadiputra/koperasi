@@ -37,7 +37,7 @@
                     <div class=" w-12 bg-tertiary-fixed"></div>
                 </div>
                 <div class="text-xs text-white opacity-60">
-                    © 2024 Koperasi Bismillah Indonesia Sejahtera.
+                    © 2026 Koperasi Bismillah Indonesia Sejahtera.
                 </div>
             </div>
 
@@ -58,14 +58,14 @@
                         <label
                             class="block font-label text-xs font-bold text-on-surface-variant uppercase tracking-widest"
                             for="identity">
-                            Email atau Username
+                            Username
                         </label>
                         <div class="relative">
                             <span
                                 class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">person</span>
                             <input
                                 class="w-full pl-12 pr-4 py-4 border-none rounded-xl focus:ring-2 focus:ring-primary-container text-on-surface font-body transition-all @error('username') ring-2 ring-error @enderror"
-                                id="identity" name="username" placeholder="nama@email.com" type="text"
+                                id="identity" name="username" placeholder="Username" type="text"
                                 value="{{ old('username') }}" required>
                         </div>
                         @error('username')
@@ -79,7 +79,7 @@
                             <label
                                 class="block font-label text-xs font-bold text-on-surface-variant uppercase tracking-widest"
                                 for="password">
-                                Kata Sandi
+                                Password
                             </label>
                             {{-- <a class="text-xs font-bold text-primary hover:underline underline-offset-4" href="#">
                             Forgot Password
