@@ -26,15 +26,16 @@ if (document.getElementById('unitInput') && window.ADD_UNITS) {
         const file = imageInput.files[0];
         if (!file) return;
         if (!['image/jpeg', 'image/png'].includes(file.type)) {
-            alert('Hanya file JPG dan PNG yang diizinkan');
+            showFieldError('image', 'Hanya file JPG dan PNG yang diizinkan.');
             imageInput.value = '';
             return;
         }
         if (file.size > 5 * 1024 * 1024) {
-            alert('Ukuran file tidak boleh lebih dari 5MB');
+            showFieldError('image', 'Ukuran file tidak boleh lebih dari 5MB.');
             imageInput.value = '';
             return;
         }
+        clearFieldError('image');
         const reader = new FileReader();
         reader.onload = e => {
             previewImage.src = e.target.result;
@@ -53,7 +54,6 @@ if (document.getElementById('unitInput') && window.ADD_UNITS) {
 
     function getAllUnits() { return window.ADD_UNITS || []; }
 
-    // Pakai ID unik agar tidak bentrok dengan edit.js
     const existingDropdown = document.getElementById('unitDropdown--add');
     if (existingDropdown) existingDropdown.remove();
 
@@ -129,9 +129,7 @@ if (document.getElementById('unitInput') && window.ADD_UNITS) {
         unitInput.value = unit.name_unit;
         unitId.value    = unit.id;
         isSelected      = true;
-        unitInput.classList.remove('ring-2', 'ring-red-500');
-        const errMsg = document.getElementById('unitErrorMsg');
-        if (errMsg) errMsg.remove();
+        clearFieldError('unit');
         closeDropdown();
     }
 
@@ -169,8 +167,8 @@ if (document.getElementById('unitInput') && window.ADD_UNITS) {
         if (!isOpen) return;
         const items = [...dropdown.querySelectorAll('li[data-id]')];
         if (!items.length) return;
-        if (e.key === 'ArrowDown') { e.preventDefault(); updateActive(Math.min(activeIndex + 1, items.length - 1), items); }
-        else if (e.key === 'ArrowUp') { e.preventDefault(); updateActive(Math.max(activeIndex - 1, 0), items); }
+        if (e.key === 'ArrowDown')      { e.preventDefault(); updateActive(Math.min(activeIndex + 1, items.length - 1), items); }
+        else if (e.key === 'ArrowUp')   { e.preventDefault(); updateActive(Math.max(activeIndex - 1, 0), items); }
         else if (e.key === 'Enter') {
             e.preventDefault();
             if (activeIndex >= 0 && items[activeIndex]) {
@@ -185,23 +183,90 @@ if (document.getElementById('unitInput') && window.ADD_UNITS) {
         if (!wrapper.contains(e.target) && !dropdown.contains(e.target)) closeDropdown();
     });
 
+    // ── Helper: Tampilkan & Hapus Pesan Error ─────────────────────────────────
+
+    /**
+     * Tampilkan pesan error di bawah field.
+     * @param {string} field  – 'name_product' | 'categories_id' | 'unit' | 'stock' | 'price' | 'image'
+     * @param {string} message
+     */
+    function showFieldError(field, message) {
+        const spanId = field === 'unit' ? 'unitErrorMsg' : field + '_error';
+        const span   = document.getElementById(spanId);
+        if (span) {
+            span.textContent = message;
+            span.classList.remove('hidden');
+        }
+    }
+
+    /**
+     * Hapus pesan error field tertentu.
+     * @param {string} field
+     */
+    function clearFieldError(field) {
+        const spanId = field === 'unit' ? 'unitErrorMsg' : field + '_error';
+        const span   = document.getElementById(spanId);
+        if (span) {
+            span.textContent = '';
+            span.classList.add('hidden');
+        }
+    }
+
     // ── Validasi Form ─────────────────────────────────────────────────────────
     const form = document.querySelector('form');
     if (form) {
-        form.addEventListener('submit', function(e) {
-            if (!unitId.value) {
-                e.preventDefault();
-                unitInput.classList.add('ring-2', 'ring-red-500');
-                unitInput.focus();
-                let errMsg = document.getElementById('unitErrorMsg');
-                if (!errMsg) {
-                    errMsg = document.createElement('span');
-                    errMsg.id        = 'unitErrorMsg';
-                    errMsg.className = 'text-red-500 text-sm mt-1 block';
-                    wrapper.parentElement.appendChild(errMsg);
-                }
-                errMsg.textContent = 'Silakan pilih satuan dari daftar yang tersedia.';
+        // Hapus error saat user mulai mengisi field
+        form.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('input', () => clearFieldError(el.name === 'unit_name' ? 'unit' : el.name));
+            el.addEventListener('change', () => clearFieldError(el.name === 'unit_name' ? 'unit' : el.name));
+        });
+
+        form.addEventListener('submit', function (e) {
+            let hasError = false;
+
+            const nameProduct   = document.getElementById('name_product');
+            const categoriesId  = document.getElementById('categories_id');
+            const stock         = document.getElementById('stock');
+            const price         = document.getElementById('price');
+
+            // Nama Produk
+            if (!nameProduct.value.trim()) {
+                showFieldError('name_product', 'Nama produk tidak boleh kosong.');
+                hasError = true;
             }
+
+            // Kategori
+            if (!categoriesId.value) {
+                showFieldError('categories_id', 'Silakan pilih kategori produk.');
+                hasError = true;
+            }
+
+            // Satuan / Unit
+            if (!unitId.value) {
+                showFieldError('unit', 'Silakan pilih satuan dari daftar yang tersedia.');
+                unitInput.focus();
+                hasError = true;
+            }
+
+            // Stok
+            if (stock.value === '' || stock.value === null) {
+                showFieldError('stock', 'Stok tidak boleh kosong (jika kosong isi dengan 0).');
+                hasError = true;
+            } else if (parseInt(stock.value) < 0) {
+                showFieldError('stock', 'Stok tidak boleh bernilai negatif.');
+                hasError = true;
+            }
+
+            // Harga
+            if (price.value === '' || price.value === null) {
+                showFieldError('price', 'Harga tidak boleh kosong.');
+                hasError = true;
+            } else if (parseFloat(price.value) < 0) {
+                showFieldError('price', 'Harga tidak boleh bernilai negatif.');
+                hasError = true;
+            }
+
+            if (hasError) e.preventDefault();
         });
     }
 

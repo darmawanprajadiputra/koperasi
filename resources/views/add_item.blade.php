@@ -13,7 +13,7 @@
         <h1 class="font-manrope text-2xl font-extrabold text-primary tracking-wide">Tambah Produk</h1>
     </div>
 
-    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data" novalidate>
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mx-6 mb-8">
@@ -29,12 +29,13 @@
                         <!-- Product Name -->
                         <div class="md:col-span-2">
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Nama Produk</label>
-                            <input name="name_product"
+                            <input name="name_product" id="name_product"
                                 class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface placeholder-outline-variant @error('name_product') ring-2 ring-red-500 @enderror"
-                                placeholder="Contoh: Susu Sapi Organik A2" type="text" value="{{ old('name_product') }}"
-                                required />
+                                placeholder="Contoh: Susu Sapi Organik A2" type="text" value="{{ old('name_product') }}" />
                             @error('name_product')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @else
+                                <span id="name_product_error" class="text-red-500 text-sm mt-1 block hidden"></span>
                             @enderror
                         </div>
 
@@ -42,9 +43,8 @@
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Kategori</label>
                             <div class="relative">
-                                <select name="categories_id"
-                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container appearance-none text-on-surface @error('categories_id') ring-2 ring-red-500 @enderror"
-                                    required>
+                                <select name="categories_id" id="categories_id"
+                                    class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container appearance-none text-on-surface @error('categories_id') ring-2 ring-red-500 @enderror">
                                     <option disabled selected value="">Pilih Kategori</option>
                                     @forelse ($categories as $category)
                                         <option value="{{ $category->id }}"
@@ -60,6 +60,8 @@
                             </div>
                             @error('categories_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @else
+                                <span id="categories_id_error" class="text-red-500 text-sm mt-1 block hidden"></span>
                             @enderror
                         </div>
 
@@ -77,17 +79,21 @@
                             </div>
                             @error('unit_id')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @else
+                                <span id="unitErrorMsg" class="text-red-500 text-sm mt-1 block hidden"></span>
                             @enderror
                         </div>
 
                         <!-- Stock -->
                         <div>
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Stok</label>
-                            <input name="stock"
+                            <input name="stock" id="stock"
                                 class="w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary-container text-on-surface @error('stock') ring-2 ring-red-500 @enderror"
-                                placeholder="0" type="number" min="0" value="{{ old('stock') }}" required />
+                                placeholder="0" type="number" min="0" value="{{ old('stock') }}" />
                             @error('stock')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @else
+                                <span id="stock_error" class="text-red-500 text-sm mt-1 block hidden"></span>
                             @enderror
                         </div>
 
@@ -96,13 +102,15 @@
                             <label class="block text-sm font-semibold text-on-surface-variant mb-2">Harga</label>
                             <div class="flex items-center">
                                 <span class="absolute left-4 font-bold text-on-surface-variant">Rp</span>
-                                <input name="price"
+                                <input name="price" id="price"
                                     class="w-full bg-surface-container-low border-none rounded-lg p-4 pl-12 focus:ring-2 focus:ring-primary-container text-on-surface @error('price') ring-2 ring-red-500 @enderror"
                                     placeholder="0" type="number" min="0" step="0.01"
-                                    value="{{ old('price') }}" required />
+                                    value="{{ old('price') }}" />
                             </div>
                             @error('price')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @else
+                                <span id="price_error" class="text-red-500 text-sm mt-1 block hidden"></span>
                             @enderror
                         </div>
 

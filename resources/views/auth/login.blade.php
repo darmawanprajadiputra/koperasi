@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - KOPERASI BISMILLAH INDONESIA SEJAHTERA</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/login.js'])
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="icon" type="image/png" href="{{ asset('assets/pictures/koperasi.png') }}">
@@ -25,6 +25,7 @@
         <main
             class="relative w-full max-w-5xl h-[90vh] grid grid-cols-1 md:grid-cols-2 bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden mx-auto">
 
+            <!-- Left Side -->
             <div class="bg-green-700 md:flex h-[90vh] flex-col justify-between p-14 overflow-y-auto">
                 <div>
                     <h1 class="text-white text-3xl font-bold uppercase tracking-widest">Koperasi Bismillah Indonesia
@@ -34,7 +35,7 @@
                     <blockquote class="text-3xl text-white font-headline font-bold leading-tight">
                         "Menghubungkan kebutuhan masyarakat dengan layanan koperasi modern."
                     </blockquote>
-                    <div class=" w-12 bg-tertiary-fixed"></div>
+                    <div class="w-12 bg-tertiary-fixed"></div>
                 </div>
                 <div class="text-xs text-white opacity-60">
                     © 2026 Koperasi Bismillah Indonesia Sejahtera.
@@ -44,16 +45,21 @@
             <!-- Form Side -->
             <div class="md:p-14 h-[90vh] flex flex-col justify-center bg-surface-container-lowest">
 
-                @if ($errors->any())
-                    <div class="mb-6 p-4 bg-error/10 border border-error rounded-lg">
-                        <p class="text-error text-sm font-medium">{{ $errors->first() }}</p>
-                    </div>
-                @endif
-
-                <form action="{{ route('login') }}" method="POST" class="space-y-4" id="loginForm">
+                <form action="{{ route('login') }}" method="POST" class="space-y-4" id="loginForm" novalidate>
                     @csrf
+                    @if ($errors->any())
+                        <div id="serverErrorBox" class="p-4 bg-red-50 border border-red-300 rounded-xl"
+                            {{-- Jika error mengandung data lockout, simpan sisa detik sebagai attribute --}} data-lockout-seconds="{{ session('lockout_seconds', 0) }}">
+                            <ul class="list-disc pl-5 space-y-1">
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-red-700 text-sm font-medium" id="errorMessage">{{ $error }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                    <!-- Username/Email -->
+                    <!-- Username -->
                     <div class="space-y-2">
                         <label
                             class="block font-label text-xs font-bold text-on-surface-variant uppercase tracking-widest"
@@ -68,9 +74,6 @@
                                 id="identity" name="username" placeholder="Username" type="text"
                                 value="{{ old('username') }}" required>
                         </div>
-                        @error('username')
-                            <p class="text-error text-sm">{{ $message }}</p>
-                        @enderror
                     </div>
 
                     <!-- Password -->
@@ -81,9 +84,6 @@
                                 for="password">
                                 Password
                             </label>
-                            {{-- <a class="text-xs font-bold text-primary hover:underline underline-offset-4" href="#">
-                            Forgot Password
-                        </a> --}}
                         </div>
                         <div class="relative w-full">
                             <span
@@ -95,9 +95,6 @@
                                 <span class="material-symbols-outlined" id="visibilityIcon">visibility</span>
                             </button>
                         </div>
-                        @error('password')
-                            <p class="text-error text-sm">{{ $message }}</p>
-                        @enderror
                     </div>
 
                     <!-- Remember Me -->
@@ -110,20 +107,12 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit"
-                        class="bg-green-700 w-full editorial-gradient text-white py-3 rounded-full font-headline font-bold text-lg shadow-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
-                        <span>Masuk</span>
-                        <span class="material-symbols-outlined arrow-icon">arrow_forward</span>
+                    <button type="submit" id="submitBtn"
+                        class="bg-green-700 w-full editorial-gradient text-white py-3 rounded-full font-headline font-bold text-lg shadow-xl hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100">
+                        <span id="submitText">Masuk</span>
+                        <span class="material-symbols-outlined arrow-icon" id="submitIcon">arrow_forward</span>
                     </button>
                 </form>
-
-                {{-- <!-- Secondary Actions -->
-            <div class="mt-12 pt-8 border-t border-outline-variant/20 text-center">
-                <p class="text-on-surface-variant text-sm mb-4">Belum bergabung dengan koperasi?</p>
-                <a href="{{ route('register') }}" class="px-8 py-3 border-2 border-primary-container text-primary-container font-headline font-bold rounded-full hover:bg-primary-container hover:text-white transition-all inline-block">
-                    Daftar Anggota Baru
-                </a>
-            </div> --}}
             </div>
         </main>
 
@@ -132,20 +121,6 @@
         <div class="hidden lg:block fixed top-10 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
     </div>
 
-    <script>
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const input = document.getElementById('passwordInput');
-            const icon = document.getElementById('visibilityIcon');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = 'visibility_off';
-            } else {
-                input.type = 'password';
-                icon.textContent = 'visibility';
-            }
-        });
-    </script>
 </body>
 
 </html>

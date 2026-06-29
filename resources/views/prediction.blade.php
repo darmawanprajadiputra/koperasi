@@ -170,8 +170,8 @@
                             <tr class="bg-gradient-to-r from-[#00342b] to-[#004d40] text-white">
                                 <th class="text-left px-5 py-4 font-semibold text-xs uppercase tracking-wider">Nama Produk
                                 </th>
-                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Safety
-                                    Stock</th>
+                                <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Rekomendasi
+                                    Stok</th>
                                 <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok
                                     Tersedia</th>
                                 <th class="text-center px-5 py-4 font-semibold text-xs uppercase tracking-wider">Stok ROP

@@ -13,11 +13,11 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
     <link rel="icon" type="image/png" href="{{ asset('koperasi.png') }}">
-
+    
     <!-- CSS -->
     @vite(['resources/css/app.css'])
     @stack('head_data')
-    @stack('styles')
+    @stack('styles') 
 </head>
 
 <body class="bg-surface text-on-surface">

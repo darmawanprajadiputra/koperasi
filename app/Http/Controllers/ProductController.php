@@ -21,6 +21,7 @@ class ProductController extends Controller
                     : asset('assets/pictures/produk.jpg');
                 return $product;
             });
+
         // Hitung produk yang perlu restock: stok < ROP berdasarkan hasil prediksi terakhir
         $restockCount = Prediction::whereHas('product', fn($q) => $q->where('is_active', true))
             ->with('product')
@@ -43,13 +44,29 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
-            'unit_id'       => 'required|integer|exists:unit,id', // ← ubah nullable jadi required
+            'unit_id'       => 'required|integer|exists:unit,id',
             'stock'         => 'required|integer|min:0',
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',
+        ], [
+            'name_product.required'  => 'Nama produk tidak boleh kosong.',
+            'name_product.max'       => 'Nama produk maksimal 255 karakter.',
+            'categories_id.required' => 'Silakan pilih kategori produk.',
+            'categories_id.exists'   => 'Kategori yang dipilih tidak valid.',
+            'unit_id.required'       => 'Silakan pilih satuan dari daftar yang tersedia.',
+            'unit_id.exists'         => 'Satuan yang dipilih tidak valid.',
+            'stock.required'         => 'Stok tidak boleh kosong.',
+            'stock.integer'          => 'Stok harus berupa angka bulat.',
+            'stock.min'              => 'Stok tidak boleh bernilai negatif.',
+            'price.required'         => 'Harga tidak boleh kosong.',
+            'price.numeric'          => 'Harga harus berupa angka.',
+            'price.min'              => 'Harga tidak boleh bernilai negatif.',
+            'image.image'            => 'File yang diunggah harus berupa gambar.',
+            'image.mimes'            => 'Hanya file JPG dan PNG yang diizinkan.',
+            'image.max'              => 'Ukuran file tidak boleh lebih dari 5MB.',
         ]);
 
         $imagePath = null;
@@ -59,11 +76,11 @@ class ProductController extends Controller
 
         try {
             Product::create([
-                'name_product'  => $validated['name_product'],
-                'categories_id' => $validated['categories_id'],
-                'unit_id'       => $validated['unit_id'],
-                'stock'         => $validated['stock'],
-                'price'         => $validated['price'],
+                'name_product'  => $request->name_product,
+                'categories_id' => $request->categories_id,
+                'unit_id'       => $request->unit_id,
+                'stock'         => $request->stock,
+                'price'         => $request->price,
                 'image'         => $imagePath,
                 'is_active'     => true,
             ]);
@@ -85,19 +102,34 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name_product'  => 'required|string|max:255',
             'categories_id' => 'required|integer|exists:categories,id',
             'unit_id'       => 'nullable|integer|exists:unit,id',
-            'stock'         => 'required|integer|min:0', // nilai dikirim dari readonly input
+            'stock'         => 'required|integer|min:0',
             'price'         => 'required|numeric|min:0',
             'image'         => 'nullable|image|mimes:jpeg,png|max:5120',
+        ], [
+            'name_product.required'  => 'Nama produk tidak boleh kosong.',
+            'name_product.max'       => 'Nama produk maksimal 255 karakter.',
+            'categories_id.required' => 'Silakan pilih kategori produk.',
+            'categories_id.exists'   => 'Kategori yang dipilih tidak valid.',
+            'unit_id.exists'         => 'Satuan yang dipilih tidak valid.',
+            'stock.required'         => 'Stok tidak boleh kosong.',
+            'stock.integer'          => 'Stok harus berupa angka bulat.',
+            'stock.min'              => 'Stok tidak boleh bernilai negatif.',
+            'price.required'         => 'Harga tidak boleh kosong.',
+            'price.numeric'          => 'Harga harus berupa angka.',
+            'price.min'              => 'Harga tidak boleh bernilai negatif.',
+            'image.image'            => 'File yang diunggah harus berupa gambar.',
+            'image.mimes'            => 'Hanya file JPG dan PNG yang diizinkan.',
+            'image.max'              => 'Ukuran file tidak boleh lebih dari 5MB.',
         ]);
+
+        $validated = $request->only(['name_product', 'categories_id', 'unit_id', 'stock', 'price']);
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $validated['image'] = $request->file('image')->store('products', 'public');
-        } else {
-            unset($validated['image']);
         }
 
         $product->update($validated);
