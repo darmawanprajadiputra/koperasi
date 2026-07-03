@@ -77,8 +77,8 @@ function initFormInteractions() {
         const passwordEmpty = passwordInput.value.trim() === '';
 
         // Bersihkan error lama sebelum validasi baru
-        clearFieldError(usernameInput);
-        clearFieldError(passwordInput);
+        loginClearFieldError(usernameInput);
+        loginClearFieldError(passwordInput);
         removeClientErrorBox();
 
         if (usernameEmpty && passwordEmpty) {
@@ -144,17 +144,17 @@ function validateInput(input) {
 
     if (input.name === 'username') {
         if (value.length === 0) {
-            showFieldError(input, 'Username tidak boleh kosong.');
+            loginShowFieldError(input, 'Username tidak boleh kosong.');
         } else {
-            clearFieldError(input);
+            loginClearFieldError(input);
         }
     }
 
     if (input.name === 'password') {
         if (value.length === 0) {
-            showFieldError(input, 'Password tidak boleh kosong.');
+            loginShowFieldError(input, 'Password tidak boleh kosong.');
         } else {
-            clearFieldError(input);
+            loginClearFieldError(input);
         }
     }
 }
@@ -162,7 +162,7 @@ function validateInput(input) {
 /**
  * Show field error
  */
-function showFieldError(input, message) {
+function loginShowFieldError(input, message) {
     const container = input.closest('.space-y-2');
     if (!container) return;
 
@@ -184,7 +184,7 @@ function showFieldError(input, message) {
 /**
  * Clear field error
  */
-function clearFieldError(input) {
+function loginClearFieldError(input) {
     const container = input.closest('.space-y-2');
     if (!container) return;
 
@@ -305,8 +305,8 @@ export {
     initRememberMe,
     initLockoutCountdown,
     validateInput,
-    showFieldError,
-    clearFieldError,
+    loginShowFieldError,
+    loginClearFieldError,
     removeClientErrorBox,
     showClientErrorBox,
     addAnimation
