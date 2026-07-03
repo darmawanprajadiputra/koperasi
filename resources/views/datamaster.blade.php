@@ -4,9 +4,8 @@
 @section('page_title', 'Data Master')
 
 @push('styles')
-    @vite(['resources/css/datamaster.css'])
+    @vite(['resources/css/app.css'])
     <style>
-        /* ── Scrollable list container ── */
         .dm-list {
             overflow-y: auto;
             overflow-x: hidden;
@@ -249,7 +248,6 @@
 @endsection
 
 @push('scripts')
-    @vite(['resources/js/datamaster.js'])
     <script>
     (function () {
         const VISIBLE_ITEMS = 5;

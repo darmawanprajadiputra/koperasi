@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     // Orders — Web (menampilkan blade view)
     Route::get('/order', [OrderController::class, 'index'])->name('order');
     Route::get('/order/{order_id}', [OrderController::class, 'show'])->name('order.show'); // ← hanya 1 route, panggil show()
+    Route::get('/order/{order_id}/invoice', [OrderController::class, 'printInvoice'])->name('order.invoice');
 
     // Prediction
     Route::get('/prediction', [PredictionController::class, 'index'])->name('prediction');

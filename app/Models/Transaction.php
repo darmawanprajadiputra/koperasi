@@ -49,4 +49,17 @@ class Transaction extends Model
     {
         return $this->belongsTo(Product::class, 'id_products', 'id');
     }
+
+    /**
+     * Harga satuan, dihitung dari total_amount dibagi total_item.
+     * Dipakai untuk kolom "Modal" pada faktur.
+     */
+    public function getUnitPriceAttribute()
+    {
+        if (! $this->total_item || $this->total_item == 0) {
+            return 0;
+        }
+
+        return $this->total_amount / $this->total_item;
+    }
 }

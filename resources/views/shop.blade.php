@@ -91,7 +91,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/shop.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const btn = document.getElementById('checkoutBtn');

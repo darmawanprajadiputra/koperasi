@@ -62,6 +62,9 @@
     const confirmCancelBtn = document.getElementById("confirmCancel");
     const cancelSpinner = document.getElementById("cancelSpinner");
 
+    // Guard: hanya jalankan script ini jika berada di halaman detail transaksi
+    if (!detailEl) return;
+
     // ── Render detail ─────────────────────────────────────────────────────────
     function renderDetail(data, transactions) {
         const status = data.payment_status ?? "pending";

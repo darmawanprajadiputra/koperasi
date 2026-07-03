@@ -15,7 +15,7 @@
         @endif
 
         <div class="flex gap-3 mb-8 overflow-x-auto pb-2">
-            <<button class="filter-btn active px-8 py-2.5 rounded-full font-semibold text-sm"
+            <button class="filter-btn active px-8 py-2.5 rounded-full font-semibold text-sm"
                 data-filter="all"> Semua </button>
             <button class="filter-btn px-8 py-2.5 rounded-full font-semibold text-sm"
                 data-filter="process">Proses</button>
@@ -58,7 +58,3 @@
 
     </div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('js/order.js') }}"></script>
-@endpush

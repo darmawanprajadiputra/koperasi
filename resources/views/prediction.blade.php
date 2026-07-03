@@ -280,5 +280,4 @@
         const PREDICT_URL = "{{ route('prediction.predict') }}";
         const CSRF_TOKEN = "{{ csrf_token() }}";
     </script>
-    <script src="{{ asset('js/prediction.js') }}"></script>
 @endsection

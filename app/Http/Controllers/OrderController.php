@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -129,5 +130,32 @@ class OrderController extends Controller
             'num_factur' => $order_id,
             'new_status' => $request->status,
         ]);
+    }
+
+    // ── Web: cetak faktur (PDF) untuk satu nomor faktur ─────────────────────────
+    public function printInvoice($order_id)
+    {
+        $items = Transaction::with('product.unit')
+            ->where('num_factur', $order_id)
+            ->get();
+
+        if ($items->isEmpty()) {
+            abort(404, 'Faktur tidak ditemukan');
+        }
+
+        $order = $items->first();
+
+        $totalAmount = $items->sum('total_amount');
+        $saldo       = 0; 
+        $pdf = Pdf::loadView('invoice', [
+            'order'         => $order,
+            'items'         => $items,
+            'invoiceNumber' => $order->num_factur,
+            'invoiceDate'   => $order->created_at->format('d-m-Y'),
+            'totalAmount'   => $totalAmount,
+            'saldo'         => $saldo,
+        ])->setPaper('a4', 'portrait');
+
+        return $pdf->stream('Faktur-' . $order->num_factur . '.pdf');
     }
 }
