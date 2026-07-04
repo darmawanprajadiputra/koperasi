@@ -41,6 +41,26 @@
         cancelled: "bg-red-100 text-red-700",
     };
 
+    // Jika metode transfer, ambil nama bank dari catatan ("Transfer via Bank BCA")
+    // agar tampil sebagai metode, dan hilangkan baris tersebut dari catatan.
+    function resolvePaymentMethod(paymentMethod, notes) {
+        if (paymentMethod === "transfer" && notes) {
+            const match = notes.match(/Transfer via Bank (BNI|BRI|BCA)/i);
+            if (match) {
+                return {
+                    method: match[1].toUpperCase(),
+                    notes: notes
+                        .replace(/^Transfer via Bank (BNI|BRI|BCA)\s*\n?/i, "")
+                        .trim(),
+                };
+            }
+        }
+        return {
+            method: paymentMethod ?? "—",
+            notes: notes ?? "",
+        };
+    }
+
     // ── Ambil num_factur dari URL: /order/{num_factur} ────────────────────────
     const pathParts = window.location.pathname.split("/").filter(Boolean);
     const numFactur = pathParts[pathParts.length - 1];
@@ -143,8 +163,9 @@
             data.address ?? "—";
 
         // Payment summary
-        document.getElementById("payMethod").textContent =
-            data.payment_method ?? "—";
+        const paymentInfo = resolvePaymentMethod(data.payment_method, data.notes);
+
+        document.getElementById("payMethod").textContent = paymentInfo.method;
         document.getElementById("payStatus").textContent =
             STATUS_LABEL[status] ?? "—";
         document.getElementById("payTotal").textContent = formatRp(
@@ -153,9 +174,9 @@
         document.getElementById("payItems").textContent =
             transactions.length + " Produk";
 
-        if (data.notes) {
+        if (paymentInfo.notes) {
             document.getElementById("notesRow").classList.remove("hidden");
-            document.getElementById("payNotes").textContent = data.notes;
+            document.getElementById("payNotes").textContent = paymentInfo.notes;
         }
 
         // Product list

@@ -27,15 +27,15 @@ class TransactionSeeder extends Seeder
         ];
 
         $paymentMethods = ['tunai', 'transfer'];
+        $banks          = ['BNI', 'BRI', 'BCA'];
 
         $notes = [null, null, null, 'Titip ke satpam', 'Hubungi sebelum kirim', null, 'Packing rapi', null];
 
         $startDate = Carbon::create(2026, 1, 17, 0, 0, 0);
         $endDate   = Carbon::create(2026, 5, 29, 23, 59, 59);
 
-        // Ambil nomor faktur terakhir dari DB, fallback ke 10 (sesuai data existing)
-        $lastId = DB::table('transactions')->max('id') ?? 10;
-        $facturCounter = $lastId + 1;
+        // Mulai penomoran faktur dari NF-0001
+        $facturCounter = 1;
 
         $data = [];
 
@@ -50,6 +50,13 @@ class TransactionSeeder extends Seeder
             $pricePerItem  = 150000; // harga satuan produk id=13
             $totalAmount   = $totalItem * $pricePerItem;
             $note          = $notes[array_rand($notes)];
+
+            // Jika metode pembayaran transfer, catat nama bank tujuan di catatan
+            if ($paymentMethod === 'transfer') {
+                $bank     = $banks[array_rand($banks)];
+                $bankInfo = "Transfer via Bank {$bank}";
+                $note     = $note ? "{$bankInfo}\n{$note}" : $bankInfo;
+            }
 
             // Sebar tanggal secara merata
             $daysOffset  = (int) round(($i / $totalTransactions) * $rangeDays);

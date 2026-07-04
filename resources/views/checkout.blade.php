@@ -90,8 +90,10 @@
                                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">
                                         <span class="material-symbols-outlined text-base">phone</span>
                                     </span>
-                                    <input id="no_telephone" name="no_telephone" type="tel"
-                                        value="{{ old('no_telephone') }}" placeholder="+62 812-3456-7890"
+                                    <input id="no_telephone" name="no_telephone" type="tel" inputmode="numeric"
+                                        pattern="[0-9]*" maxlength="20"
+                                        value="{{ old('no_telephone') }}" placeholder="081234567890"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                         class="w-full bg-gray-100 border-none rounded-lg pl-11 pr-4 py-3 focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
                                 </div>
                             </div>
@@ -145,7 +147,65 @@
                                         style="font-variation-settings: 'FILL' 1">check_circle</span>
                                 </div>
                                 <span class="font-bold text-on-surface-variant font-manrope">Transfer Bank</span>
-                                <span class="text-xs text-on-surface-variant mt-1">BCA / Mandiri / BRI / BNI</span>
+                                <span class="text-xs text-on-surface-variant mt-1">BCA / BRI / BNI</span>
+                            </label>
+                        </div>
+
+                        {{-- Pilihan Bank (muncul jika Transfer Bank dipilih) --}}
+                        <div id="bankOptions" class="hidden mt-4 space-y-3">
+                            <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant px-1 mb-1">
+                                Pilih Bank Tujuan Transfer
+                            </p>
+
+                            <label class="bank-option relative flex items-center justify-between gap-4 p-4 rounded-xl cursor-pointer bg-surface-container-highest/50 hover:bg-surface-container-highest transition-all border border-outline-variant/10"
+                                data-value="BNI">
+                                <input class="sr-only" name="bank_name" type="radio" value="BNI"
+                                    {{ old('bank_name') === 'BNI' ? 'checked' : '' }} />
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-11 h-11 rounded-lg flex items-center justify-center font-extrabold text-white text-[11px] tracking-tight flex-shrink-0"
+                                        style="background:#F37021">BNI</div>
+                                    <span class="font-bold text-on-surface-variant font-manrope text-sm truncate">Bank BNI</span>
+                                    <span class="check-icon-bank material-symbols-outlined text-primary hidden text-lg flex-shrink-0"
+                                        style="font-variation-settings: 'FILL' 1">check_circle</span>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="font-bold text-on-surface text-sm tracking-wide">2020 1395 70</p>
+                                    <p class="text-[11px] text-on-surface-variant">a.n. NANDANG</p>
+                                </div>
+                            </label>
+
+                            <label class="bank-option relative flex items-center justify-between gap-4 p-4 rounded-xl cursor-pointer bg-surface-container-highest/50 hover:bg-surface-container-highest transition-all border border-outline-variant/10"
+                                data-value="BRI">
+                                <input class="sr-only" name="bank_name" type="radio" value="BRI"
+                                    {{ old('bank_name') === 'BRI' ? 'checked' : '' }} />
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-11 h-11 rounded-lg flex items-center justify-center font-extrabold text-white text-[11px] tracking-tight flex-shrink-0"
+                                        style="background:#00529C">BRI</div>
+                                    <span class="font-bold text-on-surface-variant font-manrope text-sm truncate">Bank BRI</span>
+                                    <span class="check-icon-bank material-symbols-outlined text-primary hidden text-lg flex-shrink-0"
+                                        style="font-variation-settings: 'FILL' 1">check_circle</span>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="font-bold text-on-surface text-sm tracking-wide">4411 0100 4012 507</p>
+                                    <p class="text-[11px] text-on-surface-variant">a.n. ASEP SHOLAHUDIN</p>
+                                </div>
+                            </label>
+
+                            <label class="bank-option relative flex items-center justify-between gap-4 p-4 rounded-xl cursor-pointer bg-surface-container-highest/50 hover:bg-surface-container-highest transition-all border border-outline-variant/10"
+                                data-value="BCA">
+                                <input class="sr-only" name="bank_name" type="radio" value="BCA"
+                                    {{ old('bank_name') === 'BCA' ? 'checked' : '' }} />
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-11 h-11 rounded-lg flex items-center justify-center font-extrabold text-white text-[11px] tracking-tight flex-shrink-0"
+                                        style="background:#005CAB">BCA</div>
+                                    <span class="font-bold text-on-surface-variant font-manrope text-sm truncate">Bank BCA</span>
+                                    <span class="check-icon-bank material-symbols-outlined text-primary hidden text-lg flex-shrink-0"
+                                        style="font-variation-settings: 'FILL' 1">check_circle</span>
+                                </div>
+                                <div class="text-right flex-shrink-0">
+                                    <p class="font-bold text-on-surface text-sm tracking-wide">377 0291 479</p>
+                                    <p class="text-[11px] text-on-surface-variant">a.n. LILI JULIANSYAH</p>
+                                </div>
                             </label>
                         </div>
                     </section>
@@ -293,6 +353,58 @@
             cartInput.value = JSON.stringify(cart);
         }
 
+        function toggleBankOptions(show) {
+            const bankOptions = document.getElementById('bankOptions');
+            const bankRadios = document.querySelectorAll('input[name="bank_name"]');
+            if (!bankOptions) return;
+
+            if (show) {
+                bankOptions.classList.remove('hidden');
+                bankRadios.forEach(r => r.required = true);
+            } else {
+                bankOptions.classList.add('hidden');
+                bankRadios.forEach(r => {
+                    r.required = false;
+                    r.checked = false;
+                });
+                document.querySelectorAll('.bank-option').forEach(opt => {
+                    opt.classList.remove('ring-2', 'ring-primary', 'bg-surface-container-lowest');
+                    opt.classList.add('bg-surface-container-highest/50');
+                    opt.querySelector('.check-icon-bank')?.classList.add('hidden');
+                });
+            }
+        }
+
+        function setupBankOptions() {
+            const options = document.querySelectorAll('.bank-option');
+
+            options.forEach(opt => {
+                const radio = opt.querySelector('input[type="radio"]');
+                const check = opt.querySelector('.check-icon-bank');
+
+                // Sync initial state
+                if (radio.checked) {
+                    opt.classList.add('ring-2', 'ring-primary', 'bg-surface-container-lowest');
+                    opt.classList.remove('bg-surface-container-highest/50');
+                    check?.classList.remove('hidden');
+                }
+
+                opt.addEventListener('click', () => {
+                    options.forEach(o => {
+                        o.classList.remove('ring-2', 'ring-primary', 'bg-surface-container-lowest');
+                        o.classList.add('bg-surface-container-highest/50');
+                        o.querySelector('.check-icon-bank')?.classList.add('hidden');
+                        o.querySelector('input[type="radio"]').checked = false;
+                    });
+
+                    radio.checked = true;
+                    opt.classList.add('ring-2', 'ring-primary', 'bg-surface-container-lowest');
+                    opt.classList.remove('bg-surface-container-highest/50');
+                    check?.classList.remove('hidden');
+                });
+            });
+        }
+
         function setupPaymentCards() {
             const cards = document.querySelectorAll('.payment-card');
 
@@ -333,14 +445,22 @@
                         el.classList.add('text-on-surface');
                         el.classList.remove('text-on-surface-variant');
                     });
+
+                    // Show/hide bank list based on selected method
+                    toggleBankOptions(card.dataset.value === 'transfer');
                 });
             });
+
+            // Sync bank list visibility with initially checked method (e.g. after validation error)
+            const checkedCard = document.querySelector('.payment-card input:checked')?.closest('.payment-card');
+            toggleBankOptions(checkedCard?.dataset.value === 'transfer');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const cart = loadCartFromSession();
             renderOrderSummary(cart);
             setupPaymentCards();
+            setupBankOptions();
         });
     </script>
 @endpush

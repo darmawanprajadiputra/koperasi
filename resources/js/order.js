@@ -88,12 +88,6 @@
                         </div>
                         <div class="flex gap-3">
                             <button
-                                class="invoice-btn flex items-center gap-2 bg-surface-container-high text-on-surface px-6 py-3 rounded-full font-bold text-sm hover:bg-surface-container-highest active:scale-95 transition-all"
-                                data-factur="${order.num_factur}">
-                                Cetak Faktur
-                                <span class="material-symbols-outlined text-base">print</span>
-                            </button>
-                            <button
                                 class="detail-btn flex items-center gap-2 bg-on-surface text-surface px-6 py-3 rounded-full font-bold text-sm hover:opacity-80 active:scale-95 transition-all"
                                 data-factur="${order.num_factur}">
                                 Lihat Detail
@@ -150,15 +144,6 @@
         container.querySelectorAll(".detail-btn").forEach((btn) => {
             btn.addEventListener("click", () => {
                 window.location.href = "/order/" + btn.dataset.factur;
-            });
-        });
-
-        container.querySelectorAll(".invoice-btn").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                window.open(
-                    "/order/" + btn.dataset.factur + "/invoice",
-                    "_blank",
-                );
             });
         });
 

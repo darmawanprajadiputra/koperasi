@@ -200,6 +200,13 @@
                         </div>
                     </section>
 
+                    {{-- Tombol Cetak Faktur --}}
+                    <a href="/order/{{ $order_id }}/invoice" target="_blank"
+                        class="w-full flex items-center justify-center gap-3 bg-teal-900 border-2 border-primary text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-green-600 active:scale-[0.99] transition-all">
+                        <span class="material-symbols-outlined">print</span>
+                        Cetak Faktur
+                    </a>
+
                 </div>
             </div>
         </div>

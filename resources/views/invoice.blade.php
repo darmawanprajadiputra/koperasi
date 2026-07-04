@@ -237,11 +237,6 @@
         }
 
         .payment-left .pay-title {
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        .payment-left .koperasi-name-small {
             font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 6px;
@@ -250,6 +245,66 @@
         .bank-list {
             font-size: 11px;
             line-height: 1.6;
+        }
+
+        .bank-box {
+            display: table;
+            width: 280px;
+            background-color: #eef6ee;
+            border: 1px solid #c8e0c8;
+            border-left: 4px solid #2e7d32;
+            border-radius: 4px;
+            padding: 10px 14px;
+            margin-top: 4px;
+        }
+
+        .bank-box-content {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .bank-box-title {
+            font-size: 12.5px;
+            font-weight: bold;
+            color: #2e7d32;
+            letter-spacing: 0.5px;
+        }
+
+        .bank-box-sub {
+            font-size: 10.5px;
+            color: #444;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        .cash-box {
+            display: table;
+            width: 280px;
+            background-color: #eef6ee;
+            border: 1px solid #c8e0c8;
+            border-left: 4px solid #2e7d32;
+            border-radius: 4px;
+            padding: 10px 14px;
+            margin-top: 4px;
+        }
+
+        .cash-box-content {
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 12px;
+        }
+
+        .cash-box-title {
+            font-size: 12.5px;
+            font-weight: bold;
+            color: #2e7d32;
+            letter-spacing: 0.5px;
+        }
+
+        .cash-box-sub {
+            font-size: 10px;
+            color: #555;
+            margin-top: 2px;
         }
 
         .stamp-box {
@@ -279,6 +334,28 @@
 </head>
 
 <body>
+
+    @php
+        $banks = [
+            'BNI' => ['no' => '2020 1395 70', 'name' => 'NANDANG (Ketua)'],
+            'BRI' => ['no' => '4411 0100 4012 507', 'name' => 'ASEP SHOLAHUDIN (Bendahara)'],
+            'BCA' => ['no' => '377 0291 479', 'name' => 'LILI JULIANSYAH (Admin)'],
+        ];
+
+        $isTransfer = ($order->payment_method ?? null) === 'transfer';
+        $selectedBank = null;
+        $displayNotes = $order->notes;
+
+        if (
+            $isTransfer &&
+            !empty($order->notes) &&
+            preg_match('/Transfer via Bank (BNI|BRI|BCA)/', $order->notes, $m)
+        ) {
+            $bankCode = $m[1];
+            $selectedBank = array_merge(['code' => $bankCode], $banks[$bankCode]);
+            $displayNotes = trim(preg_replace('/^Transfer via Bank ' . $bankCode . '\s*\n?/', '', $order->notes));
+        }
+    @endphp
 
     <!-- Header -->
     <div class="header">
@@ -347,7 +424,7 @@
     <div class="footer-row">
         <div class="footer-left">
             <div class="note-label">Catatan</div>
-            <div class="note-text">{{ $order->notes ?: '-' }}</div>
+            <div class="note-text">{{ $displayNotes ?: '-' }}</div>
         </div>
         <div class="footer-right">
             <table class="totals">
@@ -370,16 +447,26 @@
     <!-- Pembayaran & Stempel -->
     <div class="payment-row">
         <div class="payment-left">
-            <div class="pay-title">Pembayaran dapat dilakukan lewat transfer melalui Nomor Rekening :</div>
-            <div class="koperasi-name-small">KOPERASI BISMILLAH INDONESIA SEJAHTERA</div>
-            <div class="bank-list">
-                BNI : 2020 1395 70<br>
-                A/N NANDANG (Ketua)<br><br>
-                BRI : 4411 0100 4012 507<br>
-                A/N ASEP SHOLAHUDIN (Bendahara)<br><br>
-                BCA : 377 0291 479<br>
-                A/N LILI JULIANSYAH (Admin)
-            </div>
+            @if ($selectedBank)
+                <div class="pay-title">Metode Pembayaran</div>
+                <div class="bank-box">
+                    <div class="bank-box-content">
+                        <div class="bank-box-title">TRANSFER BANK {{ $selectedBank['code'] }}</div>
+                        <div class="bank-box-sub">
+                            {{ $selectedBank['no'] }}<br>
+                            A/N {{ $selectedBank['name'] }}
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="pay-title">Metode Pembayaran</div>
+                <div class="cash-box">
+                    <div class="cash-box-content">
+                        <div class="cash-box-title">CASH / TUNAI</div>
+                        <div class="cash-box-sub">Pembayaran telah dilakukan secara tunai saat barang diterima</div>
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="payment-right">
             <div class="stamp-box">

@@ -17,7 +17,7 @@ return new class extends Migration
                 ->default('NF-0001')
                 ->index();
             $table->string('name_customer');
-            $table->integer('no_telephone', 20)->nullable();
+            $table->string('no_telephone', 20)->nullable();
             $table->text('address')->nullable();
             $table->string('recipient')->nullable();
             $table->foreignId('id_products')->constrained('products')->onDelete('restrict');

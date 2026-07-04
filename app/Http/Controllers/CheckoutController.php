@@ -18,9 +18,10 @@ class CheckoutController extends Controller
         $request->validate([
             'name_customer'  => 'required|string|max:255',
             'recipient'      => 'nullable|string|max:255',
-            'no_telephone'   => 'nullable|string|max:20',
+            'no_telephone'   => 'nullable|digits_between:8,20',
             'address'        => 'nullable|string',
             'payment_method' => 'required|string|max:50',
+            'bank_name'      => 'required_if:payment_method,transfer|nullable|in:BNI,BRI,BCA',
             'total_amount'   => 'required|numeric|min:0',
             'cart_items'     => 'required|string',
             'notes'          => 'nullable|string',
@@ -34,6 +35,12 @@ class CheckoutController extends Controller
 
         $numFactur = $this->generateInvoiceNumber();
         $created   = 0;
+
+        $notes = $request->notes;
+        if ($request->payment_method === 'transfer' && $request->bank_name) {
+            $bankInfo = "Transfer via Bank {$request->bank_name}";
+            $notes    = $notes ? "{$bankInfo}\n{$notes}" : $bankInfo;
+        }
 
         foreach ($cart as $productId => $item) {
             $product = Product::where('id', $productId)->where('is_active', true)->first();
@@ -53,7 +60,7 @@ class CheckoutController extends Controller
                 'total_amount'   => $lineTotal,
                 'payment_method' => $request->payment_method,
                 'payment_status' => 'pending',
-                'notes'          => $request->notes,
+                'notes'          => $notes,
             ]);
 
             $product->decrement('stock', $qty);
