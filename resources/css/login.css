@@ -122,3 +122,26 @@ button[type="submit"]:hover .arrow-icon {
         display: none;
     }
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px rgb(232, 240, 254) inset;
+    -webkit-text-fill-color: #1f1f1f;
+    border-radius: 0.75rem; /* samakan dengan rounded-xl */
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+input::-webkit-strong-password-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}

@@ -4,7 +4,7 @@
  * remember me, and lockout countdown.
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     initPasswordToggle();
     initFormInteractions();
     initRememberMe();
@@ -17,44 +17,61 @@ document.addEventListener('DOMContentLoaded', function () {
  * dan tombol dengan class .toggle-password (pendekatan generik).
  */
 function initPasswordToggle() {
-    // Tombol spesifik di login.blade.php
-    const toggleBtn = document.getElementById('togglePassword');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', function (e) {
+    const toggleBtn = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("passwordInput");
+
+    if (toggleBtn && passwordInput) {
+        // Fungsi untuk update tampilan icon berdasarkan isi input
+        const updateToggleVisibility = () => {
+            if (passwordInput.value.length > 0) {
+                toggleBtn.classList.remove("opacity-0", "pointer-events-none");
+            } else {
+                toggleBtn.classList.add("opacity-0", "pointer-events-none");
+            }
+        };
+
+        // Cek saat halaman dimuat (misalnya karena autofill browser)
+        updateToggleVisibility();
+
+        // Cek setiap kali user mengetik
+        passwordInput.addEventListener("input", updateToggleVisibility);
+
+        toggleBtn.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
-            const input = document.getElementById('passwordInput');
-            const icon = document.getElementById('visibilityIcon');
+            const input = document.getElementById("passwordInput");
+            const icon = document.getElementById("visibilityIcon");
             if (!input || !icon) return;
 
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = 'visibility_off';
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "visibility_off";
             } else {
-                input.type = 'password';
-                icon.textContent = 'visibility';
+                input.type = "password";
+                icon.textContent = "visibility";
             }
         });
     }
 
-    // Pendekatan generik dengan class .toggle-password
-    const toggleButtons = document.querySelectorAll('.toggle-password');
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
+    const toggleButtons = document.querySelectorAll(".toggle-password");
+    toggleButtons.forEach((button) => {
+        button.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
-            const input = document.getElementById('passwordInput') || document.getElementById('password');
-            const icon = this.querySelector('.visibility-icon');
+            const input =
+                document.getElementById("passwordInput") ||
+                document.getElementById("password");
+            const icon = this.querySelector(".visibility-icon");
             if (!input) return;
 
-            if (input.type === 'password') {
-                input.type = 'text';
-                if (icon) icon.textContent = 'visibility_off';
+            if (input.type === "password") {
+                input.type = "text";
+                if (icon) icon.textContent = "visibility_off";
             } else {
-                input.type = 'password';
-                if (icon) icon.textContent = 'visibility';
+                input.type = "password";
+                if (icon) icon.textContent = "visibility";
             }
         });
     });
@@ -66,15 +83,15 @@ function initPasswordToggle() {
  * dan tooltip bawaan browser tidak muncul (form harus pakai novalidate).
  */
 function initFormInteractions() {
-    const loginForm = document.getElementById('loginForm');
+    const loginForm = document.getElementById("loginForm");
     if (!loginForm) return;
 
-    loginForm.addEventListener('submit', function (e) {
-        const usernameInput = document.getElementById('identity');
-        const passwordInput = document.getElementById('passwordInput');
+    loginForm.addEventListener("submit", function (e) {
+        const usernameInput = document.getElementById("identity");
+        const passwordInput = document.getElementById("passwordInput");
 
-        const usernameEmpty = usernameInput.value.trim() === '';
-        const passwordEmpty = passwordInput.value.trim() === '';
+        const usernameEmpty = usernameInput.value.trim() === "";
+        const passwordEmpty = passwordInput.value.trim() === "";
 
         // Bersihkan error lama sebelum validasi baru
         loginClearFieldError(usernameInput);
@@ -83,28 +100,30 @@ function initFormInteractions() {
 
         if (usernameEmpty && passwordEmpty) {
             e.preventDefault();
-            showClientErrorBox('Harap isi username dan password.');
+            showClientErrorBox("Harap isi username dan password.");
             return;
         }
 
         if (usernameEmpty) {
             e.preventDefault();
-            showClientErrorBox('Username tidak boleh kosong.');
+            showClientErrorBox("Username tidak boleh kosong.");
             return;
         }
 
         if (passwordEmpty) {
             e.preventDefault();
-            showClientErrorBox('Password tidak boleh kosong.');
+            showClientErrorBox("Password tidak boleh kosong.");
             return;
         }
     });
 
     // Hapus pesan error saat user mulai mengetik kembali
-    const inputs = loginForm.querySelectorAll('input[type="text"], input[type="password"]');
-    inputs.forEach(input => {
-        input.addEventListener('input', function () {
-            this.classList.remove('ring-2', 'ring-error');
+    const inputs = loginForm.querySelectorAll(
+        'input[type="text"], input[type="password"]',
+    );
+    inputs.forEach((input) => {
+        input.addEventListener("input", function () {
+            this.classList.remove("ring-2", "ring-error");
             removeClientErrorBox();
         });
     });
@@ -116,15 +135,15 @@ function initFormInteractions() {
 function showClientErrorBox(message) {
     removeClientErrorBox();
 
-    const box = document.createElement('div');
-    box.id = 'clientErrorBox';
-    box.className = 'p-4 bg-red-50 border border-red-300 rounded-xl';
+    const box = document.createElement("div");
+    box.id = "clientErrorBox";
+    box.className = "p-4 bg-red-50 border border-red-300 rounded-xl";
     box.innerHTML = `
         <ul class="list-disc pl-5 space-y-1">
             <li class="text-red-700 text-sm font-medium">${message}</li>
         </ul>`;
 
-    const loginForm = document.getElementById('loginForm');
+    const loginForm = document.getElementById("loginForm");
     loginForm.insertBefore(box, loginForm.firstChild);
 }
 
@@ -132,7 +151,7 @@ function showClientErrorBox(message) {
  * Hapus error box client-side jika ada.
  */
 function removeClientErrorBox() {
-    const existing = document.getElementById('clientErrorBox');
+    const existing = document.getElementById("clientErrorBox");
     if (existing) existing.remove();
 }
 
@@ -142,17 +161,17 @@ function removeClientErrorBox() {
 function validateInput(input) {
     const value = input.value.trim();
 
-    if (input.name === 'username') {
+    if (input.name === "username") {
         if (value.length === 0) {
-            loginShowFieldError(input, 'Username tidak boleh kosong.');
+            loginShowFieldError(input, "Username tidak boleh kosong.");
         } else {
             loginClearFieldError(input);
         }
     }
 
-    if (input.name === 'password') {
+    if (input.name === "password") {
         if (value.length === 0) {
-            loginShowFieldError(input, 'Password tidak boleh kosong.');
+            loginShowFieldError(input, "Password tidak boleh kosong.");
         } else {
             loginClearFieldError(input);
         }
@@ -163,20 +182,20 @@ function validateInput(input) {
  * Show field error
  */
 function loginShowFieldError(input, message) {
-    const container = input.closest('.space-y-2');
+    const container = input.closest(".space-y-2");
     if (!container) return;
 
-    const existingError = container.querySelector('.text-error.text-sm');
+    const existingError = container.querySelector(".text-error.text-sm");
     if (existingError) {
         existingError.remove();
     }
 
     // Add error class to input
-    input.classList.add('ring-2', 'ring-error');
+    input.classList.add("ring-2", "ring-error");
 
     // Add error message
-    const errorEl = document.createElement('p');
-    errorEl.className = 'text-error text-sm';
+    const errorEl = document.createElement("p");
+    errorEl.className = "text-error text-sm";
     errorEl.textContent = message;
     container.appendChild(errorEl);
 }
@@ -185,14 +204,14 @@ function loginShowFieldError(input, message) {
  * Clear field error
  */
 function loginClearFieldError(input) {
-    const container = input.closest('.space-y-2');
+    const container = input.closest(".space-y-2");
     if (!container) return;
 
     // Remove error classes
-    input.classList.remove('ring-2', 'ring-error');
+    input.classList.remove("ring-2", "ring-error");
 
     // Remove error message
-    const errorEl = container.querySelector('.text-error.text-sm');
+    const errorEl = container.querySelector(".text-error.text-sm");
     if (errorEl) {
         errorEl.remove();
     }
@@ -202,25 +221,28 @@ function loginClearFieldError(input) {
  * Initialize remember me functionality
  */
 function initRememberMe() {
-    const rememberCheckbox = document.getElementById('remember');
-    const usernameInput = document.getElementById('identity');
+    const rememberCheckbox = document.getElementById("remember");
+    const usernameInput = document.getElementById("identity");
 
     if (rememberCheckbox && usernameInput) {
         // Load saved username if exists
-        const savedUsername = localStorage.getItem('remember_username');
+        const savedUsername = localStorage.getItem("remember_username");
         if (savedUsername) {
             usernameInput.value = savedUsername;
             rememberCheckbox.checked = true;
         }
 
         // Save username on form submit if remember me is checked
-        const loginForm = document.getElementById('loginForm');
+        const loginForm = document.getElementById("loginForm");
         if (loginForm) {
-            loginForm.addEventListener('submit', function () {
+            loginForm.addEventListener("submit", function () {
                 if (rememberCheckbox.checked) {
-                    localStorage.setItem('remember_username', usernameInput.value);
+                    localStorage.setItem(
+                        "remember_username",
+                        usernameInput.value,
+                    );
                 } else {
-                    localStorage.removeItem('remember_username');
+                    localStorage.removeItem("remember_username");
                 }
             });
         }
@@ -233,21 +255,23 @@ function initRememberMe() {
  * lalu menjalankan hitung mundur realtime dan menonaktifkan form.
  */
 function initLockoutCountdown() {
-    const errorBox = document.getElementById('serverErrorBox');
+    const errorBox = document.getElementById("serverErrorBox");
     if (!errorBox) return;
 
-    const lockoutSeconds = parseInt(errorBox.getAttribute('data-lockout-seconds') || '0');
+    const lockoutSeconds = parseInt(
+        errorBox.getAttribute("data-lockout-seconds") || "0",
+    );
     if (lockoutSeconds <= 0) return;
 
-    const submitBtn    = document.getElementById('submitBtn');
-    const submitText   = document.getElementById('submitText');
-    const submitIcon   = document.getElementById('submitIcon');
-    const errorMsg     = document.getElementById('errorMessage');
-    const usernameInput = document.getElementById('identity');
-    const passwordInput = document.getElementById('passwordInput');
+    const submitBtn = document.getElementById("submitBtn");
+    const submitText = document.getElementById("submitText");
+    const submitIcon = document.getElementById("submitIcon");
+    const errorMsg = document.getElementById("errorMessage");
+    const usernameInput = document.getElementById("identity");
+    const passwordInput = document.getElementById("passwordInput");
 
     // Nonaktifkan form selama lockout
-    if (submitBtn)     submitBtn.disabled = true;
+    if (submitBtn) submitBtn.disabled = true;
     if (usernameInput) usernameInput.disabled = true;
     if (passwordInput) passwordInput.disabled = true;
 
@@ -256,27 +280,29 @@ function initLockoutCountdown() {
     function updateCountdown() {
         if (remaining <= 0) {
             // Buka kunci form
-            if (submitBtn)     { submitBtn.disabled = false; }
+            if (submitBtn) {
+                submitBtn.disabled = false;
+            }
             if (usernameInput) usernameInput.disabled = false;
             if (passwordInput) passwordInput.disabled = false;
-            if (submitText)    submitText.textContent = 'Masuk';
-            if (submitIcon)    submitIcon.style.display = '';
+            if (submitText) submitText.textContent = "Masuk";
+            if (submitIcon) submitIcon.style.display = "";
             errorBox.remove();
             return;
         }
 
         const menit = Math.floor(remaining / 60);
         const detik = remaining % 60;
-        const display = menit > 0
-            ? `${menit} menit ${String(detik).padStart(2, '0')} detik`
-            : `${detik} detik`;
+        const display =
+            menit > 0
+                ? `${menit} menit ${String(detik).padStart(2, "0")} detik`
+                : `${detik} detik`;
 
         if (errorMsg) {
-            errorMsg.textContent =
-                `Akun terkunci karena terlalu banyak percobaan login gagal. Coba lagi dalam ${display}.`;
+            errorMsg.textContent = `Akun terkunci karena terlalu banyak percobaan login gagal. Coba lagi dalam ${display}.`;
         }
         if (submitText) submitText.textContent = `Tunggu ${display}`;
-        if (submitIcon) submitIcon.style.display = 'none';
+        if (submitIcon) submitIcon.style.display = "none";
 
         remaining--;
         setTimeout(updateCountdown, 1000);
@@ -291,9 +317,13 @@ function initLockoutCountdown() {
 function addAnimation(element, animationClass) {
     element.classList.add(animationClass);
 
-    element.addEventListener('animationend', function () {
-        element.classList.remove(animationClass);
-    }, { once: true });
+    element.addEventListener(
+        "animationend",
+        function () {
+            element.classList.remove(animationClass);
+        },
+        { once: true },
+    );
 }
 
 /**
@@ -309,5 +339,5 @@ export {
     loginClearFieldError,
     removeClientErrorBox,
     showClientErrorBox,
-    addAnimation
+    addAnimation,
 };

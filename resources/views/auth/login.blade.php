@@ -89,10 +89,11 @@
                             <span
                                 class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
                             <input id="passwordInput" name="password" type="password" placeholder="Password"
-                                class="w-full pl-12 pr-12 py-4 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-container text-on-surface font-body transition-all">
+                               class="w-full pl-12 pr-4 py-4 border-none rounded-xl focus:ring-2 focus:ring-primary-container text-on-surface font-body transition-all @error('password') ring-2 ring-error @enderror" required>
                             <button type="button" id="togglePassword"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-outline hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined" id="visibilityIcon">visibility</span>
+                                class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-6 h-6 flex items-center justify-center text-outline hover:text-primary transition-colors opacity-0 pointer-events-none">
+                                <span class="material-symbols-outlined leading-none"
+                                    id="visibilityIcon">visibility</span>
                             </button>
                         </div>
                     </div>
